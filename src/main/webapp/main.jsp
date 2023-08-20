@@ -44,7 +44,7 @@
 				  <h1>Healing and Fresh with  <span class="typer" id="some-id" data-delay="200" data-delim=":" data-words="varchar:var茶" data-colors="green"></span><span class="cursor" data-cursorDisplay="_" data-owner="some-id"></span></h1>
 				  <h1 class="mb-2">100% Fresh &amp; Organic Foods</h1>
 	              <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
-	              <p><a href=teaListPage.do" class="btn btn-primary">Feel Healing</a></p>
+	              <p><a href="teaListPage.do" class="btn btn-primary">Feel Healing</a></p>
 	            </div>
 
 	          </div>

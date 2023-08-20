@@ -56,7 +56,7 @@ public class BuyController {
 	////////////////////////////////////////////////////////////////////////////////////
 	// 결제창 띄우기
 	@RequestMapping(value = "/buy.do")
-	public String Buy(HttpServletRequest request) {
+	public String buy(HttpServletRequest request) {
 
 		request.setAttribute("total", request.getAttribute("total"));
 
