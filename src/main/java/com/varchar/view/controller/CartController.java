@@ -175,7 +175,6 @@ public class CartController {
 					}
 				}
 			}
-
 			else {
 				System.out.println("로그 null cart" + tttVO.getImageUrl());
 				cart = new ArrayList<TeaVO>();
@@ -185,6 +184,7 @@ public class CartController {
 				System.out.println("추가추가");
 				cart.add(tttVO);
 			}
+			//
 
 		}
 

@@ -18,7 +18,9 @@
     <script type="text/javascript"> 
     $(document).ready(function(){
     	console.log('확인1');
-        var favor = ${favor};
+    	
+        var favor = 0;
+        //var favor = ${favor};
 
         if(favor > 0){
            $("#fc").removeClass("fa-regular").addClass("fa-solid");
@@ -29,7 +31,7 @@
         $("#fc").on("click", function(){
         	console.log('찜 버튼 클릭 확인');
            $.ajax({
-              url: 'checkFavor.do?teaNum='+${ teadata.teaNum },
+              url: 'checkFavor.do?teaNum='+${ teaData.teaNum },
               type: 'POST',
               success: function(fresult){
                  console.log('fresult [' + fresult + ']');
