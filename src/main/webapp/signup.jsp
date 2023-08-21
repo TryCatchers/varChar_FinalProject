@@ -40,26 +40,26 @@
         <div class="row justify-content-center">
           <div class="col-xl-7 ftco-animate">
           	<!-- 회원가입 폼 태그 -->
-			<form action="signup.do" method="post" class="billing-form" onsubmit="return test();">
+			<form action="signup.do" method="post" class="billing-form" onsubmit="return test()">
 	          	<h3 class="mb-4 billing-heading" style="padding-bottom: 25px; border-bottom: 1px solid #e1e1e1">회원가입</h3>
 	          	<div class="row align-items-end">
 	          		<div class="col-md-6" style="margin-top: 30px;">
 	                <div class="form-group">
 	                	<label for="firstname" >아이디<span>*</span></label>
-	                  <input type="text" class="form-control" placeholder="아이디를 입력하세요." required>
+	                  <input type="text" name="memberId" class="form-control" placeholder="아이디를 입력하세요." required>
 	                </div>
 	              </div>
 	              <div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="lastname">이름 <span>*</span></label>
-	                  <input type="text" class="form-control" placeholder="이름을 입력하세요." required>
+	                  <input type="text" name="memberName" class="form-control" placeholder="이름을 입력하세요." required>
 	                </div>
                 </div>
                 <div class="w-100"></div>
                 <div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="firstname" >비밀번호<span>*</span></label>
-	                  <input type="password" id="pw" class="form-control" placeholder="새 비밀번호를 입력하세요.(최소 8글자 이상)" required style="width: 210%;">
+	                  <input type="password" name="memberPw" id="pw" class="form-control" placeholder="새 비밀번호를 입력하세요.(최소 8글자 이상)" required style="width: 210%;">
 	                </div>
 	              </div>
                 <div class="w-100"></div>
@@ -73,14 +73,14 @@
 				<div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="lastname">연락처</label>
-	                  	<input type="text" id="memberPhone" class="form-control" placeholder="하이픈(-), 공백없이 기입해주세요. ex) 00012345678" style="width: 210%;">
+	                  	<input type="text" name="memberPhone" id="memberPhone" class="form-control" placeholder="하이픈(-), 공백없이 기입해주세요. ex) 00012345678" style="width: 210%;">
 	                </div>
                 </div>
                 <div class="w-100"></div>
 				<div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="lastname">이메일</label>
-	                  <input type="text" class="form-control" value="${ mdata.memberEmail }" placeholder="@포함 이메일 형식에 맞춰서 기입해주세요. ex) aaa@xxx.com" style="width: 210%;">
+	                  <input type="text" name="memberEmail" id="memberEmail" class="form-control" placeholder="@포함 이메일 형식에 맞춰서 기입해주세요. ex) aaa@xxx.com" style="width: 210%;">
 	                </div>
                 </div>
                 <div class="w-100"></div>
