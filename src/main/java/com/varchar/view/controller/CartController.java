@@ -36,7 +36,10 @@ public class CartController {
 		
 		int cnt = teaVO.getTeaCnt();
 		teaVO = teaService.selectOne(teaVO);
+		int checkCnt = teaVO.getTeaCnt();
+		
 		teaVO.setTeaCnt(cnt);
+		teaVO.setTeaCheckCnt(checkCnt);
 		
 		Product.cartInsert(teaVO, session);
 		return "redirect:cartPage.do";
@@ -67,7 +70,18 @@ public class CartController {
 
 		
 		int i = Product.cartCheck(teaVO, cart);
-		cart.get(i).setTeaCnt(teaVO.getTeaCnt());
+		
+		if(i == -1) {
+			return "장바구니에 해당 제품이 없는데 재고변경 요청 들어옴";
+		}
+		
+		int cnt = teaVO.getTeaCnt();
+		int checkCnt = teaService.selectOne(teaVO).getTeaCnt();
+		
+		teaVO.setTeaCheckCnt(checkCnt);
+		cnt = Product.checkCnt(teaVO);
+		
+		cart.get(i).setTeaCnt(cnt);
 
 		session.setAttribute("cart", cart);
 		return "redirect:cartPage.do";

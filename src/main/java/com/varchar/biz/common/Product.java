@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import com.varchar.biz.tea.TeaService;
 import com.varchar.biz.tea.TeaVO;
+import com.varchar.view.controller.TeaController;
 
 public class Product {
 
@@ -34,12 +35,17 @@ public class Product {
 			//cart.add(teaVO);
 		}
 
+		
 		if (i==-1) { // 장바구니에 같은 상품 없음
+			cnt = Product.checkCnt(teaVO);
 			teaVO.setTeaCnt(cnt);
 			cart.add(teaVO);
 		}
 		else { // 장바구니에 같은 상품 있음
-			cart.get(i).setTeaCnt(cart.get(i).getTeaCnt() + cnt);
+			cnt = cart.get(i).getTeaCnt() + cnt;
+			teaVO.setTeaCnt(cnt);
+			cnt = Product.checkCnt(teaVO);
+			cart.get(i).setTeaCnt(cnt);
 		}
 
 		session.setAttribute("cart", cart);
@@ -61,10 +67,22 @@ public class Product {
 		
 		
 	}
-
+	
 	// 재고 검사
-//	public static checkCnt(){
-//		
-//	}
+	public static int checkCnt(TeaVO teaVO){
+		int cnt = teaVO.getTeaCnt(); // 변경할 것
+		int checkCnt = teaVO.getTeaCheckCnt(); // 가지고 있음
+		
+		if(cnt > checkCnt) {
+			cnt = checkCnt;
+		}
+		
+		// 해당 부분 없앨까 고민
+		if(cnt < 0) {
+			cnt = 0;
+		}
+
+		return cnt;
+	}
 
 }
