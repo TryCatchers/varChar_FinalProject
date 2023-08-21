@@ -22,7 +22,7 @@ public class BuyDetailDAO {
 			+ "FROM BUY_DETAIL bd "
 			+ "JOIN TEA t ON t.TEA_NUM = bd.TEA_NUM "
 			+ "JOIN IMAGE i ON i.TEA_NUM = t.TEA_NUM "
-			+ "WHERE B.BUY_NUM = ?";
+			+ "WHERE bd.BUY_NUM = ?";
 
 	static final private String SQL_SELECTALL_CARTRETRY =
 			"SELECT TEA_NUM, BUY_CNT FROM BUY_DETAIL WHERE BUY_NUM = ?";
