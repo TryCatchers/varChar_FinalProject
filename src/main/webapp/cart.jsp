@@ -108,7 +108,6 @@
 										   
 										   $("#Cnt"+${ cart.teaNum }).change(function(){
 												   console.log("구매 갯수 변경 확인");
-												cartAction = 1;
 												var changeCnt = $("#Cnt"+${ cart.teaNum }).val();
 												
 												if(changeCnt > ${ cart.teaCheckCnt }){
@@ -123,7 +122,7 @@
 												console.log("변경 Cnt 확인"+changeCnt);
 												
 											  $.ajax({
-												 url: 'cart.do?cartAction='+cartAction+'&teaNum='+${ cart.teaNum }+'&teaCnt='+changeCnt,
+												 url: 'cartChange.do?&teaNum='+${ cart.teaNum }+'&teaCnt='+changeCnt,
 												 type: 'POST',
 												 success: function(result){
 													console.log('result ['+result+']');
