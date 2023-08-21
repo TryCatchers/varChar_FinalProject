@@ -166,8 +166,8 @@ public class ReviewDAO {
 		}
 		// 내 후기 페이징
 		else { // MEMBER_PAGING
-			Object[] args = { reviewVO.getMemberId(), reviewVO.getStartRnum() };
-			return jdbcTemplate.query(SQL_SELECTALL_CATE + PAGING, args, new ReviewSelectAllRowMapper());
+			Object[] args = { reviewVO.getMemberId(), reviewVO.getStartRnum(), reviewVO.getStartRnum() };
+			return jdbcTemplate.query(SQL_SELECTALL_MEMBER + PAGING, args, new ReviewSelectAllRowMapper());
 		}
 	}
 

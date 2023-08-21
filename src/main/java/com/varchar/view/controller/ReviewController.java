@@ -226,14 +226,22 @@ public class ReviewController {
 
 		String memberId = (String)session.getAttribute("sessionMemberId");
 		reviewVO.setMemberId(memberId);
+		System.out.println("마이페이지 리뷰 로그1 memberId " +memberId);
 		reviewVO.setSearchName(request.getParameter("searchName"));
-		String searchName = request.getParameter("searchName");
+		
+//		String searchName = request.getParameter("searchName");
+//		reviewVO.setSearchName(searchName == null ? "" : searchName);
+		String searchName = "MEMBER";
 		reviewVO.setSearchName(searchName == null ? "" : searchName);
+		
 		String reviewSearch = request.getParameter("reviewSearch");
 		reviewVO.setReviewSearch(reviewSearch == null ? "" : reviewSearch);
+		//String reviewSearch = "MEMBER";
+		//reviewVO.setReviewSearch(reviewSearch);
 		
 		List<ReviewVO> reviewDatasTotal = reviewService.selectAll(reviewVO); // 총 리뷰 개수
 		totalCnt = reviewDatasTotal.size();
+		System.out.println("마이페이지 리뷰 로그2 reviewDatasTotal " +reviewDatasTotal);
 		
 		int totalPageCnt = (totalCnt / pageSize) + (totalCnt % pageSize == 0 ? 0 : 1);
 		if (currentPage % pageBlock == 0) {
@@ -266,10 +274,15 @@ public class ReviewController {
 		
 		reviewVO.setSearchName(searchName + "_PAGING");
 		reviewVO.setStartRnum(startRnum);
+		//
+		reviewVO.setMemberId(memberId);
+		
 		List<ReviewVO> reviewDatas = reviewService.selectAll(reviewVO); // startRnum 부터 endRnum 까지의 리뷰
+		System.out.println("마이페이지 리뷰 로그3 reviewDatas " +reviewDatas);
+		System.out.println("마이페이지 리뷰 로그4 memberId " +memberId);
 		request.setAttribute("reviewDatas", reviewDatas);
 		
-		return "reviewListPage.jsp";
+		return "reviewList.jsp";
 	}
 	
 }
