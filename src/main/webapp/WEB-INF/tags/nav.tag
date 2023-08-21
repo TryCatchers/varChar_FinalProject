@@ -36,6 +36,9 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
+	          <c:if test="${sessionMemberId eq 'admin' }">
+	          <li class="nav-item active"><a href="admin.jsp" class="nav-link">관리자 페이지</a></li>
+	          </c:if>
 	          <li class="nav-item active"><a href="main.do" class="nav-link">메인</a></li>
 	          <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="teaListPage.do" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">상품
@@ -75,12 +78,13 @@
 			  <li class="nav-item"><a href="reviewListPage.do?searchName=ALL" class="nav-link">후기</a></li>
 	          <li class="nav-item"><a href="mapPage.do" class="nav-link">픽업 장소</a></li>
 			  <!-- 장바구니 카운트 할 수 있으면 하셈 -->
-	          <li class="nav-item cta cta-colored"><a href="cartPage.do" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 	          <c:if test="${ empty sessionMemberId }">
-	          	<li class="nav-item"><a href="loginPage.do" class="nav-link">로그인</a></li>
+	          <li class="nav-item"><a href="loginPage.do" class="nav-link">로그인</a></li>
+	          <li class="nav-item"><a href="signupPage.do" class="nav-link">회원가입</a></li>
 	          </c:if>
 	          <c:if test="${ not empty sessionMemberId }">
-	          	<li class="nav-item"><a href="logout.do" class="nav-link">로그아웃</a></li>
+	          <li class="nav-item cta cta-colored"><a href="cartPage.do" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+	          <li class="nav-item"><a href="logout.do" class="nav-link">로그아웃</a></li>
 	          </c:if>
 	        </ul>
 	      </div>
