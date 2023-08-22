@@ -165,7 +165,33 @@
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
             </div>
           </div>
-
+        </div>
+        <div class="row mt-5">
+          <div class="col text-center">
+            <div class="block-27">
+              <ul>
+              	<c:if test="${ startPage > 1 }">
+              		<li>
+              	 	<a href="reviewsListPage.do?searchName=${ searchName }&pMemberId=${ pMemberId }&reviewSearch=${ reviewSearch }&page=${ startPage - 1 }">
+              	 	&lt;
+              	 	</a>
+              	 	</li>
+				</c:if>
+				<c:forEach begin="${ startPage }" end="${ endPage }" var="p">
+					<li>
+					<a href="reviewsListPage.do?searchName=${ searchName }&pMemberId=${ pMemberId }&reviewSearch=${ reviewSearch }&page=${ p }">${ p }</a>
+					</li>
+				</c:forEach>
+				<c:if test="${ endPage < totalPageCnt }">
+					<li>
+					<a href="reviewsListPage.do?searchName=${ searchName }&pMemberId=${ pMemberId }&reviewSearch=${ reviewSearch }&page=${ endPage + 1 }">
+					&gt;
+					</a>
+					</li>
+				</c:if>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </section> <!-- .section -->

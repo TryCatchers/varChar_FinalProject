@@ -22,7 +22,7 @@ public class MemberDAO {
 	static final private String SQL_SELECTONE_LOGIN="SELECT MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_ADDRESS, MEMBER_PHONE, MEMBER_EMAIL "
 			+ "FROM MEMBER "
 			+ "WHERE MEMBER_ID = ? AND MEMBER_PW = ?";
-	static final private String SQL_INSERT = "INSERT INTO MEMBER (MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_ADDRESS, MEMBER_PHONE, MEMBER_EMAIL) VALUES(?, ?, ?, ?, CASE WHEN ? = 0 THEN NULL ELSE ? END, ?)";
+	static final private String SQL_INSERT = "INSERT INTO MEMBER (MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_ADDRESS, MEMBER_PHONE, MEMBER_EMAIL) VALUES(?, ?, ?, ?, CASE WHEN ? = NULL THEN NULL ELSE LPAD(?, 11, '0') END, ?)";
 	static final private String SQL_UPDATE="UPDATE MEMBER SET MEMBER_NAME = ?, MEMBER_ADDRESS = ?, MEMBER_PHONE = CASE WHEN ? = 0 THEN NULL ELSE ? END, MEMBER_EMAIL = ? WHERE MEMBER_ID = ?";
 	static final private String SQL_UPDATE_PW="UPDATE MEMBER SET MEMBER_PW = ? WHERE MEMBER_ID = ?";
 	//static final private String SQL_DELETE="DELETE FROM MEMBER WHERE MID=?";
@@ -33,7 +33,6 @@ public class MemberDAO {
 
 	public MemberVO selectOne(MemberVO memberVO){
 		// System.out.println("MemberDAO 로그 SelectOne() 메소드 호출");
-		
 		try {
 			if(memberVO.getMemberSearch().equals("로그인")) {
 				// System.out.println("MemberDAO 로그 SelectOne() MemberSearch: 로그인 메소드 호출");
@@ -66,7 +65,7 @@ public class MemberDAO {
 
 		int result = 0;
 		
-		if(memberVO.getMemberSearch().equals("비밀번호변경")) {
+		if (memberVO.getMemberSearch().equals("비밀번호변경")) {
 			result = jdbcTemplate.update(SQL_UPDATE_PW, memberVO.getMemberPw(), memberVO.getMemberId());
 
 		}
@@ -113,7 +112,7 @@ class MemberSelectOneRowMapper implements RowMapper<MemberVO> {
 		data.setMemberPw(rs.getString("MEMBER_PW"));
 		data.setMemberName(rs.getString("MEMBER_NAME"));
 		data.setMemberAddress(rs.getString("MEMBER_ADDRESS"));
-		data.setMemberPhone(rs.getLong("MEMBER_PHONE"));
+		data.setMemberPhone(rs.getString("MEMBER_PHONE"));
 		data.setMemberEmail(rs.getString("MEMBER_EMAIL"));
 		return data;
 

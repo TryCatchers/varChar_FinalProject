@@ -44,7 +44,7 @@
         <div class="row justify-content-center">
           <div class="col-xl-7 ftco-animate">
           <!-- 정보 수정 폼 태그 -->
-			<form action="updateInfo.do" method="post" class="billing-form" onsubmit="return checkPh();">
+			<form action="updateInfo.do" method="post" class="billing-form" onsubmit="return test()">
 	          	<h3 class="mb-4 billing-heading" style="padding-bottom: 15px; border-bottom: 1px solid #e1e1e1">회원 정보 수정</h3>
 	          	<div class="row align-items-end">
 	          		<div class="col-md-6" style="margin-top: 30px;">
@@ -56,7 +56,7 @@
 	              <div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="lastname">이름 <span style="color: red;">*</span></label>
-	                  <input type="text" class="form-control" value="${ memberData.memberName }" required>
+	                  <input type="text" name="memberName" class="form-control" value="${ memberData.memberName }" required>
 	                </div>
                 </div>
                 <div class="w-100"></div>
@@ -64,17 +64,17 @@
 	                <div class="form-group">
                 		<label for="lastname">연락처</label>
 	                	 <c:if test="${ memberData.memberPhone == 0 }">
-	                  		<input type="text" id="memberPhone" class="form-control" placeholder="하이픈(-), 공백없이 입력하세요. ex) 00012345678">
+	                  		<input type="text" name="memberPhone" id="memberPhone" class="form-control" placeholder="하이픈(-), 공백없이 입력하세요. ex) 00012345678">
 	                	</c:if>
 	                	<c:if test="${ memberData.memberPhone != 0 }">
-	                  		<input type="text" id="memberPhone" class="form-control" value="0${ memberData.memberPhone }">
+	                  		<input type="text" name="memberPhone" id="memberPhone" class="form-control" value="0${ memberData.memberPhone }">
 	               		</c:if>
 	                </div>
                 </div>
 				<div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="lastname">이메일</label>
-	                  <input type="text" class="form-control" value="${ memberData.memberEmail }" placeholder="@포함 이메일 형식에 맞춰서 입력하세요.">
+	                  <input type="text" name="memberEmail" id="memberEmail" class="form-control" value="${ memberData.memberEmail }" placeholder="@포함 이메일 형식에 맞춰서 입력하세요.">
 	                </div>
                 </div>
                 <div class="w-100"></div>
@@ -253,22 +253,35 @@
 	
 	 <script type="text/javascript">
 	 	// 전화번호, 이메일 유효성 검사
-    	function checkPh() {
- 	  		var ph = document.getElementById('memberPhone').value;
- 	  	    var mail = document.getElementById('memberEmail').value;
- 	        const test= "@";    		
-       		if((ph.length == 11 && mail == '') || (ph == '' && mail == '') || (ph == '' && mail.indexOf(test) !== -1) || (ph.length == 11 && mail.indexOf(test) !== -1)){
-       			return true;
-       		}
-       		else if(ph.length !== 11){
-   			alert('전화번호는 하이픈(-) 공백없이 11자리 입력해주세요.');
-       		return false;
-       		}
-       		else if(mail.indexOf(test) == -1){
-       		alert('이메일은 @포함 정확하게 입력하세요');
-            return false;
-       		}            			
-      	}
+    	function test() {
+    		var ph = document.getElementById('memberPhone').value; // 연락처
+    		var mail = document.getElementById('memberEmail').value; // 이메일
+    		const phoneRegex = /^\d{11}$/; // 11자리의 숫자만 허용 (하이픈 없음)
+    		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // 정규표현식을 통한 이메일 유효성 검사
+    		const isPhoneValid = ph.length === 0 || ph.match(phoneRegex);
+   			const isEmailValid = mail.length === 0 || mail.match(emailRegex);
+
+    		if (isPhoneValid && isEmailValid) {
+        		// 연락처와 이메일 모두 유효성 검사를 통과한 경우
+       		 	return true;
+    		}
+    		else if (!isPhoneValid && !isEmailValid) {
+        		// 둘 다 입력되지 않은 경우 유효성 검사를 제외하고 회원가입 진행
+        		return true;
+    		}
+    		else {
+        		// 유효성 검사를 통과하지 못한 경우
+        		if (!isPhoneValid) {
+            		alert('연락처를 11자리 숫자로 입력해주세요.');
+            		
+        		if (!isEmailValid) {
+            		alert('이메일을 정확하게 입력하세요.');
+            		
+        		}
+    		}
+           return false;
+		}
+	 }
     </script>
     
   </body>

@@ -118,7 +118,7 @@ public class MemberController {
 		
 		if (memberService.update(memberVO)) {
 			AlertVO sweetAlertVO = new AlertVO("회원정보 변경", "회원정보 변경", null, "success", "main.do");
-			model.addAttribute("sweetAelrt", sweetAlertVO);
+			model.addAttribute("sweetAlert", sweetAlertVO);
 		}
 		return "alertTrue.jsp";
 	}

@@ -31,12 +31,12 @@ public class Product {
 		} else { // 카트가 비어있을 경우
 			System.out.println("로그 null cart" + teaVO.getImageUrl());
 			cart = new ArrayList<TeaVO>();
-			i=-1;
+			i = -1;
 			//cart.add(teaVO);
 		}
 
 		
-		if (i==-1) { // 장바구니에 같은 상품 없음
+		if (i == -1) { // 장바구니에 같은 상품 없음
 			cnt = Product.checkCnt(teaVO);
 			teaVO.setTeaCnt(cnt);
 			cart.add(teaVO);
@@ -52,7 +52,7 @@ public class Product {
 
 	}
 
-	public static int cartCheck(TeaVO teaVO, ArrayList<TeaVO> cart){
+	public static int cartCheck(TeaVO teaVO, ArrayList<TeaVO> cart) {
 		
 		// 장바구니 같은 상품있는지 검사 ---> 단건 검사만
 		int i = 0;
@@ -69,7 +69,7 @@ public class Product {
 	}
 	
 	// 재고 검사
-	public static int checkCnt(TeaVO teaVO){
+	public static int checkCnt(TeaVO teaVO) {
 		int cnt = teaVO.getTeaCnt(); // 변경할 것
 		int checkCnt = teaVO.getTeaCheckCnt(); // 가지고 있음
 		

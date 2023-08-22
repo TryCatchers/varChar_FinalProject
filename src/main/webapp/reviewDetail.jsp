@@ -35,39 +35,36 @@
 
     <section class="ftco-section ftco-degree-bg">
       <div class="container">
+        <div class="cart-list">
+          <table class="table">
+            <thead class="thead-primary">
+              <tr class="text-center">
+                <th>&nbsp;</th>
+                <th>상품정보</th>
+                <th>시리얼번호</th>
+                <th>구매개수</th>
+                <th>회원아이디</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center">
+                <td class="image-prod"><div class="img" style="background-image:url('${ reviewData.imageUrl }');"></div></td>
+                <td class="product-name">
+                  <h3>${ reviewData.teaName }</h3>
+                  <p>${ reviewData.teaContent }</p>
+                </td>
+                <td class="price">${ reviewData.buySerial }</td>
+                <td class="quantity">
+                  <div class="input-group">
+                   <input type="text" name="quantity" class="quantity form-control input-number" value="${ reviewData.buyCnt }">
+                  </div>
+                </td>
+                <td class="total">${ reviewData.memberId }</td>
+              </tr><!-- END TR-->
+            </tbody>
+          </table>
+        </div>
         <div class="row">
-          <div class="cart-list">
-            <table class="table">
-              <thead class="thead-primary">
-                <tr class="text-center">
-                  <th>&nbsp;</th>
-                  <th>상품정보</th>
-                  <th>시리얼번호</th>
-                  <th>구매개수</th>
-                  <th>회원아이디</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="text-center">
-                  <td class="image-prod"><div class="img" style="background-image:url(${ reviewData.imageUrl });"></div></td>
-                  
-                  <td class="product-name">
-                    <h3>${ reviewData.teaName }</h3>
-                    <p>${ reviewData.teaContent }</p>
-                  </td>
-                  
-                  <td class="price">${ reviewData.buySerial }</td>
-                  
-                  <td class="quantity">
-                    <div class="input-group mb-3">
-                     <input type="text" name="quantity" class="quantity form-control input-number" value="${ reviewData.buyCnt }">
-                    </div>
-                  </td>
-                  <td class="total">${ reviewData.memberId }</td>
-                </tr><!-- END TR-->
-              </tbody>
-            </table>
-          </div>
           <div class="col-lg-8 ftco-animate">
           	<hr>
 				${ reviewData.reviewContent }
@@ -80,6 +77,13 @@
                 <a href="#" class="tag-cloud-link">Travel</a>
               </div>
             </div>
+            <c:if test="${ reviewData.memberId eq sessionMemberId }">
+            	<form>
+	            	<input type="hidden" name="reviewNum" value="${ reviewData.reviewNum }">
+		            <input type="submit" class="btn btn-primary py-3 px-4" value="후기수정" formaction="updateReviewPage.do">
+		            <input type="submit" class="btn btn-primary py-3 px-4" value="후기삭제" formaction="deleteReviewPage.do">
+	            </form>
+	        </c:if>
             <div class="about-author d-flex p-4 bg-light">
               <div class="bio align-self-md-center mr-4">
                 <img src="images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4">
