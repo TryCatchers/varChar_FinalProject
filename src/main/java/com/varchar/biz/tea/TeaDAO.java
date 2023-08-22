@@ -28,6 +28,8 @@ public class TeaDAO {
 			+ "WHERE t.TEA_CATEGORY LIKE '%' || ? || '%' "
 			+ "AND t.TEA_NAME LIKE '%' || ? || '%' "
 			+ "AND i.IMAGE_DIVISION = 1";
+	
+	
 
 	//	static final private String SQL_SELECTALL_PAGING = "SELECT t.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, t.TEA_CNT, t.TEA_CATEGORY, t.TEA_CONTENT, i.IMAGE_URL\r\n"
 	//			+ "FROM TEA t JOIN IMAGE i USING (TEA_NUM)\r\n"
@@ -43,6 +45,20 @@ public class TeaDAO {
 			+ "WHERE t.TEA_CATEGORY LIKE '%' || ? || '%' AND t.TEA_NAME LIKE '%' || ? || '%' AND i.IMAGE_DIVISION = 1 "
 			+ ") t "
 			+ "WHERE t.rnum BETWEEN ? AND ? + 5";
+	
+	static final private String SQL_SELECTALL_PAGING_LIKE = "SELECT t.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, t.TEA_CNT, t.TEA_CATEGORY, t.TEA_CONTENT, t.IMAGE_URL, t.FAVOR_NUM "
+			+ "FROM ( "
+			+ "	SELECT t.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, t.TEA_CNT, t.TEA_CATEGORY, t.TEA_CONTENT, i.IMAGE_URL, f.FAVOR_NUM, ROWNUM AS rnum "
+			+ "	FROM TEA t JOIN IMAGE i ON t.TEA_NUM = i.TEA_NUM "
+			+ "		LEFT JOIN ( "
+			+ "		SELECT * "
+			+ "		FROM FAVOR "
+			+ "		WHERE MEMBER_ID = ? "
+			+ "	) "
+			+ "	f ON t.TEA_NUM =  f.TEA_NUM "
+			+ "	WHERE t.TEA_CATEGORY LIKE '%' || ? || '%' AND t.TEA_NAME LIKE '%' || ? || '%' AND i.IMAGE_DIVISION = 1 "
+			+ ") t "
+			+ "WHERE t.rnum BETWEEN ? AND ? +5 ";
 
 	//	static final private String SQL_SELECTONE = "SELECT t.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, t.TEA_CNT, t.TEA_CATEGORY, t.TEA_CONTENT, i.IMAGE_URL\r\n"
 	//			+ "FROM TEA t JOIN IMAGE i USING (TEA_NUM) "
@@ -59,8 +75,8 @@ public class TeaDAO {
 	public List<TeaVO> selectAll(TeaVO teaVO) {
 
 		if(teaVO.getTeaCondition().equals("페이징")) {
-			Object[] args = {teaVO.getTeaCategory(), teaVO.getTeaSearchWord(), teaVO.getStartRnum(), teaVO.getStartRnum() };
-			return jdbcTemplate.query(SQL_SELECTALL_PAGING, args, new TeaPagingRowMapper());
+			Object[] args = {teaVO.getTeaName(), teaVO.getTeaCategory(), teaVO.getTeaSearchWord(), teaVO.getStartRnum(), teaVO.getStartRnum()};
+			return jdbcTemplate.query(SQL_SELECTALL_PAGING_LIKE, args, new TeaPagingRowMapper());
 		}
 		else {
 			Object[] args = {teaVO.getTeaCategory(), teaVO.getTeaSearchWord() };
@@ -114,6 +130,7 @@ class TeaPagingRowMapper implements RowMapper<TeaVO> {
 		data.setTeaCategory(rs.getString("TEA_CATEGORY"));
 		data.setTeaContent(rs.getString("TEA_CONTENT"));
 		data.setImageUrl(rs.getString("IMAGE_URL"));
+		data.setFavorResult(rs.getInt("FAVOR_NUM"));
 		return data;
 	}
 }

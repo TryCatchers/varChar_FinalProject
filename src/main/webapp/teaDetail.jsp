@@ -19,10 +19,10 @@
     $(document).ready(function(){
     	console.log('확인1');
     	
-        var favor = 0;
-        //var favor = ${favor};
+        //var favor = 0;
+        var favorResult = ${favorResult};
 
-        if(favor > 0){
+        if(favorResult > 0){
            $("#fc").removeClass("fa-regular").addClass("fa-solid");
         } else {
            $("#fc").removeClass("fa-solid").addClass("fa-regular");
@@ -30,27 +30,96 @@
 
         $("#fc").on("click", function(){
         	console.log('찜 버튼 클릭 확인');
-           $.ajax({
-              url: 'checkFavor.do?teaNum='+${ teaData.teaNum },
-              type: 'POST',
-              success: function(fresult){
-                 console.log('fresult [' + fresult + ']');
-                 if (fresult == 1) {
-                    $("#fc").removeClass("fa-regular").addClass("fa-solid");
-                    favor = 1;
-                 } else if (fresult == 0) {
-                    $("#fc").removeClass("fa-solid").addClass("fa-regular");
-                    favor = 0;
-                 }
-              },
-              error: function(error){
-                 alert('error [' + error + ']');
-              }
-           });
+        	
+        	if(favorResult == 0){
+            	//
+                $.ajax({
+                   url: 'insertFavor.do?teaNum='+${ teaData.teaNum },
+                   type: 'POST',
+                   success: function(fresult){
+                      console.log('favorResult [' + favorResult + ']');
+                      $("#fc").removeClass("fa-regular").addClass("fa-solid");
+                      favorResult = 1;
+                      /**
+                      if (fresult == 1) {
+                     	 Swal.fire({
+                     		  position: 'top',
+                     		  icon: 'success',
+                     		  title: '찜 추가!',
+                     		  showConfirmButton: false,
+                     		  timer: 1000
+                     	})
+                      }
+                      else {
+                     	 Swal.fire({
+                     		  position: 'top',
+                     		  icon: 'success',
+                     		  title: '찜 삭제!',
+                     		  showConfirmButton: false,
+                     		  timer: 1000
+                     	})
+                      }
+                      */
+                   },
+                   error: function(error){
+                      alert('error [' + error + ']');
+                   }
+                });
+                //
+        	}
+        	else{
+            	//
+                $.ajax({
+                   url: 'deleteFavor.do?teaNum='+${ teaData.teaNum },
+                   type: 'POST',
+                   success: function(fresult){
+                       console.log('favorResult [' + favorResult + ']');
+                       $("#fc").removeClass("fa-solid").addClass("fa-regular");
+                       favorResult = 0;
+                      /**
+                      if (fresult == 1) {
+                     	 Swal.fire({
+                     		  position: 'top',
+                     		  icon: 'success',
+                     		  title: '찜 추가!',
+                     		  showConfirmButton: false,
+                     		  timer: 1000
+                     	})
+                      }
+                      else {
+                     	 Swal.fire({
+                     		  position: 'top',
+                     		  icon: 'success',
+                     		  title: '찜 삭제!',
+                     		  showConfirmButton: false,
+                     		  timer: 1000
+                     	})
+                      }
+                      */
+                   },
+                   error: function(error){
+                      alert('error [' + error + ']');
+                   }
+                });
+                //
+        	} // if-else 문 끝
+        	
+        	
         });
      });
     </script>
-    
+    <style type="text/css">
+ 	#cartform{
+ 		text-align: start;
+ 	}
+    #cartnum{
+    	display: flex;
+    	padding : 15px;
+    }
+    .text{
+    	padding : 15px;
+    }
+    </style>
   </head>
   <body class="goto-here">
     <!-- 헤더 부분 태그 -->
@@ -94,23 +163,10 @@
     				<p class="price"><span>${ teaData.teaPrice }</span></p>
     				<p>${ teaData.teaContent }</p>
 						<div class="row mt-4">
-							<div class="col-md-6">
-								<div class="form-group d-flex">
-		              <div class="select-wrap">
-	                  <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-	                  <select name="" id="" class="form-control">
-	                  	<option value="">Small</option>
-	                    <option value="">Medium</option>
-	                    <option value="">Large</option>
-	                    <option value="">Extra Large</option>
-	                  </select>
-	                </div>
-		            </div>
-							</div>
 							<form id="cartform" action="insertCart.do">
 							 <input type="hidden" name="teaNum" value="${ teaData.teaNum }">
 							<div class="w-100"></div>	
-							<div class="input-group col-md-6 d-flex mb-3">
+					<div id="cartnum">		
 	             	<span class="input-group-btn mr-2">
 	                	<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
 	                   <i class="ion-ios-remove"></i>
@@ -122,15 +178,15 @@
 							<i class="ion-ios-add"></i>
 	                 	</button>
 	             	</span>
-	          	</div>
+	             	</div>
 	          	<div class="w-100"></div>
-	          	<div class="col-md-12">
+	          	<div class="text">
 	          		<p style="color: #000;">600 kg available</p>
-	          	</div>			
           	<p><button type="submit" class="primary-btn">Add to Cart</button></p>
 	        <div id="heartbox">
-	        	<i id="fc" class="fa-solid fa-heart" style="color: #f22202;"></i>
+	        	<i id="fc" class="fa-regular fa-heart" style="color: #f22202;"></i>
 	        </div>
+	          	</div>				
           	</form> 
           	</div>
     			</div>

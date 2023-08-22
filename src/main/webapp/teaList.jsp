@@ -78,7 +78,7 @@
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
 	    							<a href="loginPage.do" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
+	    								<span><i class="ion-ios-heart-empty"></i></span>
 	    							</a>
 	    							</c:if>
 	    							<c:if test="${ not empty sessionMemberId }">
@@ -89,49 +89,107 @@
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
 	    							<a id="${ teaData.teaNum }" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i id="${ teaData.teaNum }" class="ion-ios-heart"></i></span>
+	    								<span><i id="fc${ teaData.teaNum }" class="ion-ios-heart-empty"></i></span>
 	    							</a>
+	    							
 	    							</c:if>
     							</div>
     						</div>
     					</div>
     				</div>
     			</div> <!-- 반복 끝 지점 -->
-			 <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <script type="text/javascript">
     
     $(document).ready(function(){
+    	
+    	var favorResult = ${ teaData.favorResult }; // 찜 안한 상태가 default
+    	console.log('favorResult: ' + favorResult);
+    	
+    	if(favorResult > 0){
+    		$("#fc"+${ teaData.teaNum }).removeClass("ion-ios-heart-empty").addClass("ion-ios-heart");
+    	}
+    	else{
+    		$("#fc"+${ teaData.teaNum }).removeClass("ion-ios-heart").addClass("ion-ios-heart-empty");
+    	}
 
-        $("#"+${ teaData.teaNum }).on("click", function(){
+        $("#fc"+${ teaData.teaNum }).on("click", function(){
         	console.log('찜 버튼 클릭됨');
-           $.ajax({
-              url: 'checkFavor.do?teaNum='+${ teaData.teaNum },
-              type: 'POST',
-              success: function(fresult){
-                 console.log('fresult [' + fresult + ']');
-                 if (fresult == 1) {
-                	 Swal.fire({
-                		  position: 'top',
-                		  icon: 'success',
-                		  title: '찜 추가!',
-                		  showConfirmButton: false,
-                		  timer: 1000
-                	})
-                 }
-                 else {
-                	 Swal.fire({
-                		  position: 'top',
-                		  icon: 'success',
-                		  title: '찜 삭제!',
-                		  showConfirmButton: false,
-                		  timer: 1000
-                	})
-                 }
-              },
-              error: function(error){
-                 alert('error [' + error + ']');
-              }
-           });
+        	
+        	
+    	if(favorResult == 0){
+        	//
+            $.ajax({
+               url: 'insertFavor.do?teaNum='+${ teaData.teaNum },
+               type: 'POST',
+               success: function(fresult){
+                  console.log('favorResult [' + favorResult + ']');
+                  $("#fc"+${ teaData.teaNum }).removeClass("ion-ios-heart-empty").addClass("ion-ios-heart");
+                  favorResult = 1;
+                  /**
+                  if (fresult == 1) {
+                 	 Swal.fire({
+                 		  position: 'top',
+                 		  icon: 'success',
+                 		  title: '찜 추가!',
+                 		  showConfirmButton: false,
+                 		  timer: 1000
+                 	})
+                  }
+                  else {
+                 	 Swal.fire({
+                 		  position: 'top',
+                 		  icon: 'success',
+                 		  title: '찜 삭제!',
+                 		  showConfirmButton: false,
+                 		  timer: 1000
+                 	})
+                  }
+                  */
+               },
+               error: function(error){
+                  alert('error [' + error + ']');
+               }
+            });
+            //
+    	}
+    	else{
+        	//
+            $.ajax({
+               url: 'deleteFavor.do?teaNum='+${ teaData.teaNum },
+               type: 'POST',
+               success: function(fresult){
+                   console.log('favorResult [' + favorResult + ']');
+                   $("#fc"+${ teaData.teaNum }).removeClass("ion-ios-heart").addClass("ion-ios-heart-empty");
+                   favorResult = 0;
+                  /**
+                  if (fresult == 1) {
+                 	 Swal.fire({
+                 		  position: 'top',
+                 		  icon: 'success',
+                 		  title: '찜 추가!',
+                 		  showConfirmButton: false,
+                 		  timer: 1000
+                 	})
+                  }
+                  else {
+                 	 Swal.fire({
+                 		  position: 'top',
+                 		  icon: 'success',
+                 		  title: '찜 삭제!',
+                 		  showConfirmButton: false,
+                 		  timer: 1000
+                 	})
+                  }
+                  */
+               },
+               error: function(error){
+                  alert('error [' + error + ']');
+               }
+            });
+            //
+    	} // if-else 문 끝
+
         });
 
      });
@@ -140,6 +198,33 @@
 			  </c:forEach>    		
     		</c:if> 
           </div>
+          <div class="row mt-5">
+          <div class="col text-center">
+            <div class="block-27">
+              <ul>
+             	<c:if test="${ startPage > 1 }">
+             		<li>
+					<a href="teaListPage.do?page=${ startPage - 1 }&teaSearchWord=${ teaSearchWord }&teaCategory=${ teaCategory }">
+					&lt;
+					</a>
+					</li>
+				</c:if>
+				<c:forEach begin="${ startPage }" end="${ endPage }" var="p">
+					<li>
+					<a href="teaListPage.do?page=${ p }&teaSearchWord=${ teaSearchWord }&teaCategory=${ teaCategory }">${ p }</a>
+					</li>
+				</c:forEach>
+				<c:if test="${ endPage < totalPageCnt }">
+					<li>
+					<a href="teaListPage.do?page=${ endPage + 1 }&teaSearchWord=${ teaSearchWord }&teaCategory=${ teaCategory }">
+					<i class="fa fa-long-arrow-right"></i>
+					</a>
+					</li>
+				</c:if>
+              </ul>
+            </div>
+          </div>
+        </div>
          </div> 
     </section>
     

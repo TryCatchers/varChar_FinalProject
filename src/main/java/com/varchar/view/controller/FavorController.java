@@ -48,14 +48,14 @@ public class FavorController {
 		favorVO.setMemberId((String)session.getAttribute("sessionMemberId"));
 		
 		if (favorService.insert(favorVO)) {
-			return "favorPage.do";
+			return "1";
 		} 
 		
-		return "실패하면 어디로?";
+		return "0";
 	}
 	
 	// --------------------------------- 찜 취소(삭제) ---------------------------------
-	
+	@ResponseBody
 	@RequestMapping(value = "/deleteFavor.do")
 	public String DeleteFavorAction(HttpSession session, FavorVO favorVO){
 		
@@ -63,10 +63,10 @@ public class FavorController {
 		favorVO.setMemberId((String)session.getAttribute("sessionMemberId"));
 		
 		if (favorService.delete(favorVO)) {
-			return "favorPage.do";
+			return "1";
 		}
 		
-		return "실패하면 어디로?";
+		return "0";
 	}
 	
 	// --------------------------------- 찜 확인 ---------------------------------

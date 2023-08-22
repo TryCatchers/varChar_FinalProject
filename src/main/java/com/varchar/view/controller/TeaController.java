@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.varchar.biz.favor.FavorService;
 import com.varchar.biz.favor.FavorVO;
@@ -34,7 +35,7 @@ public class TeaController {
 	// ---------------------------- 상품 목록 페이지 -------------------------------------
 	
 	@RequestMapping(value="/teaListPage.do")
-	public String teaListPage(TeaVO teaVO, Model model, HttpServletRequest request) { // 상품 목록
+	public String teaListPage(TeaVO teaVO, Model model, HttpServletRequest request, HttpSession session) { // 상품 목록
 		System.out.println("\tLog: controller => TeaListPageAction [START]");
 		
 		int currentPage = 1;
@@ -57,7 +58,6 @@ public class TeaController {
 		int endRnum = 0; // 끝 rnum
 		int totalCnt = 0; // 총 행 수
 		
-		
 		String teaCategory = request.getParameter("teaCategory");
 		teaVO.setTeaCategory(teaCategory == null ? "" : teaCategory);
 		System.out.println(teaCategory);
@@ -67,6 +67,7 @@ public class TeaController {
 		
 		List<TeaVO> reviewDatasTotal = teaService.selectAll(teaVO); // 총 상품 개수	
 		totalCnt = reviewDatasTotal.size();
+		System.out.println("상품리스트 로그 reviewDatasTotal: "+ reviewDatasTotal);
 		
 		int totalPageCnt = (totalCnt / pageSize) + (totalCnt % pageSize == 0 ? 0 : 1);
 		if (currentPage % pageBlock == 0) {
@@ -78,6 +79,7 @@ public class TeaController {
 		if (endPage > totalPageCnt) {
 			endPage = totalPageCnt;
 		}
+		
 		System.out.println("\teaLog: controller => TeaListPageAction [page: startPage: " + startPage + ", endPage: " + endPage + "]");
 		
 		startRnum = (currentPage - 1) * pageSize + 1;
@@ -87,6 +89,7 @@ public class TeaController {
 		if (endRnum > totalCnt) {
 			endRnum = totalCnt;
 		}
+		
 		System.out.println("\teaLog: controller => TeaListPageAction: [page: startRnum: " + startRnum + ", endRnum: " + endRnum + "]");
 		
 		request.setAttribute("startPage", startPage);
@@ -98,9 +101,13 @@ public class TeaController {
 		
 		teaVO.setTeaCondition("페이징");
 		teaVO.setStartRnum(startRnum);
+		teaVO.setTeaName((String)session.getAttribute("sessionMemberId"));
 		
 		List<TeaVO> teaDatas = teaService.selectAll(teaVO);
 		model.addAttribute("teaDatas", teaDatas);
+		
+		System.out.println("session memberId: " + (String)session.getAttribute("sessionMemberId"));
+		System.out.println("상품리스트 로그 teaDatas: "+ teaDatas);
 		
 		System.out.println(teaDatas);
 		
@@ -114,7 +121,9 @@ public class TeaController {
 	@RequestMapping(value="/teaDetailPage.do")
 	public String teaDetailPage(TeaVO teaVO, FavorVO favorVO, ReviewSet reviewSetVO, ReviewVO reviewVO, HttpSession session, Model model) { // 상품 상세
 
-		int favor = 0;
+//		int favor = 0;
+		int favorResult = 0;
+		System.out.println("favorResult 로그: "+ favorResult);
 
 		// System.out.println(request.getParameter("teaNum"));
 
@@ -127,10 +136,10 @@ public class TeaController {
 		
 		favorVO.setMemberId((String)session.getAttribute("sessionMemberId"));
 		if (session.getAttribute("sessionMemberId") == null) {
-			favor = 0;
+			favorResult = 0;
 		}
 		else if (favorService.selectOne(favorVO) != null) {
-			favor = 1;
+			favorResult = 1;
 		}
 
 		System.out.println("로그 selctOne 결과:" + teaVO);
@@ -155,10 +164,9 @@ public class TeaController {
 			model.addAttribute(count);
 			model.addAttribute("teaData", teaVO);
 			model.addAttribute("reviewSetDatas", reviewSetDatas);
-			model.addAttribute("favor", favor);
+			model.addAttribute("favorResult", favorResult);
 			model.addAttribute("count", count);
 			model.addAttribute("reviewCnt", reviewCnt);
-
 		}
 		return "teaDetail.jsp";
 	}

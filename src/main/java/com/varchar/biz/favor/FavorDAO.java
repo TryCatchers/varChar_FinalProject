@@ -47,7 +47,7 @@ public class FavorDAO {
 
 	public boolean insert(FavorVO favorVO) {
 		
-		int result = jdbcTemplate.update(SQL_INSERT, favorVO.getFavorNum(), favorVO.getMemberId(), favorVO.getTeaNum());
+		int result = jdbcTemplate.update(SQL_INSERT, favorVO.getMemberId(), favorVO.getTeaNum());
 		
 		if(result <= 0) {
 			return false;

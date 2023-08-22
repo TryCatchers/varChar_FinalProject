@@ -162,7 +162,7 @@ public class ReviewController {
 	
 	@RequestMapping(value="/updateReviewPage.do")
 	public String updateReviewsPage(ReviewVO reviewVO, Model model) {
-		
+		reviewVO.setReviewSearch("리뷰상세");
 		reviewVO = reviewService.selectOne(reviewVO);
 		System.out.println("로그: UrpAction: " + reviewVO);
 		
@@ -170,7 +170,7 @@ public class ReviewController {
 			model.addAttribute("reviewData", reviewVO);
 		}
 		System.out.println(reviewVO);
-		return "reviewUpdatePage.jsp";
+		return "updateReview.jsp";
 	}
 	
 	// ------------------------- 리뷰 삭제 페이지 ---------------------------------

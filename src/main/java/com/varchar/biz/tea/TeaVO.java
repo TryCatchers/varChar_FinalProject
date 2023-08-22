@@ -18,6 +18,8 @@ public class TeaVO {
 	private int teaTotal;
 	private String count;
 	
+	private int favorResult;
+	
 	public TeaVO() {
 		this(0, "", 0, 0, "", "");
 	}
@@ -33,7 +35,14 @@ public class TeaVO {
 		this.teaCondition = "";
 	}
 	
-	
+
+	public int getFavorResult() {
+		return favorResult;
+	}
+
+	public void setFavorResult(int favorResult) {
+		this.favorResult = favorResult;
+	}
 
 	public String getCount() {
 		return count;
@@ -144,7 +153,7 @@ public class TeaVO {
 		return "TeaVO [teaNum=" + teaNum + ", teaName=" + teaName + ", teaPrice=" + teaPrice + ", teaCnt=" + teaCnt
 				+ ", teaCategory=" + teaCategory + ", teaContent=" + teaContent + ", teaSearchWord=" + teaSearchWord
 				+ ", teaCondition=" + teaCondition + ", imageUrl=" + imageUrl + ", startRnum=" + startRnum
-				+ ", teaTotal=" + teaTotal + "]";
+				+ ", teaTotal=" + teaTotal + ", favorResult="+ favorResult + "]";
 	}
 	
 	
