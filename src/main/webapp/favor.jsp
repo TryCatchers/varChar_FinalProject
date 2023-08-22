@@ -52,8 +52,8 @@
 							<form method="post"  onSubmit="return false;">
 								<input type="hidden" name="favorNum" value="${ favorNum }">
 								<c:forEach var="favorData" items="${ favorDatas }"> 
-									<tr class="text-center">
-									<td class="product-remove"><a href="deleteFavor.do?teaNum=${ favorData.teaNum }"><span class="ion-ios-close"></span></a></td>
+									<tr id="favorForEach${ favorData.teaNum }" class="text-center">
+									<td id ="${ favorData.teaNum }" class="product-remove"><span class="ion-ios-close"></span></a></td>
 									
 									<td class="image-prod"><div class="img" style="background-image:url(${ favorData.imageUrl });"></div></td>
 									
@@ -64,6 +64,30 @@
 									
 									<td class="price">${ favorData.teaPrice }</td>
 									</tr><!-- END TR-->
+									<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+									<script type="text/javascript">
+									$(document).ready(function(){
+										console.log("function ready 확인");
+										
+										$("#"+${ favorData.teaNum }).on("click",function(){
+										   	console.log("삭제 버튼 클릭 확인");
+										  	$.ajax({
+											 url: 'deleteFavor.do?teaNum='+${ favorData.teaNum },
+											 type: 'POST',
+											 success: function(result){
+												$("#favorForEach"+${ favorData.teaNum }).remove(); 
+											 },
+											 error: function(error){
+												alert('error ['+error+']');
+											 }
+										  });
+									   });
+
+										
+									});
+									</script>
+									
+									
 							    </c:forEach>
 							</form>
 							</c:if>
