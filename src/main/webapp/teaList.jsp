@@ -210,14 +210,23 @@
 					</li>
 				</c:if>
 				<c:forEach begin="${ startPage }" end="${ endPage }" var="p">
-					<li>
-					<a href="teaListPage.do?page=${ p }&teaSearchWord=${ teaSearchWord }&teaCategory=${ teaCategory }">${ p }</a>
-					</li>
+					<c:choose>
+						<c:when test="${ currentPage eq p }">
+							<li class="active">
+								<a href="teaListPage.do?page=${ p }&teaSearchWord=${ teaSearchWord }&teaCategory=${ teaCategory }">${ p }</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li>
+								<a href="teaListPage.do?page=${ p }&teaSearchWord=${ teaSearchWord }&teaCategory=${ teaCategory }">${ p }</a>
+							</li>						
+						</c:otherwise>
+					</c:choose>
 				</c:forEach>
 				<c:if test="${ endPage < totalPageCnt }">
 					<li>
 					<a href="teaListPage.do?page=${ endPage + 1 }&teaSearchWord=${ teaSearchWord }&teaCategory=${ teaCategory }">
-					<i class="fa fa-long-arrow-right"></i>
+					&gt;
 					</a>
 					</li>
 				</c:if>

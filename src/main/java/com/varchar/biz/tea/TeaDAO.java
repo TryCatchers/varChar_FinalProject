@@ -44,7 +44,7 @@ public class TeaDAO {
 			+ "FROM TEA t JOIN IMAGE i ON t.TEA_NUM = i.TEA_NUM "
 			+ "WHERE t.TEA_CATEGORY LIKE '%' || ? || '%' AND t.TEA_NAME LIKE '%' || ? || '%' AND i.IMAGE_DIVISION = 1 "
 			+ ") t "
-			+ "WHERE t.rnum BETWEEN ? AND ? + 5";
+			+ "WHERE t.rnum BETWEEN ? AND ? + 8";
 	
 	static final private String SQL_SELECTALL_PAGING_LIKE = "SELECT t.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, t.TEA_CNT, t.TEA_CATEGORY, t.TEA_CONTENT, t.IMAGE_URL, t.FAVOR_NUM "
 			+ "FROM ( "
@@ -58,7 +58,7 @@ public class TeaDAO {
 			+ "	f ON t.TEA_NUM =  f.TEA_NUM "
 			+ "	WHERE t.TEA_CATEGORY LIKE '%' || ? || '%' AND t.TEA_NAME LIKE '%' || ? || '%' AND i.IMAGE_DIVISION = 1 "
 			+ ") t "
-			+ "WHERE t.rnum BETWEEN ? AND ? +5 ";
+			+ "WHERE t.rnum BETWEEN ? AND ? +7 ";
 
 	//	static final private String SQL_SELECTONE = "SELECT t.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, t.TEA_CNT, t.TEA_CATEGORY, t.TEA_CONTENT, i.IMAGE_URL\r\n"
 	//			+ "FROM TEA t JOIN IMAGE i USING (TEA_NUM) "

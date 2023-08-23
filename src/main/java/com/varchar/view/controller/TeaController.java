@@ -50,7 +50,7 @@ public class TeaController {
 			e.printStackTrace();
 		} 
 		
-		final int pageSize = 6; // 한페이지에 보여줄 행
+		final int pageSize = 8; // 한페이지에 보여줄 행
 		final int pageBlock = 2; // 페이징에 나타날 페이지 수
 		int startPage = 0; // 시작 페이지
 		int endPage = 0; // 끝 페이지
@@ -84,7 +84,7 @@ public class TeaController {
 		
 		startRnum = (currentPage - 1) * pageSize + 1;
 		endRnum = startRnum + pageSize - 1;
-		startRnum = (currentPage - 1) * pageSize;
+		startRnum = (currentPage - 1) * pageSize + 1;
 		endRnum = startRnum + pageSize;
 		if (endRnum > totalCnt) {
 			endRnum = totalCnt;
@@ -98,6 +98,7 @@ public class TeaController {
 		request.setAttribute("totalPageCnt", totalPageCnt);
 		request.setAttribute("teaSearchWord", teaSearchWord);
 		request.setAttribute("teaCategory", teaCategory);
+		//request.setAttribute("currentPage", currentPage);
 		
 		teaVO.setTeaCondition("페이징");
 		teaVO.setStartRnum(startRnum);

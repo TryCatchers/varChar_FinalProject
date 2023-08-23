@@ -16,6 +16,12 @@
     	.col-lg-8 {
     		margin-top: 50px;
     	}
+    	.quantity.form-control.input-number {
+    		text-align: center;
+    		font-size: 14px;
+    		border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    		height: 54px !important;
+    	}
     </style>
   </head>
   <body class="goto-here">
@@ -56,7 +62,7 @@
                 <td class="price">${ reviewData.buySerial }</td>
                 <td class="quantity">
                   <div class="input-group">
-                   <input type="text" name="quantity" class="quantity form-control input-number" value="${ reviewData.buyCnt }">
+                   <input type="text" name="quantity" class="quantity form-control input-number" value="${ reviewData.buyCnt }" readonly>
                   </div>
                 </td>
                 <td class="total">${ reviewData.memberId }</td>

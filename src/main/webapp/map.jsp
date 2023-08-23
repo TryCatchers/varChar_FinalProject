@@ -12,6 +12,7 @@
     <try:favicon/>
     <!-- 링크 부분 태그 -->
     <try:link/>
+    <link rel="stylesheet" href="css/elegant-icons.css">
   </head>
   <body class="goto-here">
 	<!-- 헤더 부분 태그 -->	

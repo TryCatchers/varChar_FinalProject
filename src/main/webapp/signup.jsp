@@ -10,12 +10,22 @@
     <!-- 파비콘 태그 -->
     <try:favicon/>
     <!-- 링크 부분 헤더 -->
-	<try:link/>     
-    <style type="text/css">
-    	span {
-    		color: red;
-    	}
-    </style>
+	<try:link/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script> 
+  	<style type="text/css">
+  		.edit-d-f {
+  			display: flex;
+  		}
+  		.edit-btn {
+  			width: 83px;
+  			border-width: 1px;
+  			border-radius: 3px;
+  		}
+  		.edit-red {
+  			color: red;
+  		}
+  	</style>
   </head>
   <body class="goto-here">
     <!-- 헤더 부분 태그 -->
@@ -34,6 +44,10 @@
     </div>
 	<!-- 페이지 제목 div 끝 -->
 
+	<script type="text/javascript">
+		
+	</script>
+
 	<!-- 회원가입 섹션 -->
 	<section class="ftco-section">
       <div class="container">
@@ -43,50 +57,80 @@
 			<form action="signup.do" method="post" class="billing-form" onsubmit="return test()">
 	          	<h3 class="mb-4 billing-heading" style="padding-bottom: 25px; border-bottom: 1px solid #e1e1e1">회원가입</h3>
 	          	<div class="row align-items-end">
-	          		<div class="col-md-6" style="margin-top: 30px;">
-	                <div class="form-group">
-	                	<label for="firstname" >아이디<span>*</span></label>
+	          	<div class="col-md-12">
+	                <label for="id">아이디<span class="edit-red"> *</span></label>
+	            	<div class="form-group edit-d-f">
 	                  <input type="text" name="memberId" class="form-control" placeholder="아이디를 입력하세요." required>
-	                </div>
-	              </div>
-	              <div class="col-md-6">
+	                  <input type="button" value="중복검사" class="submit">
+	            	</div>
+	            </div>
+	            <div class="w-100"></div>
+	            <div class="col-md-12">
+	                <label for="name">이름<span class="edit-red"> *</span></label>
 	                <div class="form-group">
-	                	<label for="lastname">이름 <span>*</span></label>
 	                  <input type="text" name="memberName" class="form-control" placeholder="이름을 입력하세요." required>
 	                </div>
                 </div>
                 <div class="w-100"></div>
-                <div class="col-md-6">
-	                <div class="form-group">
-	                	<label for="firstname" >비밀번호<span>*</span></label>
-	                  <input type="password" name="memberPw" id="pw" class="form-control" placeholder="새 비밀번호를 입력하세요.(최소 8글자 이상)" required style="width: 210%;">
+                <div class="col-md-12">
+                	<label for="password">비밀번호<span class="edit-red"> *</span></label>
+	                <div class="form-group edit-d-f">
+	                  <input type="password" name="memberPw" id="inputPassword1" class="form-control" placeholder="새 비밀번호를 입력하세요.(최소 8글자 이상)" required>
+	                  <button type="button" id="inputBtnPassword1" class="edit-btn"><i class="fa-solid fa-eye-slash"></i></button>
 	                </div>
 	              </div>
                 <div class="w-100"></div>
-	          		<div class="col-md-6">
-	                <div class="form-group">
-	                	<label for="firstname" >비밀번호 확인<span>*</span></label>
-	                  <input type="password" id="pw2" class="form-control" placeholder="비밀번호를 한번 더 입력하세요."required style="width: 210%;">
+	          	<div class="col-md-12">
+	                <label for="passwordre">비밀번호 확인<span class="edit-red"> *</span></label>
+	                <div class="form-group edit-d-f">
+	                  <input type="password" id="inputPassword2" class="form-control" placeholder="비밀번호를 한번 더 입력하세요." required>
+	                  <button type="button" id="inputBtnPassword2" class="edit-btn"><i class="fa-solid fa-eye-slash"></i></button>
 	                </div>
 	              </div>
+	              <script>
+                      	$(document).ready(function(){
+                      		$("#inputBtnPassword1").on("click", function(){
+                      			$("#inputPassword1").toggleClass("eye");
+                      			if ($("#inputPassword1").hasClass("eye")) {
+                      				$(this).find("i").attr("class", "fa-solid fa-eye");
+                      				$("#inputPassword1").attr("type", "text");
+                      			} else {
+                      				$(this).find("i").attr("class", "fa-solid fa-eye-slash");
+                      				$("#inputPassword1").attr("type", "password");
+                      			}
+                      		});
+                      		$("#inputBtnPassword2").on("click", function(){
+                      			$("#inputPassword2").toggleClass("eye");
+                      			if ($("#inputPassword2").hasClass("eye")) {
+                      				$(this).find("i").attr("class", "fa-solid fa-eye");
+                      				$("#inputPassword2").attr("type", "text");
+                      			} else {
+                      				$(this).find("i").attr("class", "fa-solid fa-eye-slash");
+                      				$("#inputPassword2").attr("type", "password");
+                      			}
+                      		});
+                      	});
+                  </script>
                 <div class="w-100"></div>
-				<div class="col-md-6">
-	                <div class="form-group">
-	                	<label for="lastname">연락처</label>
-	                  	<input type="text" name="memberPhone" id="memberPhone" class="form-control" placeholder="하이픈(-), 공백없이 기입해주세요. ex) 00012345678" style="width: 210%;">
+				<div class="col-md-12">
+	                <label for="phone">연락처</label>
+	                <div class="form-group edit-d-f">
+	                  	<input type="text" name="memberPhone" id="memberPhone" class="form-control" placeholder="하이픈(-), 공백없이 기입해주세요. ex) 00012345678">
+	                  	<input type="button" value="중복검사" class="submit">
 	                </div>
                 </div>
                 <div class="w-100"></div>
-				<div class="col-md-6">
-	                <div class="form-group">
-	                	<label for="lastname">이메일</label>
-	                  <input type="text" name="memberEmail" id="memberEmail" class="form-control" placeholder="@포함 이메일 형식에 맞춰서 기입해주세요. ex) aaa@xxx.com" style="width: 210%;">
+				<div class="col-md-12">
+                	<label for="email">이메일</label>
+	                <div class="form-group edit-d-f">
+	                  <input type="text" name="memberEmail" id="memberEmail" class="form-control" placeholder="@포함 이메일 형식에 맞춰서 기입해주세요. ex) aaa@xxx.com">
+	                  <input type="button" value="중복검사" class="submit">
 	                </div>
                 </div>
                 <div class="w-100"></div>
-                <div class="col-md-6">
+                <div class="col-md-12">
+                	<label for="address">주소</label>
 	                <div class="form-group" style="margin-bottom: 150px;">
-	                	<label for="lastname">주소 </label>
 	                  <!-- 주소 API 적용 -->
 	                  <try:addressAPI/>
 	                </div>
@@ -108,7 +152,8 @@
 	<try:footer/>	
 	<!-- 채팅 API -->
 	<try:chatAPI/>
-  <!-- loader -->
+  	
+  	<!-- loader -->
     <try:loader/>
   <script>
 		$(document).ready(function(){

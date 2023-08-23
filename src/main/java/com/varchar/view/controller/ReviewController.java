@@ -91,6 +91,7 @@ public class ReviewController {
 		request.setAttribute("searchName", searchName);
 		request.setAttribute("reviewSearch", reviewSearch);
 		request.setAttribute("pMemberId", memberId);
+		request.setAttribute("currentPage", currentPage);
 		
 		reviewVO.setSearchName(searchName + "_PAGING");
 		reviewVO.setStartRnum(startRnum);
