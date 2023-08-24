@@ -88,17 +88,73 @@
 									
 									<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 									<script type="text/javascript">
+									</script>
+									<td id="price${ cart.teaNum }" class="total">가격</td>
+									<script type="text/javascript">
+									
+										$(document).ready(function(){
+											console.log("function ready 확인");
+											total();
+
+											var nowCnt = $("#Cnt"+${ cart.teaNum }).val();
+											var price = nowCnt * ${ cart.teaPrice };
+											
+											$("#price"+${ cart.teaNum }).text(price);
+											
+											
 										   var quantitiy=0;
 										   $('.quantity-right-plus.${ cart.teaNum }').click(function(e){
 										        
 										        // Stop acting like a button
 										        e.preventDefault();
 										        // Get the field name
-										        var quantity = parseInt($('#Cnt${ cart.teaNum }').val());
+										        var changeCnt = parseInt($('#Cnt${ cart.teaNum }').val()); //얘가 changeCnt
 										        
+										        if(changeCnt + 1 > ${ cart.teaCheckCnt }){
+										        	changeCnt = ${ cart.teaCheckCnt }
+										        }
+										        else{
+										        	changeCnt = changeCnt + 1;
+										        }
+										        
+												  $.ajax({
+														 url: 'cartChange.do?&teaNum='+${ cart.teaNum }+'&teaCnt='+changeCnt,
+														 type: 'POST',
+														 success: function(result){
+															console.log('result ['+result+']');
+															total();
+															
+															var price2 = changeCnt * ${ cart.teaPrice };
+															console.log("총가격: "+price2);
+															
+															var tbodyCart = $("#aCart"+${ cart.teaNum }).html();
+															
+															$("#aCart"+${ cart.teaNum }).remove();
+															
+															console.log("확인1");
+															
+															$("#cartForEach").append(tbodyCart);
+															
+															console.log("확인2");
+															
+															priceSum = ${ priceSum };
+															console.log(priceSum);
+															$("#price"+${ cart.teaNum }).text(price2);
+															
+															
+															console.log("확인3");
+															// 성공하면 재고 변경
+															
+															$("#priceTotal").text(priceSum);
+														 },
+														 error: function(error){
+															alert('error ['+error+']');
+														 }
+													  }); //
+
 										        // If is not undefined
-										        $('#Cnt${ cart.teaNum }').val(quantity + 1);
-										        
+										        $('#Cnt${ cart.teaNum }').val(changeCnt);
+										        total();
 										        // Increment
 										    });
 								
@@ -106,47 +162,56 @@
 										        // Stop acting like a button
 										        e.preventDefault();
 										        // Get the field name
-										        var quantity = parseInt($('#Cnt${ cart.teaNum }').val());
+										        var changeCnt = parseInt($('#Cnt${ cart.teaNum }').val()); //얘가 changeCnt
 										        
-										        // If is not undefined
-										      
-										        // Increment
-										        if(quantity > 0){
-										        	$('#Cnt${ cart.teaNum }').val(quantity - 1);
+										        if(changeCnt - 1 < 1){
+										        	changeCnt = 1
+										        	// 품절 상태일시 ??????
 										        }
+										        else{
+										        	changeCnt = changeCnt - 1;
+										        }
+										        
+												  $.ajax({
+														 url: 'cartChange.do?&teaNum='+${ cart.teaNum }+'&teaCnt='+changeCnt,
+														 type: 'POST',
+														 success: function(result){
+															console.log('result ['+result+']');
+															total();
+															
+															var price2 = changeCnt * ${ cart.teaPrice };
+															console.log("총가격: "+price2);
+															
+															var tbodyCart = $("#aCart"+${ cart.teaNum }).html();
+															
+															$("#aCart"+${ cart.teaNum }).remove();
+															
+															console.log("확인1");
+															
+															$("#cartForEach").append(tbodyCart);
+															
+															console.log("확인2");
+															
+															priceSum = ${ priceSum };
+															console.log(priceSum);
+															$("#price"+${ cart.teaNum }).text(price2);
+															
+															
+															console.log("확인3");
+															// 성공하면 재고 변경
+															
+															$("#priceTotal").text(priceSum);
+														 },
+														 error: function(error){
+															alert('error ['+error+']');
+														 }
+													  }); //
+
+										        // If is not undefined
+										        $('#Cnt${ cart.teaNum }').val(changeCnt);
+										        total();
 										    });
-									</script>
-									<td id="price${ cart.teaNum }" class="total">가격</td>
-									<script type="text/javascript">
-										$(document).ready(function(){
-											
-											var nowCnt = $("#Cnt"+${ cart.teaNum }).val();
-											var price = nowCnt * ${ cart.teaPrice };
-											
-											var cartAction = 1;
-											
-											$("#price"+${ cart.teaNum }).text(price);
-											
-											console.log("function ready 확인");
-										   $("#"+${cart.teaNum}).on("click",function(){
-											   console.log("삭제 버튼 클릭 확인");
-											   cartAction = 0;
-											  $.ajax({
-												 url: 'deleteCart.do?teaNum='+${ cart.teaNum },
-												 type: 'POST',
-												 success: function(result){
-													/////console.log('result ['+result+']');
-													$("#cartForEach"+${ cart.teaNum }).remove();
-													//$("#cartForEach").append();
-													
-												  
-												 },
-												 error: function(error){
-													alert('error ['+error+']');
-												 }
-											  });
-										   });
-										   
+										     
 										   $("#Cnt"+${ cart.teaNum }).change(function(){
 												console.log("구매 갯수 변경 확인");
 												var changeCnt = $("#Cnt"+${ cart.teaNum }).val();
@@ -167,6 +232,7 @@
 												 type: 'POST',
 												 success: function(result){
 													console.log('result ['+result+']');
+													total();
 													
 													var price2 = changeCnt * ${ cart.teaPrice };
 													console.log("총가격: "+price2);
@@ -194,7 +260,27 @@
 												 error: function(error){
 													alert('error ['+error+']');
 												 }
+											  }); //
+											  total();
+										   });
+										   
+										   $("#"+${cart.teaNum}).on("click",function(){
+											   console.log("삭제 버튼 클릭 확인");
+											   cartAction = 0;
+											  $.ajax({
+												 url: 'deleteCart.do?teaNum='+${ cart.teaNum },
+												 type: 'POST',
+												 success: function(result){
+													 total();
+													/////console.log('result ['+result+']');
+													$("#cartForEach"+${ cart.teaNum }).remove();
+													//$("#cartForEach").append();
+												 },
+												 error: function(error){
+													alert('error ['+error+']');
+												 }
 											  });
+											  total();
 										   });
 										   
 										   $("#cartRemove").on("click",function(){
@@ -216,13 +302,19 @@
 												 type: 'POST',
 												 success: function(result){
 													console.log('result ['+result+']');
-													$("#tbodyCart").remove();
-													$("#tbodyCart").append();
+													//$("#tbodyCart").remove();
+													//$("#tbodyCart").append();
+													$("#subTotal").text("0 원");
+													$("#total").text("3000 원");
+													$("#tbodyCart").html('<tr><td colspan="6"><h1>장바구니X</h1></td></tr>');
+													//$("#payBtn").removeAttribute('href');
+													document.querySelector("#payBtn").removeAttribute('href');
 													// 성공하면 cart 전체 remove
 													
 													priceSum = ${ priceSum };
 													console.log(priceSum);
 													$("#priceTotal").text(priceSum);
+													
 													Swal.fire({
 														  icon: 'success',
 														  title: '장바구니 삭제 완료!',
@@ -240,6 +332,33 @@
 														}
 													});
 										   });
+										   
+												console.log("onready 최하단 진입 확인");
+												
+												function total() {  
+												console.log("total func() 호출 확인 로그");
+											  		$.ajax({
+												 		url: 'total.do?',
+												 		type: 'POST',
+												 		success: function(result){
+
+												 			var total = parseInt(result) + 3000;
+												 			
+												 			$("#subTotal").text(result+" 원");
+												 			$("#total").text(total+" 원");
+												 			
+												 			if(result == 0) {
+												 				$("#tbodyCart").html('<tr><td colspan="6"><h1>장바구니X</h1></td></tr>');
+												 				$("#total").text("3000 원");
+												 				document.querySelector("#payBtn").removeAttribute('href');
+												 			}
+												 		},
+												 		error: function(error){
+															alert('error ['+error+']');
+												 		}
+											  		});
+												}
+
 											
 										});
 										</script>
@@ -259,20 +378,20 @@
 							<h3>Cart Totals</h3>
 							<p class="d-flex">
 								<span>Subtotal</span>
-								<span>$20.60</span>
+								<span id="subTotal">0 원</span>
 							</p>
 							<p class="d-flex">
 								<span>Delivery</span>
-								<span>$0.00</span>
+								<span>3000 원</span>
 							</p>
 							<p class="d-flex">
 								<span>Discount</span>
-								<span>$3.00</span>
+								<span>0 원</span>
 							</p>
 							<hr>
 							<p class="d-flex total-price">
 								<span>Total</span>
-								<span>$17.60</span>
+								<span id="total">3000 원</span>
 							</p>
 						</div>
 					</div>
@@ -280,7 +399,12 @@
 				<div class="row block-9">
 					<div class="col-md-6 d-flex">
 						<c:if test="${ not empty sessionMemberId }">
-							<a href="buyPage.do" class="btn btn-primary py-3 px-4">결제하기</a>
+							<c:if test="${ not empty sessionScope.cart }">
+								<a id="payBtn" href="buyPage.do" class="btn btn-primary py-3 px-4">결제하기</a>
+							</c:if>
+							<c:if test="${ empty sessionScope.cart }">
+								<a class="btn btn-primary py-3 px-4" >결제하기</a>
+							</c:if>
 						</c:if>
 						<c:if test="${ empty sessionMemberId }">
 							<a href="loginPage.do" class="btn btn-primary py-3 px-4">결제하기</a>

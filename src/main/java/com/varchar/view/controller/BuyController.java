@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.varchar.biz.buy.BuyDetailService;
 import com.varchar.biz.buy.BuyDetailVO;
@@ -52,16 +53,6 @@ public class BuyController {
 	private PaymentService paymentService;
 	@Autowired
 	private TeaService teaService;
-
-	////////////////////////////////////////////////////////////////////////////////////
-	// 결제창 띄우기
-	@RequestMapping(value = "/buy.do")
-	public String buy(HttpServletRequest request) {
-
-		request.setAttribute("total", request.getAttribute("total"));
-
-		return "pay.jsp";
-	}
 
 	////////////////////////////////////////////////////////////////////////////////////
 	// 주문 목록 페이지 이동
@@ -98,6 +89,7 @@ public class BuyController {
 		session.setAttribute("buyList", cart);
 		session.setAttribute("total", total);
 
+		//** 해당 회원 NULL 혹은 로그인 안함 ---> 유효성 추가 필요 */
 		memberVO.setMemberId((String) session.getAttribute("sessionMemberId"));
 		memberVO.setMemberSearch("회원정보변경");
 		memberVO = memberService.selectOne(memberVO);
@@ -116,6 +108,7 @@ public class BuyController {
 	@RequestMapping(value = "/buyDetailPage.do")
 	public String buyDetailPage(Model model, BuyDetailVO buyDetailVO, ReviewVO reviewVO) {
 
+		//** 해당 주문 상세 내역이 없을 경우 ---> 유효성 추가 필요 */
 		buyDetailVO.setBuySearch("주문상세");
 		List<BuyDetailVO> buyDetailDatas = buyDetailService.selectAll(buyDetailVO);
 
@@ -216,11 +209,13 @@ public class BuyController {
 					teaVO.setTeaNum(buyList.get(i).getTeaNum());
 					teaVO.setTeaCnt(buyList.get(i).getTeaCnt());
 
+					//** 상세 주문 추가 / 재고 변경(검사도 필요) 각각 실패시 ---> 유효성 추가 필요 */
 					buyDetailService.insert(buyDetailVO); // 상세 주문 추가
 					teaService.update(teaVO); // 상품 재고 변경
 				}
 				paymentVO.setPaymentName(memberId);
 				paymentVO.setPaymentCustomer(memberId);
+				//** 결제 정보 추가 실패시 ---> 유효성 추가 필요 */
 				paymentService.insert(paymentVO);
 				session.removeAttribute("buyList");
 				session.removeAttribute("cart");

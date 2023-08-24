@@ -3,6 +3,7 @@ package com.varchar.view.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ public class CartController {
 	public String insertCart(TeaVO teaVO, HttpSession session) {
 		
 		int cnt = teaVO.getTeaCnt();
+		//** 해당 상품 없을시 ---> 유효성 추가 필요 */
 		teaVO = teaService.selectOne(teaVO);
 		int checkCnt = teaVO.getTeaCnt();
 		
@@ -109,6 +111,7 @@ public class CartController {
 		System.out.println("현재 카트에 아무것도 없음");
 		System.out.println("로그: buyNum ["+buyDetailVO.getBuyNum()+"]");
 
+		//** 해당 주문내역이 없을 경우(다시담시 선택한 주문번호가 유효하지 않을 경우) ---> 유효성 추가 필요 */
 		buyDetailVO.setBuySearch("다시담기");
 		buyList = (List<BuyDetailVO>) buyDetailService.selectAll(buyDetailVO); // 다시 담을 주문 내역 저장
 
@@ -129,5 +132,32 @@ public class CartController {
 
 		return "redirect:cartPage.do";
 
+	}
+	
+	// --------------------------------- 장바구니 총 가격 계산 ---------------------------------
+	@ResponseBody
+	@RequestMapping(value = "/total.do")
+	public String buy(HttpServletRequest request, HttpSession session) {
+		
+		List<TeaVO> cart = (List<TeaVO>) session.getAttribute("cart");
+
+		int i = 0;
+		int total = 0;
+		for (TeaVO t : cart) {
+			int teaTotal = t.getTeaCnt() * t.getTeaPrice();
+			cart.get(i).setTeaTotal(teaTotal);
+			total += teaTotal;
+			i++;
+		}
+
+		// 아래꺼 model로 바꿀까 고민중,,,
+		session.setAttribute("buyList", cart);
+		session.setAttribute("total", total);
+
+
+		System.out.println("BuyPageAction buyList log:" + cart);
+		System.out.println("BuyPageAction total log:" + total);
+		
+		return String.valueOf(total);
 	}
 }
