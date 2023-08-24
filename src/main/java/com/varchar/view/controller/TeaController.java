@@ -36,10 +36,11 @@ public class TeaController {
 	// ---------------------------- 상품 목록 페이지 -------------------------------------
 	
 	@RequestMapping(value="/teaListPage.do")
-	public String teaListPage(TeaVO teaVO, Model model, HttpServletRequest request, HttpSession session, PagingVO pagingVO) { // 상품 목록
+	public String teaListPage(TeaVO teaVO, Model model, HttpSession session, PagingVO pagingVO) { // 상품 목록
 
-		String teaCategory = request.getParameter("teaCategory");
-		String teaSearchWord = request.getParameter("teaSearchWord");
+		String teaCategory = pagingVO.getTeaCategory();
+		String teaSearchWord = pagingVO.getTeaSearchWord();
+		int pageSize = 8;
 		
 		teaVO.setTeaCategory(teaCategory == null ? "" : teaCategory);
 		teaVO.setTeaSearchWord(teaSearchWord == null ? "" : teaSearchWord);
@@ -51,19 +52,17 @@ public class TeaController {
 		List<TeaVO> teaDatasTotal = teaService.selectAll(teaVO); // 총 상품 개수
 		System.out.println("상품리스트 로그 reviewDatasTotal: "+ teaDatasTotal);
 		
+		pagingVO.setPageSize(pageSize);
 		pagingVO.setTotalCnt(teaDatasTotal.size());
-		pagingVO.setCurrentPageStr(request.getParameter("page"));
+		pagingVO.setCurrentPageStr(pagingVO.getPage());
 
 		// 페이지네이션 모듈화
 		pagingVO = Paging.paging(pagingVO);
 			
 		//
-		request.setAttribute("startPage", pagingVO.getStartPage());
-		request.setAttribute("endPage", pagingVO.getEndPage());
-		request.setAttribute("currentPage", pagingVO.getCurrentPage());
-		request.setAttribute("totalPageCnt", pagingVO.getTotalPageCnt());
-		request.setAttribute("teaSearchWord", teaSearchWord);
-		request.setAttribute("teaCategory", teaCategory);
+		pagingVO.setTeaSearchWord(teaSearchWord);
+		pagingVO.setTeaCategory(teaCategory);
+		model.addAttribute("page",pagingVO);
 		
 		//
 		teaVO.setTeaCondition("페이징");

@@ -170,21 +170,21 @@
           <div class="col text-center">
             <div class="block-27">
               <ul>
-              	<c:if test="${ startPage > 1 }">
+              	<c:if test="${ page.startPage > 1 }">
               		<li>
-              	 	<a href="reviewListPage.do?searchName=${ searchName }&pMemberId=${ pMemberId }&reviewSearch=${ reviewSearch }&page=${ startPage - 1 }">
+              	 	<a href="reviewListPage.do?searchName=${ page.searchName }&pMemberId=${ sessionMemberId }&reviewSearch=${ page.reviewSearch }&page=${ page.startPage - 1 }">
               	 	&lt;
               	 	</a>
               	 	</li>
 				</c:if>
-				<c:forEach begin="${ startPage }" end="${ endPage }" var="p">
+				<c:forEach begin="${ page.startPage }" end="${ page.endPage }" var="p">
 					<li>
-					<a href="reviewListPage.do?searchName=${ searchName }&pMemberId=${ pMemberId }&reviewSearch=${ reviewSearch }&page=${ p }">${ p }</a>
+					<a href="reviewListPage.do?searchName=${ page.searchName }&pMemberId=${ sessionMemberId }&reviewSearch=${ page.reviewSearch }&page=${ p }">${ p }</a>
 					</li>
 				</c:forEach>
-				<c:if test="${ endPage < totalPageCnt }">
+				<c:if test="${ page.endPage < page.totalPageCnt }">
 					<li>
-					<a href="reviewListPage.do?searchName=${ searchName }&pMemberId=${ pMemberId }&reviewSearch=${ reviewSearch }&page=${ endPage + 1 }">
+					<a href="reviewListPage.do?searchName=${ page.searchName }&pMemberId=${ sessionMemberId }&reviewSearch=${ page.reviewSearch }&page=${ page.endPage + 1 }">
 					&gt;
 					</a>
 					</li>

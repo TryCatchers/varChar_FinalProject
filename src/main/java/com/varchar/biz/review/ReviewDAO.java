@@ -119,7 +119,7 @@ public class ReviewDAO {
 			"SELECT REVIEW_NUM FROM REVIEW WHERE BUY_SERIAL = ?";
 
 	//	static final private String PAGING = "LIMIT ?, 6;"; // 페이징 처리
-	static final private String PAGING = "WHERE ROWNUM BETWEEN ? AND ? + 5";
+	static final private String PAGING = "WHERE ROWNUM BETWEEN ? AND ? + 4";
 
 	//	static final private String SQL_INSERT = "INSERT INTO REVIEW(MEMBER_ID, BUY_SERIAL, REVIEW_CONTENT) VALUES(?, ?, ?);";
 	static final private String SQL_INSERT = "INSERT INTO REVIEW(REVIEW_NUM, MEMBER_ID, BUY_SERIAL, REVIEW_CONTENT) "

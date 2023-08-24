@@ -33,41 +33,35 @@ public class ReviewController {
 	// ------------------------- 리뷰 목록 페이지 ---------------------------------
 	
 	@RequestMapping(value="/reviewListPage.do")
-	public String reviewListPage(ReviewVO reviewVO, HttpServletRequest request, PagingVO pagingVO) {
+	public String reviewListPage(ReviewVO reviewVO, PagingVO pagingVO, Model model) {
 		
-		// pMemberId가 뭐임??????
-		String memberId = request.getParameter("pMemberId");
-		String searchName = request.getParameter("searchName");
-		String reviewSearch = request.getParameter("reviewSearch");
+		String searchName = pagingVO.getSearchName();
+		String reviewSearch = pagingVO.getReviewSearch();
 		
-		reviewVO.setMemberId(memberId == null ? "" : memberId);
+		int pageSize = 5;
+		
 		reviewVO.setSearchName(searchName == null ? "" : searchName);
 		reviewVO.setReviewSearch(reviewSearch == null ? "" : reviewSearch);
-		
-		System.out.println("로그 memberId: " + memberId);
-		
+
 		List<ReviewVO> reviewDatasTotal = reviewService.selectAll(reviewVO); // 총 리뷰 개수
 		
+		pagingVO.setPageSize(pageSize);
 		pagingVO.setTotalCnt(reviewDatasTotal.size());
-		pagingVO.setCurrentPageStr(request.getParameter("page"));
-		
+		pagingVO.setCurrentPageStr(pagingVO.getPage());
+
 		// 페이지네이션 모듈화
 		pagingVO = Paging.paging(pagingVO);
-			
-		request.setAttribute("startPage", pagingVO.getStartPage());
-		request.setAttribute("endPage", pagingVO.getEndPage());
-		request.setAttribute("currentPage", pagingVO.getCurrentPage());
-		request.setAttribute("totalPageCnt", pagingVO.getTotalPageCnt());
 		
-		request.setAttribute("searchName", searchName);
-		request.setAttribute("reviewSearch", reviewSearch);
-		request.setAttribute("pMemberId", memberId);
+		pagingVO.setSearchName(searchName);
+		pagingVO.setReviewSearch(reviewSearch);
+		
+		model.addAttribute("page",pagingVO);
 
 		
 		reviewVO.setSearchName(searchName + "_PAGING");
 		reviewVO.setStartRnum(pagingVO.getStartRnum());
 		List<ReviewVO> reviewDatas = reviewService.selectAll(reviewVO); // startRnum 부터 endRnum 까지의 리뷰
-		request.setAttribute("reviewDatas", reviewDatas);
+		model.addAttribute("reviewDatas", reviewDatas);
 		
 		return "reviewList.jsp";
 	}
@@ -174,35 +168,33 @@ public class ReviewController {
 	// ------------------------- 내 후기 페이지 ---------------------------------
 	
 	@RequestMapping(value="/myReviewsListPage.do")
-	public String myReviewListPage(ReviewVO reviewVO, HttpSession session, HttpServletRequest request, PagingVO pagingVO) {
+	public String myReviewListPage(ReviewVO reviewVO, HttpSession session, PagingVO pagingVO, Model model) {
 
+		int pageSize = 5;
 		String memberId = (String)session.getAttribute("sessionMemberId");
-		reviewVO.setMemberId(memberId);
 		System.out.println("마이페이지 리뷰 로그1 memberId " +memberId);
 		
-		String searchName = request.getParameter("searchName");
-		String reviewSearch = request.getParameter("reviewSearch");
+		reviewVO.setMemberId(memberId);
+		String searchName = pagingVO.getSearchName();
+		String reviewSearch = pagingVO.getReviewSearch();
 		
 		reviewVO.setSearchName(searchName == null ? "" : searchName);
 		reviewVO.setReviewSearch(reviewSearch == null ? "" : reviewSearch);
 		
 		List<ReviewVO> reviewDatasTotal = reviewService.selectAll(reviewVO); // 총 리뷰 개수
 		pagingVO.setTotalCnt(reviewDatasTotal.size());
-		pagingVO.setCurrentPageStr(request.getParameter("page"));
+		pagingVO.setCurrentPageStr(pagingVO.getPage());
+		pagingVO.setPageSize(pageSize);
 		
 		// 페이지네이션 모듈화
 		pagingVO = Paging.paging(pagingVO);
 		System.out.println("마이페이지 리뷰 로그2 reviewDatasTotal " +reviewDatasTotal);
 
 		
-		request.setAttribute("startPage", pagingVO.getStartPage());
-		request.setAttribute("endPage", pagingVO.getEndPage());
-		request.setAttribute("currentPage", pagingVO.getCurrentPage());
-		request.setAttribute("totalPageCnt", pagingVO.getTotalPageCnt());
+		pagingVO.setSearchName(searchName);
+		pagingVO.setReviewSearch(reviewSearch);
 		
-		request.setAttribute("searchName", searchName);
-		request.setAttribute("reviewSearch", reviewSearch);
-		request.setAttribute("pMemberId", memberId);
+		model.addAttribute("page",pagingVO);
 		
 		reviewVO.setSearchName(searchName + "_PAGING");
 		reviewVO.setStartRnum(pagingVO.getStartRnum());
@@ -212,7 +204,7 @@ public class ReviewController {
 		List<ReviewVO> reviewDatas = reviewService.selectAll(reviewVO); // startRnum 부터 endRnum 까지의 리뷰
 		System.out.println("마이페이지 리뷰 로그3 reviewDatas " +reviewDatas);
 		System.out.println("마이페이지 리뷰 로그4 memberId " +memberId);
-		request.setAttribute("reviewDatas", reviewDatas);
+		model.addAttribute("reviewDatas", reviewDatas);
 		
 		return "reviewList.jsp";
 	}

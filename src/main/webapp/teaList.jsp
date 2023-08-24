@@ -202,30 +202,30 @@
           <div class="col text-center">
             <div class="block-27">
               <ul>
-             	<c:if test="${ startPage > 1 }">
+             	<c:if test="${ page.startPage > 1 }">
              		<li>
-					<a href="teaListPage.do?page=${ startPage - 1 }&teaSearchWord=${ teaSearchWord }&teaCategory=${ teaCategory }">
+					<a href="teaListPage.do?page=${ page.startPage - 1 }&teaSearchWord=${ page.teaSearchWord }&teaCategory=${ page.teaCategory }">
 					&lt;
 					</a>
 					</li>
 				</c:if>
-				<c:forEach begin="${ startPage }" end="${ endPage }" var="p">
+				<c:forEach begin="${ page.startPage }" end="${ page.endPage }" var="p">
 					<c:choose>
-						<c:when test="${ currentPage eq p }">
+						<c:when test="${ page.currentPage eq p }">
 							<li class="active">
-								<a href="teaListPage.do?page=${ p }&teaSearchWord=${ teaSearchWord }&teaCategory=${ teaCategory }">${ p }</a>
+								<a href="teaListPage.do?page=${ p }&teaSearchWord=${ page.teaSearchWord }&teaCategory=${ page.teaCategory }">${ p }</a>
 							</li>
 						</c:when>
 						<c:otherwise>
 							<li>
-								<a href="teaListPage.do?page=${ p }&teaSearchWord=${ teaSearchWord }&teaCategory=${ teaCategory }">${ p }</a>
+								<a href="teaListPage.do?page=${ p }&teaSearchWord=${ page.teaSearchWord }&teaCategory=${ page.teaCategory }">${ p }</a>
 							</li>						
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
-				<c:if test="${ endPage < totalPageCnt }">
+				<c:if test="${ page.endPage < page.totalPageCnt }">
 					<li>
-					<a href="teaListPage.do?page=${ endPage + 1 }&teaSearchWord=${ teaSearchWord }&teaCategory=${ teaCategory }">
+					<a href="teaListPage.do?page=${ page.endPage + 1 }&teaSearchWord=${ page.teaSearchWord }&teaCategory=${ page.teaCategory }">
 					&gt;
 					</a>
 					</li>

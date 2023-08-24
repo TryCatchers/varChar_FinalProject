@@ -6,6 +6,8 @@ public class PagingVO {
 	private int startPage;
 	private int endPage;
 	
+	private String page;
+	private int pageSize;
 	private int totalCnt;
 
 
@@ -13,12 +15,38 @@ public class PagingVO {
 	private String currentPageStr;
 	private String teaCategory; 	//
 	private String teaSearchWord; 	// 
+	private String searchName; 		// 
+	private String reviewSearch; 	// 
 	
 	private int startRnum;
 	private int endRnum;
 	
 	
 	
+	public String getPage() {
+		return page;
+	}
+	public void setPage(String page) {
+		this.page = page;
+	}
+	public String getSearchName() {
+		return searchName;
+	}
+	public void setSearchName(String searchName) {
+		this.searchName = searchName;
+	}
+	public String getReviewSearch() {
+		return reviewSearch;
+	}
+	public void setReviewSearch(String reviewSearch) {
+		this.reviewSearch = reviewSearch;
+	}
+	public int getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
 	public int getStartRnum() {
 		return startRnum;
 	}

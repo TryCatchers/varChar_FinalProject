@@ -23,7 +23,7 @@ public class Paging {
 		System.out.println("로그 int currentPage: "+currentPage);
 		
 
-		final int pageSize = 8; // 한페이지에 보여줄 행
+		final int pageSize = pagingVO.getPageSize(); // 한페이지에 보여줄 행
 		final int pageBlock = 2; // 페이징에 나타날 페이지 수
 		int startPage = 0; // 시작 페이지
 		int endPage = 0; // 끝 페이지
