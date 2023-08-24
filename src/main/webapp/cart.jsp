@@ -68,7 +68,7 @@
 									
 									<td class="quantity">
 										<div class="input-group mb-3">
-											<input id="Cnt${ cart.teaNum }" type="text" name="quantity" class="quantity form-control input-number" value="${cart.teaCnt}" min="1" max="${cart.teaCheckCnt}">
+											<input id="Cnt${ cart.teaNum }" type="number" name="quantity" class="quantity form-control input-number" value="${cart.teaCnt}" min="1" max="${cart.teaCheckCnt}">
 										</div>
 									</td>
 									
