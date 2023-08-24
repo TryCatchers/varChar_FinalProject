@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.varchar.biz.common.Paging;
+import com.varchar.biz.common.PagingVO;
 import com.varchar.biz.favor.FavorService;
 import com.varchar.biz.favor.FavorVO;
 import com.varchar.biz.review.ReviewService;
@@ -35,73 +36,38 @@ public class TeaController {
 	// ---------------------------- 상품 목록 페이지 -------------------------------------
 	
 	@RequestMapping(value="/teaListPage.do")
-	public String teaListPage(TeaVO teaVO, Model model, HttpServletRequest request, HttpSession session) { // 상품 목록
-		System.out.println("\tLog: controller => TeaListPageAction [START]");
-		
-		int currentPage = 1;
-		
-		String currentPageStr = request.getParameter("page");
-		
-		try {
-			if (currentPageStr != null && !currentPageStr.equals("")) {
-				currentPage = Integer.parseInt(currentPageStr);				
-			}
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} 
-		
-		final int pageSize = 8; // 한페이지에 보여줄 행
-		final int pageBlock = 2; // 페이징에 나타날 페이지 수
-		int startPage = 0; // 시작 페이지
-		int endPage = 0; // 끝 페이지
-		int startRnum = 0; // 시작 rnum
-		int endRnum = 0; // 끝 rnum
-		int totalCnt = 0; // 총 행 수
-		
+	public String teaListPage(TeaVO teaVO, Model model, HttpServletRequest request, HttpSession session, PagingVO pagingVO) { // 상품 목록
+
 		String teaCategory = request.getParameter("teaCategory");
-		teaVO.setTeaCategory(teaCategory == null ? "" : teaCategory);
-		System.out.println(teaCategory);
 		String teaSearchWord = request.getParameter("teaSearchWord");
+		
+		teaVO.setTeaCategory(teaCategory == null ? "" : teaCategory);
 		teaVO.setTeaSearchWord(teaSearchWord == null ? "" : teaSearchWord);
+		
+		
+		System.out.println(teaCategory);
 		System.out.println(teaSearchWord);
 		
-		List<TeaVO> reviewDatasTotal = teaService.selectAll(teaVO); // 총 상품 개수	
-		totalCnt = reviewDatasTotal.size();
-		System.out.println("상품리스트 로그 reviewDatasTotal: "+ reviewDatasTotal);
+		List<TeaVO> teaDatasTotal = teaService.selectAll(teaVO); // 총 상품 개수
+		System.out.println("상품리스트 로그 reviewDatasTotal: "+ teaDatasTotal);
 		
-		int totalPageCnt = (totalCnt / pageSize) + (totalCnt % pageSize == 0 ? 0 : 1);
-		if (currentPage % pageBlock == 0) {
-			startPage = ((currentPage / pageBlock) - 1) * pageBlock + 1;
-		} else {
-			startPage = (currentPage / pageBlock) * pageBlock + 1;
-		}
-		endPage = startPage + pageBlock - 1;
-		if (endPage > totalPageCnt) {
-			endPage = totalPageCnt;
-		}
-		
-		System.out.println("\teaLog: controller => TeaListPageAction [page: startPage: " + startPage + ", endPage: " + endPage + "]");
-		
-		startRnum = (currentPage - 1) * pageSize + 1;
-		endRnum = startRnum + pageSize - 1;
-		startRnum = (currentPage - 1) * pageSize + 1;
-		endRnum = startRnum + pageSize;
-		if (endRnum > totalCnt) {
-			endRnum = totalCnt;
-		}
-		
-		System.out.println("\teaLog: controller => TeaListPageAction: [page: startRnum: " + startRnum + ", endRnum: " + endRnum + "]");
-		
-		request.setAttribute("startPage", startPage);
-		request.setAttribute("endPage", endPage);
-		request.setAttribute("currentPage", currentPage);
-		request.setAttribute("totalPageCnt", totalPageCnt);
+		pagingVO.setTotalCnt(teaDatasTotal.size());
+		pagingVO.setCurrentPageStr(request.getParameter("page"));
+
+		// 페이지네이션 모듈화
+		pagingVO = Paging.paging(pagingVO);
+			
+		//
+		request.setAttribute("startPage", pagingVO.getStartPage());
+		request.setAttribute("endPage", pagingVO.getEndPage());
+		request.setAttribute("currentPage", pagingVO.getCurrentPage());
+		request.setAttribute("totalPageCnt", pagingVO.getTotalPageCnt());
 		request.setAttribute("teaSearchWord", teaSearchWord);
 		request.setAttribute("teaCategory", teaCategory);
-		//request.setAttribute("currentPage", currentPage);
 		
+		//
 		teaVO.setTeaCondition("페이징");
-		teaVO.setStartRnum(startRnum);
+		teaVO.setStartRnum(pagingVO.getStartRnum());
 		teaVO.setTeaName((String)session.getAttribute("sessionMemberId"));
 		
 		List<TeaVO> teaDatas = teaService.selectAll(teaVO);
@@ -109,8 +75,6 @@ public class TeaController {
 		
 		System.out.println("session memberId: " + (String)session.getAttribute("sessionMemberId"));
 		System.out.println("상품리스트 로그 teaDatas: "+ teaDatas);
-		
-		System.out.println(teaDatas);
 		
 		System.out.println("\teaLog: controller => TeaListPageAction [END]");
 		return "teaList.jsp";

@@ -1,6 +1,6 @@
 package com.varchar.biz.tea;
 
-// 지현 수정
+// 지현 수정 ---> 이거 언제 지움???
 public class TeaVO {
 	private int teaNum;
 	private String teaName;

@@ -172,19 +172,19 @@
               <ul>
               	<c:if test="${ startPage > 1 }">
               		<li>
-              	 	<a href="reviewsListPage.do?searchName=${ searchName }&pMemberId=${ pMemberId }&reviewSearch=${ reviewSearch }&page=${ startPage - 1 }">
+              	 	<a href="reviewListPage.do?searchName=${ searchName }&pMemberId=${ pMemberId }&reviewSearch=${ reviewSearch }&page=${ startPage - 1 }">
               	 	&lt;
               	 	</a>
               	 	</li>
 				</c:if>
 				<c:forEach begin="${ startPage }" end="${ endPage }" var="p">
 					<li>
-					<a href="reviewsListPage.do?searchName=${ searchName }&pMemberId=${ pMemberId }&reviewSearch=${ reviewSearch }&page=${ p }">${ p }</a>
+					<a href="reviewListPage.do?searchName=${ searchName }&pMemberId=${ pMemberId }&reviewSearch=${ reviewSearch }&page=${ p }">${ p }</a>
 					</li>
 				</c:forEach>
 				<c:if test="${ endPage < totalPageCnt }">
 					<li>
-					<a href="reviewsListPage.do?searchName=${ searchName }&pMemberId=${ pMemberId }&reviewSearch=${ reviewSearch }&page=${ endPage + 1 }">
+					<a href="reviewListPage.do?searchName=${ searchName }&pMemberId=${ pMemberId }&reviewSearch=${ reviewSearch }&page=${ endPage + 1 }">
 					&gt;
 					</a>
 					</li>
