@@ -40,6 +40,12 @@ public class MemberController {
 
 		if (memberVO != null) {
 			session.setAttribute("sessionMemberId", memberVO.getMemberId());
+			
+//			if(memberVO.getMemberGrade().equals("ADMIN")) { // 관리자 검사
+//				return "관리자 페이지";
+//			}
+			
+			
 		} else {
 			AlertVO sweetAlertVO = new AlertVO("로그인실패", "로그인실패", null, "error", null);
 			model.addAttribute("sweetAlertVO", sweetAlertVO);
@@ -92,7 +98,16 @@ public class MemberController {
 		if (memberService.insert(memberVO)) {
 			AlertVO sweetAlertVO = new AlertVO("회원가입", "회원가입 성공!", null, "success", "main.do");
 			model.addAttribute("sweetAlert", sweetAlertVO);
+			
+			if(memberVO.getMemberEmail() != null) {
+				return "email.do";
+			}
 		}
+		//** 회원가입 실패 ---> 유효성 추가 필요 */
+		else {
+			// 실패..
+		}
+
 		return "alertTrue.jsp";
 	}
 
@@ -101,6 +116,7 @@ public class MemberController {
 	@RequestMapping(value = "/updateInfoPage.do")
 	public String updateInfoPage(MemberVO memberVO, HttpSession session, Model model) {
 
+		//** 해당 회원 NULL 혹은 로그인 안함 ---> 유효성 추가 필요 */
 		memberVO.setMemberId((String) session.getAttribute("sessionMemberId"));
 		memberVO.setMemberSearch("회원정보변경");
 		memberVO = memberService.selectOne(memberVO);
@@ -123,6 +139,8 @@ public class MemberController {
 //		memberVO.setMemberEmail(request.getParameter("memberEmail").equals("") ? null : request.getParameter("memberEmail"));
 //		System.out.println(memberVO);
 
+		// 혹시 계속 문제 발생시 memberId set 고려
+		//** 회원 정보 변경 실패시---> 유효성 추가 필요 */
 		if (memberService.update(memberVO)) {
 			AlertVO sweetAlertVO = new AlertVO("회원정보 변경", "회원정보 변경", null, "success", "main.do");
 			model.addAttribute("sweetAlert", sweetAlertVO);
@@ -147,6 +165,7 @@ public class MemberController {
 	public String updatePw(MemberVO memberVO, Model model) {
 
 		memberVO.setMemberSearch("비밀번호변경");
+		//** 비밀번호 변경 실패 ---> 유효성 추가 필요 */
 		if (memberService.update(memberVO)) {
 			AlertVO sweetAlertVO = new AlertVO("비밀번호변경", "비밀번호 변경 성공!", null, "success", "logout.do");
 			model.addAttribute("sweetAlert", sweetAlertVO);
@@ -155,16 +174,16 @@ public class MemberController {
 	}
 
 	// ------------------------------------- 이메일 전송 ------------------------------------------
-	@RequestMapping(value = "/signupSuccess.do")
-	public String signupSuccess(HttpServletRequest request) {
+	@RequestMapping(value = "/email.do")
+	public String signupEmail(MemberVO memberVO) {
 		System.out.println("로그: EmailController: signupSuccess() ");
 
-		String title = "[헬스해듀오] 더 나은 몸과 마음을 위한 당신만의 여정";
-		String receiver = (String) request.getAttribute("email");
-		String name = (String) request.getAttribute("name");
+		String title = "[var茶] 더 나은 몸과 마음을 위한 당신만의 여정";
+		String receiver = memberVO.getMemberEmail();
+		String name = memberVO.getMemberName();
 		String content = "<h2>" + name + "님의 회원가입을 진심으로 축하드립니다~!!</h2><br>"
-				+ "헬스해듀오 관리자입니다. 헬스해듀오로 발걸음해주셔서 정말 감사합니다.<br>" + "앞으로 더 나은 헬스해듀오가 되겠습니다~^^";
-		String from = "rkdtmdcks012@gmail.com";
+				+ "var茶로 발걸음해주셔서 정말 감사합니다.<br>" + "앞으로 더 나은 서비스를 제공하겠습니다!";
+		String from = "TryCathers";
 
 		// 이메일 제목과 내용 설정
 
@@ -182,8 +201,7 @@ public class MemberController {
 			e.printStackTrace();
 		}
 
-		// 회원가입 성공 후 메인 페이지로 이동
-		return "main.do";
+		return "alertTrue.jsp";
 	}
 
 }
