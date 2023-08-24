@@ -3,9 +3,9 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="main.jsp">
+            <a class="nav-link" href="admin.jsp">
               <i class="mdi mdi-home menu-icon"></i>
-              <span class="menu-title">Var茶 홈페이지</span>
+              <span class="menu-title">메인으로 돌아가기</span>
             </a>
           </li>
           <li class="nav-item nav-category">Hashtag</li>
@@ -17,9 +17,9 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="Ad/pages/ui-features/buttons.html">해시태그 추가</a></li>
-                <li class="nav-item"> <a class="nav-link" href="Ad/pages/ui-features/dropdowns.html">해시태그 삭제</a></li>
-                <li class="nav-item"> <a class="nav-link" href="adhashTag.jsp#fixtag">해시태그 수정</a></li>
+                <li class="nav-item"> <a class="nav-link" href="adhashTag.jsp">해시태그 추가</a></li>
+                <li class="nav-item"> <a class="nav-link" href="adhashTag.jsp">해시태그 삭제</a></li>
+                <li class="nav-item"> <a class="nav-link" href="adhashTag.jsp">해시태그 수정</a></li>
               </ul>
             </div>
           </li>
@@ -32,34 +32,20 @@
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="Ad/pages/forms/basic_elements.html">상품 추가</a></li>
-                <li class="nav-item"><a class="nav-link" href="Ad/pages/forms/basic_elements.html">상품 삭제</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-              <i class="menu-icon mdi mdi-square-inc-cash"></i>
-              <span class="menu-title">티 가격관리</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="charts">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="Ad/pages/charts/chartjs.html">가격 변경</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-              <i class="menu-icon mdi mdi-table-large"></i>
-              <span class="menu-title">티 재고관리</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="tables">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="Ad/pages/tables/basic-table.html">재고 변경</a></li>
+                <li class="nav-item"><a class="nav-link" href="adteaManage.jsp" id="addtea">상품 추가</a></li>
+                <li class="nav-item"><a class="nav-link" href="adteaManage.jsp#scrolltodelete" id="deletetea">상품 삭제</a></li>
+                <li class="nav-item"><a class="nav-link" href="adteaManage.jsp#scrolltofix" id="fixtea">상품 수정(재고/가격)</a></li>
               </ul>
             </div>
           </li>
         </ul>
       </nav>
+     <script>
+     var sidebar = document.getElementById("sidebar");
+
+     window.addEventListener("scroll", function () {
+         var scrolled = window.scrollY;
+         sidebar.style.transform = "translateY(" + scrolled + "px)";
+     });
+     
+     </script> 
