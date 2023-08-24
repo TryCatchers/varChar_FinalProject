@@ -37,7 +37,7 @@
 	    				<table class="table">
 						    <thead class="thead-primary">
 						      <tr class="text-center">
-						        <th>&nbsp;</th>
+						        <th>삭제</th>
 						        <th>&nbsp;</th>
 						        <th>상품정보</th>
 						        <th>가격</th>
@@ -55,25 +55,68 @@
 								<c:set var="priceSum" value="0"/>
 								<c:forEach var="cart" items="${ sessionScope.cart }">
 								<tr id="cartForEach${ cart.teaNum }" class="text-center">
-									<td class="product-remove"><span id="${ cart.teaNum }" class="ion-ios-close"></span></td>
+									<td class="product-remove">
+									<a>
+									<span id="${ cart.teaNum }" class="ion-ios-close"></span>
+									</a>
+									</td>
 									
 									<td class="image-prod"><div class="img" style="background-image:url(${ cart.imageUrl });"></div></td>
 									
 									<td class="product-name">
 										<h3>${ cart.teaName }</h3>
-										<p>Far far away, behind the word mountains, far from the countries</p>
+										<p>${ cart.teaContent }</p>
 									</td>
 									
 									<td class="price">${ cart.teaPrice }</td>
 									
 									<td class="quantity">
-										<div class="input-group mb-3">
-											<input id="Cnt${ cart.teaNum }" type="number" name="quantity" class="quantity form-control input-number" value="${cart.teaCnt}" min="1" max="${cart.teaCheckCnt}">
+										<div class="input-group col-md-12 d-flex">
+											<span class="input-group-btn mr-2">
+							                	<button type="button" class="quantity-left-minus ${ cart.teaNum } btn"  data-type="minus" data-field="">
+							                    	<i class="ion-ios-remove"></i>
+							                	</button>
+						            		</span>
+											<input id="Cnt${ cart.teaNum }" type="text" name="quantity" class="quantity form-control input-number" value="${cart.teaCnt}" min="1" max="${cart.teaCheckCnt}">
+											<span class="input-group-btn ml-2">
+								                <button type="button" class="quantity-right-plus ${ cart.teaNum } btn" data-type="plus" data-field="">
+								                	<i class="ion-ios-add"></i>
+								                </button>
+							             	</span>
 										</div>
 									</td>
 									
-									<td id="price${ cart.teaNum }" class="total">가격</td>
 									<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+									<script type="text/javascript">
+										   var quantitiy=0;
+										   $('.quantity-right-plus.${ cart.teaNum }').click(function(e){
+										        
+										        // Stop acting like a button
+										        e.preventDefault();
+										        // Get the field name
+										        var quantity = parseInt($('#Cnt${ cart.teaNum }').val());
+										        
+										        // If is not undefined
+										        $('#Cnt${ cart.teaNum }').val(quantity + 1);
+										        
+										        // Increment
+										    });
+								
+										     $('.quantity-left-minus.${ cart.teaNum }').click(function(e){
+										        // Stop acting like a button
+										        e.preventDefault();
+										        // Get the field name
+										        var quantity = parseInt($('#Cnt${ cart.teaNum }').val());
+										        
+										        // If is not undefined
+										      
+										        // Increment
+										        if(quantity > 0){
+										        	$('#Cnt${ cart.teaNum }').val(quantity - 1);
+										        }
+										    });
+									</script>
+									<td id="price${ cart.teaNum }" class="total">가격</td>
 									<script type="text/javascript">
 										$(document).ready(function(){
 											
@@ -81,8 +124,6 @@
 											var price = nowCnt * ${ cart.teaPrice };
 											
 											var cartAction = 1;
-											
-											
 											
 											$("#price"+${ cart.teaNum }).text(price);
 											
@@ -107,7 +148,7 @@
 										   });
 										   
 										   $("#Cnt"+${ cart.teaNum }).change(function(){
-												   console.log("구매 갯수 변경 확인");
+												console.log("구매 갯수 변경 확인");
 												var changeCnt = $("#Cnt"+${ cart.teaNum }).val();
 												
 												if(changeCnt > ${ cart.teaCheckCnt }){
@@ -193,7 +234,6 @@
 													alert('error ['+error+']');
 												 }
 											  });
-															
 														}
 														else {
 															location.href='#';
@@ -207,26 +247,6 @@
 								<c:set var="priceSum" value="${ priceSum + cart.teaCnt * cart.teaPrice }"/>
 								</c:forEach>
 							</c:if>
-						      <tr class="text-center">
-						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-						        
-						        <td class="image-prod"><div class="img" style="background-image:url(images/product-3.jpg);"></div></td>
-						        
-						        <td class="product-name">
-						        	<h3>테스트 상품</h3>
-						        	<p>Far far away, behind the word mountains, far from the countries</p>
-						        </td>
-						        
-						        <td class="price">$4.90</td>
-						        
-						        <td class="quantity">
-						        	<div class="input-group mb-3">
-					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-					          	</div>
-					          </td>
-						        
-						        <td class="total">$4.90</td>
-						      </tr><!-- END TR-->
 						    </tbody>
 						  </table>
 					  </div>
@@ -388,43 +408,6 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
-
-  <script>
-		$(document).ready(function(){
-
-		var quantitiy=0;
-		   $('.quantity-right-plus').click(function(e){
-		        
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		            
-		            $('#quantity').val(quantity + 1);
-
-		          
-		            // Increment
-		        
-		    });
-
-		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		      
-		            // Increment
-		            if(quantity>0){
-		            $('#quantity').val(quantity - 1);
-		            }
-		    });
-		    
-		});
-	</script>
     
   </body>
 </html>

@@ -36,7 +36,7 @@
 	    				<table class="table">
 						    <thead class="thead-primary">
 						      <tr class="text-center">
-						        <th>찜 삭제</th>
+						        <th>삭제</th>
 						        <th>상품정보</th>
 						        <th>&nbsp;</th>
 						        <th>가격</th>
@@ -53,13 +53,16 @@
 								<input type="hidden" name="favorNum" value="${ favorNum }">
 								<c:forEach var="favorData" items="${ favorDatas }"> 
 									<tr id="favorForEach${ favorData.teaNum }" class="text-center">
-									<td id ="${ favorData.teaNum }" class="product-remove"><span class="ion-ios-close"></span></a></td>
-									
+									<td id ="${ favorData.teaNum }" class="product-remove">
+									<a>
+									<span class="ion-ios-close"></span>
+									</a>
+									</td>
 									<td class="image-prod"><div class="img" style="background-image:url(${ favorData.imageUrl });"></div></td>
 									
 									<td class="product-name">
 										<a href="teaDetailPage.do?favor=1&teaNum=${ favorData.teaNum }"><h3>${ favorData.teaName }</h3></a>
-										<p>Far far away, behind the word mountains, far from the countries</p>
+										<p>qweqweqweqw</p>
 									</td>
 									
 									<td class="price">${ favorData.teaPrice }</td>

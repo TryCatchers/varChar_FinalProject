@@ -48,7 +48,7 @@
 						    </thead>
 						    <tbody>
 								<c:forEach var="buyDetailData" items="${ buyDetailDatas }">
-	                   			<form action="insertReviewsPage.do?buySerial=${ buyDetailData.buySerial }" method="post">
+	                   			<form action="insertReviewPage.do?buySerial=${ buyDetailData.buySerial }" method="post">
 									<c:set var="sum" value="0" />
     								<c:set var="sum" value="${ sum + ( buyDetailData.teaPrice * buyDetailData.buyCnt) }" />
 									<tr class="text-center">
@@ -62,7 +62,7 @@
 										<td class="price">${ buyDetailData.buyCnt }</td>
 										
 										<td class="quantity">
-											<div class="input-group mb-3">
+											<div class="input-group">
 											 <input type="text" name="quantity" class="quantity form-control input-number" value="${ v.buyCnt }">
 										  </div>
 									  </td>

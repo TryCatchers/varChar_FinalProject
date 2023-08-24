@@ -1,6 +1,7 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!-- 상단 핵심 소개바 + 메뉴 + 반응형 구조로 창 최소화시 검은색으로 변하는 부분 (goto-here는 스크롤시 딸려나오지 않음) -->
 		<div class="py-1 bg-primary">
     	<div class="container">
@@ -40,6 +41,9 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
+	          <c:if test="${sessionMemberId eq 'admin' }">
+	          	<li class="nav-item active"><a href="admin.jsp" class="nav-link">관리자 페이지</a></li>
+	          </c:if>
 	          <li class="nav-item active"><a href="main.do" class="nav-link">홈</a></li>
 	          <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="teaListPage.do" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">티 제품
@@ -78,7 +82,7 @@
 			</c:if>
 			</ul>
 			<ul class="navbar-nav ml-auto">
-	          <li class="nav-item cta cta-colored"><a href="cartPage.do" class="nav-link"><span class="icon-shopping_cart"></span>[${fn:length(sessionScope.cart)}]</a></li>
+	          <li class="nav-item cta cta-colored"><a href="cartPage.do" class="nav-link"><span class="icon-shopping_cart"></span>[${ fn:length(sessionScope.cart) }]</a></li>
 	          <li class="nav-item nav-line"></li>
 	          <c:if test="${ empty sessionMemberId }">
 	          	<li class="nav-item"><a href="loginPage.do" class="nav-link">로그인</a></li>

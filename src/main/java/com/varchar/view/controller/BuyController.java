@@ -132,7 +132,6 @@ public class BuyController {
 				} else {
 					System.out.println(
 							"BuyDetailPageAction reviewVO Not null  로그 : " + reviewService.selectOne(reviewVO));
-
 				}
 			}
 			model.addAttribute("buyDetailDatas", buyDetailDatas);

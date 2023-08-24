@@ -12,17 +12,33 @@
     <try:favicon/>
     <!-- 링크 부분 태그 -->
     <try:link/>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <style type="text/css">
     .nolist{
     	margin: 0 auto;
     }
-    
     </style>
+    <script type="text/javascript">
+	    var pageUrl = window.location.href; // 페이지 Url
+	    pageUrl = decodeURI(pageUrl.substr(26)); // Url 디코딩
+	    
+	    $(window).on('load', function() {
+	    	var aLength = $('.product-category > li > a').length; // .product-category > li > a 개수
+	        $('.product-category > li > a').removeClass('active'); // 모든 active 클래스명 제거
+	        
+	        for (var i = 0; i < aLength; i++) {
+	        	var category = $('.product-category > li > a').eq(i); // i 번째 카테고리
+	        	if (category.attr('href') == pageUrl) { // href가 현재 페이지 Url이면
+	        		category.addClass('active'); // active 클래스명 추가
+	        		break;
+	        	}
+	        }
+	    });
+	</script>
   </head>
   <body class="goto-here">
     <!-- 헤더 부분 태그 -->
-     <try:nav/>
-
+    <try:nav/>
     <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -39,7 +55,7 @@
     		<div class="row justify-content-center">
     			<div class="col-md-10 mb-5 text-center">
     				<ul class="product-category">
-    					<li><a href="teaListPage.do" class="active">전체</a></li>
+    					<li><a href="teaListPage.do">전체</a></li>
     					<li><a href="teaListPage.do?teaCategory=녹차">녹차</a></li>
     					<li><a href="teaListPage.do?teaCategory=홍차">홍차</a></li>
     					<li><a href="teaListPage.do?teaCategory=루이보스">루이보스</a></li>
@@ -74,7 +90,7 @@
 	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 	    								<span><i class="ion-ios-menu"></i></span>
 	    							</a>
-	    							<a href="loginPage.do" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    							<a href="insertCart.do?teaNum=${ teaData.teaNum }&teaCnt=1" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
 	    							<a href="loginPage.do" class="heart d-flex justify-content-center align-items-center ">
@@ -83,7 +99,7 @@
 	    							</c:if>
 	    							<c:if test="${ not empty sessionMemberId }">
 	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span> <!-- 이거 상단 메뉴창 가는거인데 걍 없애자..ㅎ -->
+	    								<span><i class="ion-ios-menu"></i></span>
 	    							</a>
 	    							<a href="insertCart.do?teaNum=${ teaData.teaNum }&teaCnt=1" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
@@ -91,7 +107,6 @@
 	    							<a id="${ teaData.teaNum }" class="heart d-flex justify-content-center align-items-center ">
 	    								<span><i id="fc${ teaData.teaNum }" class="ion-ios-heart-empty"></i></span>
 	    							</a>
-	    							
 	    							</c:if>
     							</div>
     						</div>

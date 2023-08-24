@@ -15,7 +15,6 @@
     <try:favicon/>
     <!-- 링크 부분 헤더 -->
     <try:link/>
-
     <script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
     <style>
@@ -26,7 +25,12 @@
       .ck.ck-editor {
         width: 100%;
       }
-      
+      .quantity.form-control.input-number {
+    	text-align: center;
+    	font-size: 14px;
+    	border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    	height: 54px !important;
+      }
     </style>
   </head>
   <body class="goto-here">
@@ -51,39 +55,36 @@
     <form action="insertReview.do" method="post">
     <section class="ftco-section ftco-degree-bg">
       <div class="container">
+        <div class="cart-list">
+          <table class="table">
+            <thead class="thead-primary">
+              <tr class="text-center">
+                <th>&nbsp;</th>
+                <th>상품정보</th>
+                <th>시리얼번호</th>
+                <th>구매개수</th>
+                <th>회원아이디</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center">
+                <td class="image-prod"><div class="img" style="background-image:url(${ reviewData.imageUrl });"></div></td>      
+                <td class="product-name">
+                  <h3>${ reviewData.teaName }</h3>
+                  <p>${ reviewData.teaContent }</p>
+                </td>  
+                <td class="price">${ reviewData.buySerial }</td>          
+                <td class="quantity">
+                  <div class="input-group">
+                   <input type="text" name="quantity" class="quantity form-control input-number" value="${ reviewData.buyCnt }">
+                  </div>
+                </td>
+                <td class="total">${ reviewData.memberId }</td>
+              </tr><!-- END TR-->
+            </tbody>
+          </table>
+        </div>
         <div class="row">
-          <div class="cart-list">
-            <table class="table">
-              <thead class="thead-primary">
-                <tr class="text-center">
-                  <th>&nbsp;</th>
-                  <th>상품정보</th>
-                  <th>시리얼번호</th>
-                  <th>구매개수</th>
-                  <th>회원아이디</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="text-center">
-                  <td class="image-prod"><div class="img" style="background-image:url(images/product-1.jpg);"></div></td>
-                  
-                  <td class="product-name">
-                    <h3>${ reviewData.teaName }</h3>
-                    <p>${ reviewData.teaContent }</p>
-                  </td>
-                  
-                  <td class="price">${ reviewData.buySerial }</td>
-                  
-                  <td class="quantity">
-                    <div class="input-group">
-                     <input type="text" name="quantity" class="quantity form-control input-number" value="${ reviewData.buyCnt }">
-                    </div>
-                  </td>
-                  <td class="total">${ reviewData.memberId }</td>
-                </tr><!-- END TR-->
-              </tbody>
-            </table>
-          </div>
           <input type="hidden" name="buySerial" value="${ reviewData.buySerial }">
           <textarea id="editor" name="reviewContent">
           	${ reviewData.reviewContent }

@@ -72,9 +72,6 @@
 	                </div>
                 </div>
 	            </div>
-				<div style="margin:auto; text-align:center;">
-					<p><input type="submit" class="btn btn-primary py-3 px-4" value="  수정 완료  "style="vertical-align:middle; display:inline-block;"></p>
-				</div>
 	          </form>
 	          <!-- 주문 폼 태그 끝 -->
 			</div>
@@ -87,7 +84,7 @@
 	<script src="https://js.tosspayments.com/v1/payment-widget"></script>
 
 
-    <br><br><br><button id="payment-request-button">결제하기</button><br><br><br><br>
+    <button id="payment-request-button">결제하기</button>
 	<div id="payment-method"></div>
     
 <%--     <!-- 총 가격 구하기 -->
@@ -99,7 +96,7 @@
     <!-- 결제 -->
     <script>
     const paymentWidget = PaymentWidget(
-        "test_ck_Kma60RZblrqA7NX2LnErwzYWBn14",
+        "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq",
         // 비회원 customerKey
     	PaymentWidget.ANONYMOUS
     );
@@ -136,6 +133,7 @@
 	
           </div> <!-- .col-md-8 -->
         </div>
+      </div>
     </section>
 	<!-- 주문자 정보 섹션 끝-->
 	

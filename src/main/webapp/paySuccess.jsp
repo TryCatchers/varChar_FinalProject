@@ -106,7 +106,7 @@
 						주문해주셔서 감사합니다:D
 					</h3>
 							<p style="display: none;">결과 데이터 : ${ data }</p>
-							<p>주문자 :  ${ data }  |    결제방법 : ${ data }</p>
+							<p style="word-wrap: break-word;">주문자 :  ${ data }  |    결제방법 : ${ data }</p>
 							<div style="display: none;">
 							</div>
 						

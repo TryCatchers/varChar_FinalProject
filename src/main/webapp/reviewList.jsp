@@ -14,6 +14,13 @@
     <try:favicon/>
     <!-- 링크 부분 태그 -->
     <try:link/>
+    <style type="text/css">
+    	.edit-reviewCon {
+    		overflow: hidden;
+    		text-overflow: ellipsis;
+    		white-space: nowrap;
+    	}
+    </style>
   </head>
   <body class="goto-here">
 	<!-- 헤더 부분 태그 -->	
@@ -50,7 +57,9 @@
                           <div><a href="#">${ reviewData.memberId }</a></div>
                           <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
                         </div>
-                        <h3 class="heading reviewsCon ${ reviewData.reviewNum }"><a href="#">${ reviewData.reviewContent }</a></h3>
+                        <div class="meta mb-3 edit-reviewCon">
+                        	<h3 class="heading reviewsCon ${ reviewData.reviewNum }"><a href="#">${ reviewData.reviewContent }</a></h3>
+                        </div>
                         <script type="text/javascript">
                           var con = $('.reviewsCon.${ reviewData.reviewNum }').text();
                           console.log(con);

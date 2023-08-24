@@ -34,7 +34,6 @@ public class FavorController {
 		System.out.println("FavorPageAction favorVO.getMemberId  로그: " + favorVO.getMemberId());
 		System.out.println("FavorPageAction favorDatas 로그: " + favorDatas);
 		
-		
 		return "favor.jsp";
 	}
 	
