@@ -40,6 +40,8 @@
    </bean>
 	
 	
+	
+	
 	<aop:aspectj-autoproxy />
 	<!-- 
 	<bean id="logAdvice" class="com.varchar.biz.common.LogAdvice" />
