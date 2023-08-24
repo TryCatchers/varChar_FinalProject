@@ -25,6 +25,7 @@ public class FavorController {
 	@RequestMapping(value = "/favorPage.do")
 	public String favorPage(HttpSession session, FavorVO favorVO, Model model) {
 		
+		//** 해당 회원 NULL 혹은 로그인 안함 ---> 유효성 추가 필요 */
 		favorVO.setMemberId((String)session.getAttribute("sessionMemberId"));
 		System.out.println("favorCon : " + favorVO.getMemberId());
 		

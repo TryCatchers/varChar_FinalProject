@@ -49,6 +49,7 @@ public class TeaController {
 		System.out.println(teaCategory);
 		System.out.println(teaSearchWord);
 		
+		//** 상품 NULL일때(아무 상품도 없을때) NPE 근데 아마 우리가 샘플 무조건 넣어서 괜찮긴 함 ---> 유효성 추가 필요 */
 		List<TeaVO> teaDatasTotal = teaService.selectAll(teaVO); // 총 상품 개수
 		System.out.println("상품리스트 로그 reviewDatasTotal: "+ teaDatasTotal);
 		
@@ -81,6 +82,7 @@ public class TeaController {
 	
 	// ---------------------------- 상품 상세 페이지 -------------------------------------
 	// tVO 따로 사용하지 말고 상품 정보 RiviewSetVO에 담아서 오자!!!
+	//** set 구조 변경 */
 	
 	@RequestMapping(value="/teaDetailPage.do")
 	public String teaDetailPage(TeaVO teaVO, FavorVO favorVO, ReviewSet reviewSetVO, ReviewVO reviewVO, HttpSession session, Model model) { // 상품 상세

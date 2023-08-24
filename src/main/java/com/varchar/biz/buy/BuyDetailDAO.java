@@ -24,6 +24,7 @@ public class BuyDetailDAO {
 			+ "JOIN IMAGE i ON i.TEA_NUM = t.TEA_NUM "
 			+ "WHERE bd.BUY_NUM = ?";
 
+	// 이거 왜 따로 있나용? --지현
 	static final private String SQL_SELECTALL_CARTRETRY =
 			"SELECT TEA_NUM, BUY_CNT FROM BUY_DETAIL WHERE BUY_NUM = ?";
 

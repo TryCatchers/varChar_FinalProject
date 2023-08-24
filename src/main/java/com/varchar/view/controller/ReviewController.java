@@ -35,14 +35,15 @@ public class ReviewController {
 	@RequestMapping(value="/reviewListPage.do")
 	public String reviewListPage(ReviewVO reviewVO, PagingVO pagingVO, Model model) {
 		
+		int pageSize = 5;
 		String searchName = pagingVO.getSearchName();
 		String reviewSearch = pagingVO.getReviewSearch();
 		
-		int pageSize = 5;
 		
 		reviewVO.setSearchName(searchName == null ? "" : searchName);
 		reviewVO.setReviewSearch(reviewSearch == null ? "" : reviewSearch);
 
+		//** 리뷰 NULL일때(아무 리뷰도 없을때) NPE ---> 유효성 추가 필요 */
 		List<ReviewVO> reviewDatasTotal = reviewService.selectAll(reviewVO); // 총 리뷰 개수
 		
 		pagingVO.setPageSize(pageSize);
@@ -71,6 +72,7 @@ public class ReviewController {
 	@RequestMapping(value="/reviewDetailPage.do")
 	public String reviewDetailPage(ReviewVO reviewVO, Model model) {
 		
+		//** 해당 리뷰 존재 안함 ---> 유효성 추가 필요 */
 		reviewVO.setReviewSearch("리뷰상세");
 		reviewVO = reviewService.selectOne(reviewVO);
 		System.out.println("로그: reviewDetailAction: " + reviewVO);
@@ -92,6 +94,7 @@ public class ReviewController {
 		buyDetailVO.setBuySearch("주문상세");
 		buyDetailVO = buyDetailService.selectOne(buyDetailVO);
 		
+		//** 해당 상품 존재 안함 ---> 유효성 추가 필요 */
 		teaVO = teaService.selectOne(teaVO);
 		model.addAttribute("reviewData", reviewVO);
 		model.addAttribute("teaDatas", teaVO);
@@ -110,6 +113,7 @@ public class ReviewController {
 		
 		reviewVO.setMemberId((String)session.getAttribute("sessionMemberId"));
 		
+		//** 후기 작성 실패시 ---> 유효성 추가 필요 */
 		if(reviewService.insert(reviewVO)) {
 			AlertVO sweetAlertVO = new AlertVO("후기작성", "후기작성완료!", null, "success", "reviewListPage.do?searchName=ALL");
 			model.addAttribute("sweetAlert", sweetAlertVO);
@@ -121,6 +125,7 @@ public class ReviewController {
 	
 	@RequestMapping(value="/updateReview.do")
 	public String updateReviews(ReviewVO reviewVO, Model model) {
+		//** 후기 수정 실패시 ---> 유효성 추가 필요 */
 		reviewService.update(reviewVO);
 		model.addAttribute("reviewData", reviewService.selectOne(reviewVO));
 		return "reviewDetailPage.do";
@@ -128,6 +133,7 @@ public class ReviewController {
 	
 	@RequestMapping(value="/updateReviewPage.do")
 	public String updateReviewsPage(ReviewVO reviewVO, Model model) {
+		//** 해당 후기 없을시 ---> 유효성 추가 필요 */
 		reviewVO.setReviewSearch("리뷰상세");
 		reviewVO = reviewService.selectOne(reviewVO);
 		System.out.println("로그: UrpAction: " + reviewVO);
@@ -158,7 +164,7 @@ public class ReviewController {
 		reviewVO.setMemberId((String)session.getAttribute("sessionMemberId"));
 		
 		if(reviewService.delete(reviewVO)) {
-			AlertVO sweetAlertVO = new AlertVO("후기삭제", "후기 삭제 성공!", null, "success", "myReviewListPage.do?searchName=MEMBER");
+			AlertVO sweetAlertVO = new AlertVO("후기삭제", "후기 삭제 성공!", null, "success", "myReviewsListPage.do");
 			model.addAttribute("sweetAlert", sweetAlertVO);
 		}
 		
