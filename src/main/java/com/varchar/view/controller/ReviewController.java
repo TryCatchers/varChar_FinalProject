@@ -130,7 +130,10 @@ public class ReviewController {
 	@RequestMapping(value="/updateReview.do")
 	public String updateReviews(ReviewVO reviewVO, Model model) {
 		//** 후기 수정 실패시 ---> 유효성 추가 필요 */
+		System.out.println("로그 updateReview.do reviewVO: " +reviewVO);
 		reviewService.update(reviewVO);
+		
+		reviewVO.setReviewSearch("리뷰상세");
 		model.addAttribute("reviewData", reviewService.selectOne(reviewVO));
 		return "reviewDetailPage.do";
 	}
@@ -140,7 +143,7 @@ public class ReviewController {
 		//** 해당 후기 없을시 ---> 유효성 추가 필요 */
 		reviewVO.setReviewSearch("리뷰상세");
 		reviewVO = reviewService.selectOne(reviewVO);
-		System.out.println("로그: UrpAction: " + reviewVO);
+		System.out.println("로그: UrpAction: " + reviewVO); // 로그 줄임말 실화?
 		
 		if (reviewVO != null) {
 			model.addAttribute("reviewData", reviewVO);
@@ -168,7 +171,7 @@ public class ReviewController {
 		reviewVO.setMemberId((String)session.getAttribute("sessionMemberId"));
 		
 		if(reviewService.delete(reviewVO)) {
-			AlertVO sweetAlertVO = new AlertVO("후기삭제", "후기 삭제 성공!", null, "success", "myReviewsListPage.do");
+			AlertVO sweetAlertVO = new AlertVO("후기삭제", "후기 삭제 성공!", null, "success", "myReviewsListPage.do?searchName=MEMBER");
 			model.addAttribute("sweetAlert", sweetAlertVO);
 		}
 		

@@ -81,7 +81,7 @@
           </div> <!-- .col-md-8 -->
           <div class="col-lg-4 sidebar ftco-animate">
             <div class="sidebar-box">
-              <form action="reviewsListPage.do" class="search-form">
+              <form action="reviewListPage.do" class="search-form">
                 <div class="form-group">
                   <span class="icon ion-ios-search"></span>
                   <input type="hidden" name="searchName" value="REVIEW">
@@ -92,11 +92,11 @@
             <div class="sidebar-box ftco-animate">
             	<h3 class="heading">Categories</h3>
               <ul class="categories">
-                <li><a href="reviewsListPage.do?searchName=CATEGORY&reviewSearch=녹차">녹차<span>(12)</span></a></li>
-                <li><a href="reviewsListPage.do?searchName=CATEGORY&reviewSearch=홍차">홍차<span>(22)</span></a></li>
-                <li><a href="reviewsListPage.do?searchName=CATEGORY&reviewSearch=우롱차">우롱차<span>(37)</span></a></li>
-                <li><a href="reviewsListPage.do?searchName=CATEGORY&reviewSearch=루이보스차">루이보스차<span>(42)</span></a></li>
-                <li><a href="reviewsListPage.do?searchName=CATEGORY&reviewSearch=허브차">허브차<span>(42)</span></a></li>
+                <li><a href="reviewListPage.do?searchName=CATEGORY&reviewSearch=녹차">녹차<span>(12)</span></a></li>
+                <li><a href="reviewListPage.do?searchName=CATEGORY&reviewSearch=홍차">홍차<span>(22)</span></a></li>
+                <li><a href="reviewListPage.do?searchName=CATEGORY&reviewSearch=우롱차">우롱차<span>(37)</span></a></li>
+                <li><a href="reviewListPage.do?searchName=CATEGORY&reviewSearch=루이보스차">루이보스차<span>(42)</span></a></li>
+                <li><a href="reviewListPage.do?searchName=CATEGORY&reviewSearch=허브차">허브차<span>(42)</span></a></li>
               </ul>
             </div>
 

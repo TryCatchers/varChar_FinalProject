@@ -162,13 +162,13 @@ public class ReviewDAO {
 		// 후기 검색 페이징
 		else if(reviewVO.getSearchName().equals("REVIEW_PAGING")) {
 			System.out.println("REVIEW_PAGING");
-			Object[] args = { reviewVO.getReviewSearch(), reviewVO.getStartRnum() };
+			Object[] args = { reviewVO.getReviewSearch(), reviewVO.getStartRnum(), reviewVO.getEndRnum() };
 			return jdbcTemplate.query(SQL_SELECTALL_REVIEW + PAGING, args, new ReviewSelectAllRowMapper());
 		}
 		// 후기 카테고리 검색 페이징
 		else if(reviewVO.getSearchName().equals("CATEGORY_PAGING")) {
 			System.out.println("CATEGORY_PAGING");
-			Object[] args = { reviewVO.getReviewSearch(), reviewVO.getStartRnum() };
+			Object[] args = { reviewVO.getReviewSearch(), reviewVO.getStartRnum(), reviewVO.getEndRnum() };
 			return jdbcTemplate.query(SQL_SELECTALL_CATE + PAGING, args, new ReviewSelectAllRowMapper());
 		}
 		// 내 후기 페이징
