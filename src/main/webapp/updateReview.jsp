@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Var茶 | 후기 수정</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -15,6 +15,7 @@
     <try:favicon/>
     <!-- 링크 부분 헤더 -->
     <try:link/>
+
     <script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
     <style>

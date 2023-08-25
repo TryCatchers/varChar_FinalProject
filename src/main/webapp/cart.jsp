@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Var茶 | 장바구니</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- 파비콘 태그 -->
@@ -56,8 +56,8 @@
 								<c:forEach var="cart" items="${ sessionScope.cart }">
 								<tr id="cartForEach${ cart.teaNum }" class="text-center">
 									<td class="product-remove">
-									<a>
-									<span id="${ cart.teaNum }" class="ion-ios-close"></span>
+									<a id="${ cart.teaNum }">
+									<span class="ion-ios-close"></span>
 									</a>
 									</td>
 									

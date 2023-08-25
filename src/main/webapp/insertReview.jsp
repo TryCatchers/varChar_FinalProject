@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Var茶 | 후기 작성</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"

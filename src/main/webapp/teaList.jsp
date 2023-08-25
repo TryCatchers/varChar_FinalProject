@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Var茶 | 티 제품</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- 파비콘 태그 -->
@@ -19,10 +19,11 @@
     }
     </style>
     <script type="text/javascript">
-	    var pageUrl = window.location.href; // 페이지 Url
-	    pageUrl = decodeURI(pageUrl.substr(26)); // Url 디코딩
-	    
 	    $(window).on('load', function() {
+		    var pageUrl = window.location.href; // 페이지 Url
+		    pageUrl = decodeURI(pageUrl.substr(26)); // Url 디코딩
+		    console.log(pageUrl.substring(0, pageUrl.indexOf('&')));
+		    
 	    	var aLength = $('.product-category > li > a').length; // .product-category > li > a 개수
 	        $('.product-category > li > a').removeClass('active'); // 모든 active 클래스명 제거
 	        
@@ -128,7 +129,7 @@
     		$("#fc"+${ teaData.teaNum }).removeClass("ion-ios-heart").addClass("ion-ios-heart-empty");
     	}
 
-        $("#fc"+${ teaData.teaNum }).on("click", function(){
+        $('#${ teaData.teaNum }').on("click", function(){
         	console.log('찜 버튼 클릭됨');
         	
         	
@@ -219,7 +220,7 @@
               <ul>
              	<c:if test="${ page.startPage > 1 }">
              		<li>
-					<a href="teaListPage.do?page=${ page.startPage - 1 }&teaSearchWord=${ page.teaSearchWord }&teaCategory=${ page.teaCategory }">
+					<a href="teaListPage.do?teaCategory=${ page.teaCategory }&teaSearchWord=${ page.teaSearchWord }&page=${ page.startPage - 1 }">
 					&lt;
 					</a>
 					</li>
@@ -228,19 +229,19 @@
 					<c:choose>
 						<c:when test="${ page.currentPage eq p }">
 							<li class="active">
-								<a href="teaListPage.do?page=${ p }&teaSearchWord=${ page.teaSearchWord }&teaCategory=${ page.teaCategory }">${ p }</a>
+								<a href="teaListPage.do?teaCategory=${ page.teaCategory }&teaSearchWord=${ page.teaSearchWord }&page=${ p }">${ p }</a>
 							</li>
 						</c:when>
 						<c:otherwise>
 							<li>
-								<a href="teaListPage.do?page=${ p }&teaSearchWord=${ page.teaSearchWord }&teaCategory=${ page.teaCategory }">${ p }</a>
+								<a href="teaListPage.do?teaCategory=${ page.teaCategory }&teaSearchWord=${ page.teaSearchWord }&page=${ p }">${ p }</a>
 							</li>						
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${ page.endPage < page.totalPageCnt }">
 					<li>
-					<a href="teaListPage.do?page=${ page.endPage + 1 }&teaSearchWord=${ page.teaSearchWord }&teaCategory=${ page.teaCategory }">
+					<a href="teaListPage.do?teaCategory=${ page.teaCategory }&teaSearchWord=${ page.teaSearchWord }&page=${ page.endPage + 1 }">
 					&gt;
 					</a>
 					</li>

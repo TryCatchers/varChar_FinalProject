@@ -21,7 +21,8 @@ public class BuyDAO {
 			+ "JOIN BUY_DETAIL bd ON b.BUY_NUM = bd.BUY_NUM "
 			+ "JOIN TEA t ON bd.TEA_NUM = t.TEA_NUM "
 			+ "WHERE MEMBER_ID = ? "
-			+ "GROUP BY b.BUY_NUM ";
+			+ "GROUP BY b.BUY_NUM "
+			+ "ORDER BY b.BUY_NUM DESC";
 	static final private String SQL_SELECTONE = "SELECT b.BUY_NUM, t.TEA_PRICE, bd.BUY_CNT "
 			+ "FROM BUY b "
 			+ "JOIN BUY_DETAIL bd ON b.BUY_NUM = bd.BUY_NUM "

@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 public class Paging {
 
 	public static PagingVO paging(PagingVO pagingVO) {
-		System.out.println("\tLog: controller => TeaListPageAction [START]");
+		System.out.println("\tLog: controller => PageAction [START]");
 
 		int currentPage = 1;
 
@@ -44,12 +44,10 @@ public class Paging {
 			endPage = totalPageCnt;
 		}
 		
-		System.out.println("\teaLog: controller => TeaListPageAction [page: startPage: " + startPage + ", endPage: " + endPage + "]");
+		System.out.println("\teaLog: controller => PageAction [page: startPage: " + startPage + ", endPage: " + endPage + "]");
 		
 		startRnum = (currentPage - 1) * pageSize + 1;
 		endRnum = startRnum + pageSize - 1;
-		startRnum = (currentPage - 1) * pageSize + 1;
-		endRnum = startRnum + pageSize;
 		if (endRnum > totalCnt) {
 			endRnum = totalCnt;
 		}
@@ -60,9 +58,11 @@ public class Paging {
 		pagingVO.setTotalPageCnt(totalPageCnt);	
 		pagingVO.setCurrentPage(currentPage);
 		pagingVO.setStartRnum(startRnum);
+		pagingVO.setEndRnum(endRnum);
 		
+		System.out.println("\teaLog: controller => PageAction: [page: startRnum: " + startRnum + ", endRnum: " + endRnum + "]");
 		
-		System.out.println("\teaLog: controller => TeaListPageAction: [page: startRnum: " + startRnum + ", endRnum: " + endRnum + "]");
+		System.out.println(pagingVO);
 		
 		return pagingVO;
 		

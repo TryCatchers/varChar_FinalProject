@@ -49,7 +49,7 @@
 	          		<div class="col-md-6" style="margin-top: 30px;">
 	                <div class="form-group">
 	                	<label for="firstname" >새 비밀번호</label>
-	                  <input type="password" id="newPw" class="form-control" placeholder="새 비밀번호를 입력하세요.(최소 8글자 이상)" required style="width: 210%;">
+	                  <input type="password" name="memberPw" id="newPw" class="form-control" placeholder="새 비밀번호를 입력하세요.(최소 8글자 이상)" required style="width: 210%;">
 	                </div>
 	              </div>
                 <div class="w-100" style="margin-bottom: 20px;"></div>

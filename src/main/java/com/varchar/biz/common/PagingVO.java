@@ -5,7 +5,7 @@ public class PagingVO {
 	private int totalPageCnt;
 	private int startPage;
 	private int endPage;
-	
+
 	private String page;
 	private int pageSize;
 	private int totalCnt;
@@ -16,7 +16,8 @@ public class PagingVO {
 	private String teaCategory; 	//
 	private String teaSearchWord; 	// 
 	private String searchName; 		// 
-	private String reviewSearch; 	// 
+	private String reviewSearch; 	//
+	private String memberId;
 	
 	private int startRnum;
 	private int endRnum;
@@ -107,8 +108,20 @@ public class PagingVO {
 	public void setTeaSearchWord(String teaSearchWord) {
 		this.teaSearchWord = teaSearchWord;
 	}
-	
-	
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+	@Override
+	public String toString() {
+		return "PagingVO [totalPageCnt=" + totalPageCnt + ", startPage=" + startPage + ", endPage=" + endPage
+				+ ", page=" + page + ", pageSize=" + pageSize + ", totalCnt=" + totalCnt + ", currentPage="
+				+ currentPage + ", currentPageStr=" + currentPageStr + ", teaCategory=" + teaCategory
+				+ ", teaSearchWord=" + teaSearchWord + ", searchName=" + searchName + ", reviewSearch=" + reviewSearch
+				+ ", memberId=" + memberId + ", startRnum=" + startRnum + ", endRnum=" + endRnum + "]";
+	}
 	
 	
 

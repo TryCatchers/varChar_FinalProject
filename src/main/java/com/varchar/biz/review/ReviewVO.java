@@ -15,6 +15,7 @@ public class ReviewVO {
 	private String memberName;
 	private int buyCnt;
 	private int startRnum;
+	private int endRnum;
 	
 	public ReviewVO() {
 		this(0, "", 0, "");
@@ -121,6 +122,14 @@ public class ReviewVO {
 
 	public void setStartRnum(int startRnum) {
 		this.startRnum = startRnum;
+	}
+	
+	public int getEndRnum() {
+		return endRnum;
+	}
+
+	public void setEndRnum(int endRnum) {
+		this.endRnum = endRnum;
 	}
 
 	@Override

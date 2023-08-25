@@ -48,7 +48,7 @@ public class MemberController {
 			
 		} else {
 			AlertVO sweetAlertVO = new AlertVO("로그인실패", "로그인실패", null, "error", null);
-			model.addAttribute("sweetAlertVO", sweetAlertVO);
+			model.addAttribute("sweetAlert", sweetAlertVO);
 			return "alertFalse.jsp";
 		}
 		return "redirect:main.do";
@@ -173,6 +173,23 @@ public class MemberController {
 		return "alertTrue.jsp";
 	}
 
+	// ------------------------------------- 비밀번호 찾기 페이지  ------------------------------------------
+	
+	@RequestMapping(value="/findPw.do")
+	public String findPw(MemberVO memberVO, Model model) {
+		
+		String randomPw = RandomPw.main(null);
+		System.out.println("임시비밀번호 : " + randomPw);
+		
+		memberVO.setMemberSearch("비밀번호변경");
+		memberVO.setMemberPw(randomPw);
+		if(memberService.update(memberVO)) {
+			MessageAPI_Test.main(memberVO, randomPw);
+			System.out.println("로그 : 임시비밀번호 문자 발송 성공");
+		}
+		return "login.jsp";
+	}
+	
 	// ------------------------------------- 이메일 전송 ------------------------------------------
 	@RequestMapping(value = "/email.do")
 	public String signupEmail(MemberVO memberVO) {

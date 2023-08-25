@@ -68,6 +68,7 @@ public class TeaController {
 		//
 		teaVO.setTeaCondition("페이징");
 		teaVO.setStartRnum(pagingVO.getStartRnum());
+		teaVO.setEndRnum(pagingVO.getEndRnum());
 		teaVO.setTeaName((String)session.getAttribute("sessionMemberId"));
 		
 		List<TeaVO> teaDatas = teaService.selectAll(teaVO);

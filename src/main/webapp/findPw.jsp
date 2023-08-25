@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Var茶 | 로그인</title>
+    <title>Var茶 | 비밀번호 찾기 페이지</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- 파비콘 태그 -->
@@ -36,7 +36,7 @@
         <div class="row justify-content-center">
           <div class="col-xl-7 ftco-animate">
           	<!-- 로그인 폼 태그 -->
-			<form action="login.do" method="post" class="billing-form" onsubmit="return checkPw();">
+			<form action="findPw.do" method="post" class="billing-form" onsubmit="return checkPw();">
 				<h3 class="mb-4 billing-heading" style="padding-bottom: 15px; border-bottom: 1px solid #e1e1e1">로그인</h3>
 	          	<div class="row align-items-end">
 	          		<div class="col-md-6" style="margin-top: 30px;">
@@ -48,14 +48,13 @@
                 <div class="w-100" style="margin-bottom: 20px;"></div>
 	          		<div class="col-md-6">
 	                <div class="form-group">
-	                	<label for="firstname" >비밀번호</label>
-	                  <input type="password" name="memberPw" class="form-control" placeholder="비밀번호를 입력하세요."required style="width: 210%; margin-bottom: 100px;">
-	                  <a href="findPw.jsp">비밀번호 찾기</a>
+	                	<label for="firstname" >연락처</label>
+	                  <input type="text" name="memberPhone" class="form-control" placeholder="연락처를 입력하세요."required style="width: 210%; margin-bottom: 100px;">
 	                </div>
 	              </div>
 	            </div>
 				<div style="margin:auto; text-align:center;">
-					<p><input type="submit" class="btn btn-primary py-3 px-4" value="  로그인  "style="vertical-align:middle; display:inline-block;"></p>
+					<p><input type="submit" class="btn btn-primary py-3 px-4" value="  임시 비밀번호 받기  "style="vertical-align:middle; display:inline-block;"></p>
 				</div>
 	          </form>
            	  <!-- 로그인 폼 태그 끝 -->

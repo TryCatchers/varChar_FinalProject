@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="Ad/vendors/simple-line-icons/css/simple-line-icons.css">
   <link rel="stylesheet" href="Ad/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
@@ -52,39 +53,36 @@
       <div class="main-panel">          
         <div class="content-wrapper">
           <div class="row">
-             <div class="home-tab">
-           <div class="d-sm-flex align-items-center justify-content-between border-bottom">
-                  <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#홈" role="tab" aria-controls="overview" aria-selected="true">녹차</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences" role="tab" aria-selected="true">홍차</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#demographics" role="tab" aria-selected="true">우롱차</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#demographics" role="tab" aria-selected="true">루이보스</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#demographics" role="tab" aria-selected="true">허브차</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link border-0" id="more-tab" href="main.jsp" role="tab" aria-selected="true">Var茶 홈페이지 이동</a>
-                    </li>
-                  </ul>
-                </div>
-                </div>
-                <br>
             <div class="col-12 grid-margin stretch-card">
               <div class="card">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="card-body">
-                      <h4 class="card-title">Single color buttons</h4>
+                      <h4 class="card-title">해시태그 추가</h4>
                       <p class="card-description">Add class <code>.btn-{color}</code> for buttons in theme colors</p>
                       <div class="template-demo">
+									  <div class="form-group">
+										<h5><strong>상품 카테고리 선택 [1) 카테코리를 먼저 지정한다.]</strong></h5>
+										<select class="form-control" id="exampleFormControlSelect2">
+											<option>$-{teaData.teaCategory}</option>
+											<option>$-{teaData.teaCategory}</option>
+											<option>$-{teaData.teaCategory}</option>
+											<option>$-{teaData.teaCategory}</option>
+											<option>$-{teaData.teaCategory}</option>
+										</select>
+									</div>
+										<div class="form-group">
+										<h5><strong>상품 선택 [2) 위에서 나눈 카테고리 별로 상품이 출력되게 한다.]</strong></h5>
+										<select class="form-control" id="exampleFormControlSelect2">
+											<option>$-{teaData.teaNum}</option>
+											<option>$-{teaData.teaNum}</option>
+											<option>$-{teaData.teaNum}</option>
+											<option>$-{teaData.teaNum}</option>
+											<option>$-{teaData.teaNum}</option>
+										</select>
+									</div>
+                    	<div id="hashTagContainer" class="template-demo">
+                    	<form id="hashTagForm" method="post" action="aaa.do">
                         <button type="button" class="btn btn-primary">Primary</button>
                         <button type="button" class="btn btn-secondary">Secondary</button>
                         <button type="button" class="btn btn-success">Success</button>
@@ -94,12 +92,14 @@
                         <button type="button" class="btn btn-light">Light</button>
                         <button type="button" class="btn btn-dark">Dark</button>
                         <button type="button" class="btn btn-link">Link</button>
+                        </form>
+                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="card-body">
-                      <h4 class="card-title">Rounded buttons</h4>
+                      <h4 class="card-title">추가할 해시태그 선택</h4>
                       <p class="card-description">Add class <code>.btn-rounded</code></p>
                       <div class="template-demo">
                         <button type="button" class="btn btn-primary btn-rounded btn-fw">Primary</button>
@@ -111,6 +111,7 @@
                         <button type="button" class="btn btn-light btn-rounded btn-fw">Light</button>
                         <button type="button" class="btn btn-dark btn-rounded btn-fw">Dark</button>
                         <button type="button" class="btn btn-link btn-rounded btn-fw">Link</button>
+                        <button type="button" id="addHashTag" class="btn btn-dark btn-rounded btn-fw">직접 입력 ㅇㅇ</button>
                       </div>
                     </div>
                   </div>
@@ -508,6 +509,42 @@
   <script src="Ad/js/settings.js"></script>
   <script src="Ad/js/todolist.js"></script>
   <!-- endinject -->
+<script>
+        // PleaseAdd 버튼 클릭 이벤트 핸들러
+        $("#addHashTag").click(function() {
+            // 추가할 해시태그를 입력받습니다.
+            var newHashTag = prompt("추가할 해시태그를 입력하세요:");
+            if (newHashTag) {
+                // 입력된 해시태그를 생성하여 해시태그 컨테이너에 추가합니다.
+                var hashTagElement = $("<button></button>")
+                    .addClass("btn btn-primary")
+                    .text(newHashTag);
+                $("#hashTagContainer").append(hashTagElement);
+            }
+        });
+    </script>  
+<script>
+        // 예비 스크립트
+        
+        //document.getElementById("addHashTag").addEventListener("click", function() {
+            
+        //    var newHashTag = prompt("추가할 해시태그를 입력하세요:");
+        //    if (newHashTag) {
+        //        var hashTagElement = document.createElement("button");
+        //        hashTagElement.type = "button";
+        //        hashTagElement.className = "btn btn-primary";
+        //        hashTagElement.textContent = newHashTag;
+        //        document.getElementById("hashTagContainer").appendChild(hashTagElement);
+
+        //        var hashTagField = document.getElementById("hashTagField");
+        //        var hiddenInput = document.createElement("input");
+        //        hiddenInput.type = "hidden";
+        //        hiddenInput.name = "hashtags[]"; 
+        //        hiddenInput.value = newHashTag;
+        //        hashTagField.appendChild(hiddenInput);
+        //    }
+       // });
+    </script>    
 </body>
 
 </html>

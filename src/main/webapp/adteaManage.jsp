@@ -65,31 +65,6 @@
 			<div class="main-panel">
 				<div class="content-wrapper">
 					<div class="row">
-					   <div class="home-tab">
-           <div class="d-sm-flex align-items-center justify-content-between border-bottom">
-                  <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#홈" role="tab" aria-controls="overview" aria-selected="true">녹차</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences" role="tab" aria-selected="true">홍차</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#demographics" role="tab" aria-selected="true">우롱차</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#demographics" role="tab" aria-selected="true">루이보스</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#demographics" role="tab" aria-selected="true">허브차</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link border-0" id="more-tab" href="main.jsp" role="tab" aria-selected="true">Var茶 홈페이지 이동</a>
-                    </li>
-                  </ul>
-                </div>
-                </div>
-                <br>
 						<div class="col-md-6 grid-margin stretch-card">
 							<div class="card">
 								<div class="card-body">
@@ -278,8 +253,8 @@
 													<label class="col-sm-3 col-form-label">카테고리 선택</label>
 													<div class="col-sm-9">
 														<select class="form-control">
-															<option>$-{teaData.teaCategory}</option>
-															<option>$-{teaData.teaCategory}</option>
+															<option value="1${teaData.teaCategory}">$-{teaData.teaCategory}</option>
+															<option value="2">$-{teaData.teaCategory}</option>
 															<option>$-{teaData.teaCategory}</option>
 															<option>$-{teaData.teaCategory}</option>
 														</select>
@@ -323,7 +298,7 @@
 														<div class="form-check">
 															<label class="form-check-label"> <input
 																type="radio" class="form-check-input"
-																name="membershipRadios" id="membershipRadios1" value=""
+																name="membershipRadios" id="both" value="모두(재고+가격)"
 																checked> 모두(재고+가격)
 															</label>
 														</div>
@@ -332,7 +307,7 @@
 														<div class="form-check">
 															<label class="form-check-label"> <input
 																type="radio" class="form-check-input"
-																name="membershipRadios" id="membershipRadios1" value=""
+																name="membershipRadios" id="selectcnt" value="재고"
 																checked> 재고
 															</label>
 														</div>
@@ -341,73 +316,36 @@
 														<div class="form-check">
 															<label class="form-check-label"> <input
 																type="radio" class="form-check-input"
-																name="membershipRadios" id="membershipRadios2"
-																value="option2"> 가격
+																name="membershipRadios" id="selectprice"
+																value="가격"> 가격
 															</label>
 														</div>
 													</div>
 												</div>	
 											</div>
-										<p class="card-description">Address</p>
 										<div class="row">
 											<div class="col-md-6">
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">Address 1</label>
+												<div  class="form-group row">
+													<label class="col-sm-3 col-form-label">재고 수량 입력</label>
 													<div class="col-sm-9">
-														<input type="text" class="form-control" />
+														<input id="fixcnt" type="text" class="form-control" />
 													</div>
 												</div>
 											</div>
-											<div class="col-md-6">
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">State</label>
+										<div class="col-md-6">
+											<div  class="form-group row">
+												<label class="col-sm-3 col-form-label">가격 입력</label>
 													<div class="col-sm-9">
-														<input type="text" class="form-control" />
+														<input id="fixprice" type="text" class="form-control" />
 													</div>
 												</div>
 											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">Address 2</label>
-													<div class="col-sm-9">
-														<input type="text" class="form-control" />
-													</div>
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">Postcode</label>
-													<div class="col-sm-9">
-														<input type="text" class="form-control" />
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">City</label>
-													<div class="col-sm-9">
-														<input type="text" class="form-control" />
-													</div>
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group row">
-													<label class="col-sm-3 col-form-label">Country</label>
-													<div class="col-sm-9">
-														<select class="form-control">
-															<option>America</option>
-															<option>Italy</option>
-															<option>Russia</option>
-															<option>Britain</option>
-														</select>
-													</div>
-												</div>
-											</div>
-										</div>
+										 <div id="msg">
+										 <p>※ $-{teaData.teaName} 상품의 기존 <strong>재고</strong>는 <strong>$-{teaData.teaCnt}</strong>개, 기존 <strong>가격</strong>은 <strong>$-{teaData.teaPrice}</strong>원 입니다.</p>
+										 </div>
+									   </div>
+									   <button type="submit" class="btn btn-primary me-2">Submit</button>
+									   <button class="btn btn-light">Cancel</button>
 									</form>
 								</div>
 							</div>
@@ -853,6 +791,48 @@
 	<script src="Ad/js/typeahead.js"></script>
 	<script src="Ad/js/select2.js"></script>
 	<!-- End custom js for this page-->
+<script type="text/javascript">
+window.addEventListener("load", function() {
+	  // 페이지 로드 시, 모두(재고+가격)에 디폴트로 선택될 수 있도록
+	  const both = document.getElementById("both");
+	  both.checked = true;
+});
+</script>	
+<script type="text/javascript">
+// radio (select처럼 생긴거) 변수 선언
+const both=document.getElementById("both");
+const selectcnt = document.getElementById("selectcnt");
+const selectprice = document.getElementById("selectprice");
+
+// div (입력란 부분) 변수 선언
+const fixcnt=document.getElementById("fixcnt");
+const fixprice=document.getElementById("fixprice");
+
+//라디오 버튼 상태 변화를 감지하는 이벤트 리스너를 추가합니다.
+// 1) 모두에 체크되었을때
+both.addEventListener("change", function(){
+	if(both.checked){
+		fixcnt.disabled = false;
+		fixprice.disabled = false;
+	}
+});
+
+// 2) 재고에 체크되었을때
+selectcnt.addEventListener("change", function() {
+  if (selectcnt.checked) {
+    fixcnt.disabled = false;
+    fixprice.disabled = true;
+  }
+});
+
+// 3) 가격에 체크되었을때
+selectprice.addEventListener("change", function(){
+	if(selectprice.checked){
+		fixprice.disabled = false;
+		fixcnt.disabled = true;
+	}
+});
+</script>	
 </body>
 
 </html>

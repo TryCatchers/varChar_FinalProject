@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Var茶 | 후기 목록</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -40,7 +40,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 ftco-animate">
-						<div class="row">
+			<div class="row">
               <c:if test="${ empty reviewDatas }">
 
               </c:if>
@@ -57,17 +57,17 @@
                           <div><a href="#">${ reviewData.memberId }</a></div>
                           <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
                         </div>
-                        <div class="meta mb-3 edit-reviewCon">
-                        	<h3 class="heading reviewsCon ${ reviewData.reviewNum }"><a href="#">${ reviewData.reviewContent }</a></h3>
-                        </div>
+                        <h3 class="heading reviewsCon ${ reviewData.reviewNum }"><a href="#">${ reviewData.reviewContent }</a></h3>
                         <script type="text/javascript">
-                          var con = $('.reviewsCon.${ reviewData.reviewNum }').text();
-                          console.log(con);
-                          $('.reviewsCon.'+${ reviewData.reviewNum }).text(con);
-                          var htm = $('.reviewsCon.'+${ reviewData.reviewNum }).html();
-                          console.log(htm);
-                          htm = htm.replace(/&nbsp;/g, '');
-                          $('.reviewsCon.'+${ reviewData.reviewNum }).text(htm);
+	                        $(document).ready(function(){
+	                          var con = $('.reviewsCon.${ reviewData.reviewNum }').text();
+	                          console.log(con);
+	                          $('.reviewsCon.${ reviewData.reviewNum } > a').text(con);
+	                          var htm = $('.reviewsCon.${ reviewData.reviewNum } > a').html();
+	                          console.log(htm);
+	                          htm = htm.replace(/&nbsp;/g, '');
+	                          $('.reviewsCon.${ reviewData.reviewNum } > a').text(htm);
+	                        });
                         </script>
                         <p>${ rdatas.teaName }</p>
                         <p><a href="reviewDetailPage.do?reviewNum=${ reviewData.reviewNum }" class="btn btn-primary py-2 px-3">Read more</a></p>
@@ -77,25 +77,7 @@
                   <!-- review -->
                 </c:forEach>
               </c:if>
-              <!-- review -->
-							<div class="col-md-12 d-flex ftco-animate">
-		            <div class="blog-entry align-self-stretch d-md-flex">
-		              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_1.jpg');">
-		              </a>
-		              <div class="text d-block pl-md-4">
-		              	<div class="meta mb-3">
-		                  <div><a href="#">July 20, 2019</a></div>
-		                  <div><a href="#">Admin</a></div>
-		                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-		                </div>
-		                <h3 class="heading"><a href="#">샘플</a></h3>
-		                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-		                <p><a href="blog-single.html" class="btn btn-primary py-2 px-3">Read more</a></p>
-		              </div>
-		            </div>
-		          </div>
-              <!-- review -->
-						</div>
+			</div>
           </div> <!-- .col-md-8 -->
           <div class="col-lg-4 sidebar ftco-animate">
             <div class="sidebar-box">
@@ -181,19 +163,28 @@
               <ul>
               	<c:if test="${ page.startPage > 1 }">
               		<li>
-              	 	<a href="reviewListPage.do?searchName=${ page.searchName }&pMemberId=${ sessionMemberId }&reviewSearch=${ page.reviewSearch }&page=${ page.startPage - 1 }">
+              	 	<a href="reviewListPage.do?searchName=${ page.searchName }&memberId=${ memberId }&reviewSearch=${ page.reviewSearch }&page=${ page.startPage - 1 }">
               	 	&lt;
               	 	</a>
               	 	</li>
 				</c:if>
 				<c:forEach begin="${ page.startPage }" end="${ page.endPage }" var="p">
-					<li>
-					<a href="reviewListPage.do?searchName=${ page.searchName }&pMemberId=${ sessionMemberId }&reviewSearch=${ page.reviewSearch }&page=${ p }">${ p }</a>
-					</li>
+					<c:choose>
+						<c:when test="${ page.currentPage eq p }">
+							<li class="active">
+								<a href="reviewListPage.do?searchName=${ page.searchName }&memberId=${ memberId }&reviewSearch=${ page.reviewSearch }&page=${ p }">${ p }</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li>
+								<a href="reviewListPage.do?searchName=${ page.searchName }&memberId=${ memberId }&reviewSearch=${ page.reviewSearch }&page=${ p }">${ p }</a>
+							</li>						
+						</c:otherwise>
+					</c:choose>
 				</c:forEach>
 				<c:if test="${ page.endPage < page.totalPageCnt }">
 					<li>
-					<a href="reviewListPage.do?searchName=${ page.searchName }&pMemberId=${ sessionMemberId }&reviewSearch=${ page.reviewSearch }&page=${ page.endPage + 1 }">
+					<a href="reviewListPage.do?searchName=${ page.searchName }&memberId=${ memberId }&reviewSearch=${ page.reviewSearch }&page=${ page.endPage + 1 }">
 					&gt;
 					</a>
 					</li>

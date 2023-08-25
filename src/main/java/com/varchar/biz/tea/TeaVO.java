@@ -1,6 +1,5 @@
 package com.varchar.biz.tea;
 
-// 지현 수정 ---> 이거 언제 지움???
 public class TeaVO {
 	private int teaNum;
 	private String teaName;
@@ -14,6 +13,7 @@ public class TeaVO {
 	private String teaCondition;
 	private String imageUrl;
 	private int startRnum;
+	private int endRnum;
 	private int teaCheckCnt;
 	private int teaTotal;
 	private String count;
@@ -124,6 +124,14 @@ public class TeaVO {
 		this.startRnum = startRnum;
 	}
 	
+	public int getEndRnum() {
+		return endRnum;
+	}
+
+	public void setEndRnum(int endRnum) {
+		this.endRnum = endRnum;
+	}
+
 	public String getTeaCondition() {
 		return teaCondition;
 	}
