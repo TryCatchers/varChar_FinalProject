@@ -138,20 +138,27 @@ public class MemberController {
 //		memberVO.setMemberPhone(request.getParameter("memberPhone").equals("") ? 0 : Long.parseLong(request.getParameter("memberPhone")));
 //		memberVO.setMemberEmail(request.getParameter("memberEmail").equals("") ? null : request.getParameter("memberEmail"));
 //		System.out.println(memberVO);
-
+		System.out.println("로그 회원정보 변경 updateInfo.do memberVO: "+ memberVO);
 		// 혹시 계속 문제 발생시 memberId set 고려
 		//** 회원 정보 변경 실패시---> 유효성 추가 필요 */
 		if (memberService.update(memberVO)) {
-			AlertVO sweetAlertVO = new AlertVO("회원정보 변경", "회원정보 변경", null, "success", "main.do");
+			System.out.println("로그 회원정보 변경성공");
+			AlertVO sweetAlertVO = new AlertVO("회원정보 변경", "회원정보 변경 성공!", null, "success", "logout.do");
 			model.addAttribute("sweetAlert", sweetAlertVO);
+			return "alertTrue.jsp";
 		}
-		return "alertTrue.jsp";
+		System.out.println("로그 회원정보 변경 실패");
+		AlertVO sweetAlertVO = new AlertVO("회원정보 변경", "회원정보 변경 실패!", null, "warning", "main.do");
+		model.addAttribute("sweetAlert", sweetAlertVO);
+		return "alertFalse.jsp";
+		
 	}
 
 	@RequestMapping(value = "/updateInfoPageConfirm.do")
-	public String updateInfoPageConfirm() {
+	public String updateInfoPageConfirm(Model model) {
 		AlertVO sweetAlertVO = new AlertVO("회원정보변경", "변경하시겠습니까?", "회원정보변경이 완료되었습니다!", "question", "updateInfo.do");
-		return "main.jsp";
+		model.addAttribute("sweetAlert", sweetAlertVO);
+		return "alertConfirm.jsp";
 	}
 
 	// ------------------------------------- 비밀번호 수정 페이지  ------------------------------------------

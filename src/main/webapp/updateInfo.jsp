@@ -34,7 +34,7 @@
 
 	<!-- 비밀번호 변경 버튼 div -->
 	<div style="padding-top: 100px; padding-right: 15%;">
-	<p><a href="updatePwPage.do"class="btn btn-primary py-3 px-4" style="float: right;">&nbsp;비밀번호 변경&nbsp;</a></p>
+	<p><a href="updatePwPage.do" class="btn btn-primary py-3 px-4" style="float: right;">&nbsp;비밀번호 변경&nbsp;</a></p>
 	</div>
 	<!-- 비밀번호 변경 버튼 div 끝 -->
 
@@ -50,7 +50,7 @@
 	          		<div class="col-md-6" style="margin-top: 30px;">
 	                <div class="form-group">
 	                	<label for="firstname" >아이디</label>
-	                  <input type="text" class="form-control" value="${ memberData.memberId }" readonly>
+	                  <input type="text" name="memberId" class="form-control" value="${ memberData.memberId }" readonly>
 	                </div>
 	              </div>
 	              <div class="col-md-6">
