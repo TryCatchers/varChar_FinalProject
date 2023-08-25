@@ -53,7 +53,7 @@
         </div>
       </div>
     </div>
-    <form action="insertReview.do" method="post">
+    <form action="updateReview.do" method="post">
     <section class="ftco-section ftco-degree-bg">
       <div class="container">
         <div class="cart-list">
@@ -87,6 +87,7 @@
         </div>
         <div class="row">
           <input type="hidden" name="buySerial" value="${ reviewData.buySerial }">
+          <input type="hidden" name="reviewNum" value="${ reviewData.reviewNum }">
           <textarea id="editor" name="reviewContent">
           	${ reviewData.reviewContent }
           </textarea>
