@@ -7,4 +7,9 @@ public class PointCutCommon {
 	public void aPointcut() {}
 	@Pointcut("execution(* com.varchar.biz..*Impl.select*(..))")
 	public void bPointcut() {}
+	@Pointcut("execution(* com.varchar.biz..*Impl.selectAll(..))")
+	public void cPointcut() {}
+	
+//	@Pointcut("execution(* com.varchar.view..*(..))")
+//	public void dPointcut() {}
 }
