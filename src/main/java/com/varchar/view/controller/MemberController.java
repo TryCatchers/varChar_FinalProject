@@ -1,7 +1,6 @@
 package com.varchar.view.controller;
 
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.varchar.biz.common.AlertVO;
 import com.varchar.biz.member.MemberService;
@@ -26,12 +26,12 @@ public class MemberController {
 
 	// ------------------------------------- 로그인 페이지 ------------------------------------------
 
-	@RequestMapping(value = "/loginPage.do")
+	@RequestMapping(value = "/login.do", method=RequestMethod.GET)
 	public String loginPage() { // 로그인 페이지
 		return "redirect:login.jsp";
 	}
 
-	@RequestMapping(value = "/login.do") // 로그인
+	@RequestMapping(value = "/login.do", method=RequestMethod.POST) // 로그인
 	public String login(MemberVO memberVO, HttpSession session, Model model) {
 		System.out.println("LoginController 로그");
 
@@ -78,12 +78,12 @@ public class MemberController {
 
 	// ------------------------------------- 회원가입 페이지 ------------------------------------------
 
-	@RequestMapping(value = "/signupPage.do")
+	@RequestMapping(value = "/signup.do", method=RequestMethod.GET)
 	public String signupPage() { // 회원가입 페이지
 		return "redirect:signup.jsp";
 	}
 
-	@RequestMapping(value = "/signup.do")
+	@RequestMapping(value = "/signup.do", method=RequestMethod.POST)
 	public String signup(MemberVO memberVO, Model model) { // 회원가입
 
 //		memberVO.setMemberId(request.getParameter("memberId"));
@@ -113,7 +113,7 @@ public class MemberController {
 
 	// ----------------------------------------- 회원 정보 수정 --------------------------------------------------
 
-	@RequestMapping(value = "/updateInfoPage.do")
+	@RequestMapping(value = "/updateInfo.do", method=RequestMethod.GET)
 	public String updateInfoPage(MemberVO memberVO, HttpSession session, Model model) {
 
 		//** 해당 회원 NULL 혹은 로그인 안함 ---> 유효성 추가 필요 */
@@ -128,7 +128,7 @@ public class MemberController {
 
 	}
 
-	@RequestMapping(value = "/updateInfo.do")
+	@RequestMapping(value = "/updateInfo.do", method=RequestMethod.POST)
 	public String updateInfo(MemberVO memberVO, Model model) {
 
 		memberVO.setMemberSearch("회원정보변경");
@@ -163,12 +163,12 @@ public class MemberController {
 
 	// ------------------------------------- 비밀번호 수정 페이지  ------------------------------------------
 
-	@RequestMapping(value = "/updatePwPage.do")
+	@RequestMapping(value = "/updatePw.do", method=RequestMethod.GET)
 	public String updatePwPage() {
 		return "redirect:updatePw.jsp";
 	}
 
-	@RequestMapping(value = "/updatePw.do")
+	@RequestMapping(value = "/updatePw.do", method=RequestMethod.POST)
 	public String updatePw(MemberVO memberVO, Model model) {
 
 		memberVO.setMemberSearch("비밀번호변경");

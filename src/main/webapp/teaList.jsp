@@ -94,7 +94,7 @@
 	    							<a href="insertCart.do?teaNum=${ teaData.teaNum }&teaCnt=1" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
-	    							<a href="loginPage.do" class="heart d-flex justify-content-center align-items-center ">
+	    							<a href="login.do" class="heart d-flex justify-content-center align-items-center ">
 	    								<span><i class="ion-ios-heart-empty"></i></span>
 	    							</a>
 	    							</c:if>

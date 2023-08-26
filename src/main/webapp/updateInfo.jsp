@@ -34,7 +34,7 @@
 
 	<!-- 비밀번호 변경 버튼 div -->
 	<div style="padding-top: 100px; padding-right: 15%;">
-	<p><a href="updatePwPage.do" class="btn btn-primary py-3 px-4" style="float: right;">&nbsp;비밀번호 변경&nbsp;</a></p>
+	<p><a href="updatePw.do" class="btn btn-primary py-3 px-4" style="float: right;">&nbsp;비밀번호 변경&nbsp;</a></p>
 	</div>
 	<!-- 비밀번호 변경 버튼 div 끝 -->
 

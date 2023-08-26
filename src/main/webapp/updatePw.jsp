@@ -32,7 +32,7 @@
 
 	<!-- 회원정보 수정 변경 버튼 div -->
 	<div style="padding-top: 100px; padding-right: 15%;">
-	<p><a href="updateInfoPage.do"class="btn btn-primary py-3 px-4" style="float: right;">&nbsp;회원정보 수정&nbsp;</a></p>
+	<p><a href="updateInfo.do"class="btn btn-primary py-3 px-4" style="float: right;">&nbsp;회원정보 수정&nbsp;</a></p>
 	</div>
 	<!-- 회원정보 수정 변경 버튼 div 끝 -->
 

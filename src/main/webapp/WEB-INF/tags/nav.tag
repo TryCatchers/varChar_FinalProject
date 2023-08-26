@@ -57,7 +57,7 @@
 			<!-- 비로그인 시 : 마이페이로 이동 -->
 			<c:if test="${ empty sessionMemberId }">
 			<li class="nav-item dropdown">
-			  <a class="nav-link dropdown-toggle" href="loginPage.do" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
+			  <a class="nav-link dropdown-toggle" href="login.do" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
 			  <div class="dropdown-menu" aria-labelledby="dropdown04">
 				<a class="dropdown-item" href="login.do">로그인이 필요합니다</a>
 			  </div>
@@ -66,13 +66,13 @@
 			<!-- 로그인 시 : 각 메뉴 페이지로 이동 -->
 			<c:if test="${ not empty sessionMemberId }">
 			<li class="nav-item dropdown">
-			  <a class="nav-link dropdown-toggle" href="updateInfoPage.do" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
+			  <a class="nav-link dropdown-toggle" href="updateInfo.do" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
 			  <div class="dropdown-menu" aria-labelledby="dropdown04">
 				<a class="dropdown-item" href="cartPage.do">장바구니</a>
 				<a class="dropdown-item" href="favorPage.do">찜</a>
 			  	<a class="dropdown-item" href="buyListPage.do">주문내역</a>
 			  	<a class="dropdown-item" href="myReviewsListPage.do?searchName=MEMBER">내 후기</a>
-			  	<a class="dropdown-item" href="updateInfoPage.do">회원정보변경</a>
+			  	<a class="dropdown-item" href="updateInfo.do">회원정보변경</a>
 			  </div>
 			</li>
 			</c:if>
@@ -81,8 +81,8 @@
 	          <li class="nav-item cta cta-colored"><a href="cartPage.do" class="nav-link"><span class="icon-shopping_cart"></span>[${fn:length(sessionScope.cart)}]</a></li>
 	          <li class="nav-item nav-line"></li>
 	          <c:if test="${ empty sessionMemberId }">
-	          	<li class="nav-item"><a href="loginPage.do" class="nav-link">로그인</a></li>
-	          	<li class="nav-item"><a href="signupPage.do" class="nav-link">회원가입</a></li>
+	          	<li class="nav-item"><a href="login.do" class="nav-link">로그인</a></li>
+	          	<li class="nav-item"><a href="signup.do" class="nav-link">회원가입</a></li>
 	          </c:if>
 	          <c:if test="${ not empty sessionMemberId }">
 	          	<li class="nav-item"><a href="logoutPage.do" class="nav-link">로그아웃</a></li>
