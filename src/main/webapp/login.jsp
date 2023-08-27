@@ -11,6 +11,10 @@
     <try:favicon/>
     <!-- 링크 부분 태그 -->
     <try:link/>
+    <!-- 네이버 로그인 -->
+    <script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	charset="utf-8">//naver api</script>
   </head>
   <body class="goto-here">
   <!-- 상단, 하단은 커스텀 태그로 넣어주셈 -->
@@ -50,7 +54,7 @@
 	                <div class="form-group">
 	                	<label for="firstname" >비밀번호</label>
 	                  <input type="password" name="memberPw" class="form-control" placeholder="비밀번호를 입력하세요."required style="width: 210%; margin-bottom: 100px;">
-	                  <a href="findPw.jsp">비밀번호 찾기</a>
+	                  <a href="findPw.do">비밀번호 찾기</a>
 	                </div>
 	              </div>
 	            </div>
@@ -59,6 +63,7 @@
 				</div>
 	          </form>
            	  <!-- 로그인 폼 태그 끝 -->
+	  			<div id="naver_id_login"></div>
 			</div>
           </div> <!-- .col-md-8 -->
         </div>
@@ -128,6 +133,18 @@
        		return true;
       	}
     </script>
+    
+    <script type="text/javascript">
+		// ---[ 네이버 로그인 ]-------------------------------------------------------------------------------------------------------------------------------------------------
+		var naver_id_login = new naver_id_login("gSqN5AjK3F7dFSVLcJF0", "http://localhost:8088/app/loginNaver.do");
+		var state = naver_id_login.getUniqState();
+		naver_id_login.setButton("green", 3, 40);
+		naver_id_login.setDomain("http://localhost:8088/");
+		naver_id_login.setState(state);
+		//naver_id_login.setPopup();
+		naver_id_login.init_naver_id_login();
+  	// -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	</script>
     
   </body>
 </html>
