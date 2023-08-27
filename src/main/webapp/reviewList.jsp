@@ -95,7 +95,7 @@
                 <li><a href="reviewListPage.do?searchName=CATEGORY&reviewSearch=녹차">녹차<span>(12)</span></a></li>
                 <li><a href="reviewListPage.do?searchName=CATEGORY&reviewSearch=홍차">홍차<span>(22)</span></a></li>
                 <li><a href="reviewListPage.do?searchName=CATEGORY&reviewSearch=우롱차">우롱차<span>(37)</span></a></li>
-                <li><a href="reviewListPage.do?searchName=CATEGORY&reviewSearch=루이보스차">루이보스차<span>(42)</span></a></li>
+                <li><a href="reviewListPage.do?searchName=CATEGORY&reviewSearch=루이보스">루이보스차<span>(42)</span></a></li>
                 <li><a href="reviewListPage.do?searchName=CATEGORY&reviewSearch=허브차">허브차<span>(42)</span></a></li>
               </ul>
             </div>
