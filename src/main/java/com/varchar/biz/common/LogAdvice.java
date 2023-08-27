@@ -1,7 +1,5 @@
 package com.varchar.biz.common;
 
-import java.util.List;
-
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -9,6 +7,7 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
 
@@ -47,21 +46,115 @@ public class LogAdvice {
 //	System.out.println(RESET);
 	
 	
-//	@Before("PointCutCommon.aPointcut()")
-//	public void beforeLog() {
-//		System.out.println("횡단관심: 비즈니스 메서드 수행 전에 호출됨");
-//	}
+	@Before("PointCutCommon.aPointcut()") // 모든 메서드에 실행
+	public void beforeLog(JoinPoint joinPoint) {
+		
+		System.out.println();
+		System.out.print(FONT_YELLOW);
+		System.out.println("횡단관심 Before: 비즈니스 메서드 실행 이전의 로그");
+		
+        String className = joinPoint.getTarget().getClass().getName();
+        String methodName = joinPoint.getSignature().getName();
+        
+        Object[] args = joinPoint.getArgs();
+        StringBuilder argsString = new StringBuilder();
+        
+        for (Object arg : args) {
+            argsString.append(arg).append(", ");
+        }
+        
+        if (argsString.length() > 0) {
+            argsString.delete(argsString.length() - 2, argsString.length()); // Remove trailing comma and space
+        }
+        
+        System.out.println(methodName +" INPUT: \n\t"+argsString);
+        //System.out.println("Before method execution: " + className + "." + methodName + "(" + argsString + ")");
+		
+		
+		System.out.print(RESET);
+		
+		//String methodName=jp.getSignature().getName();
+		//System.out.println("횡단관심 Before: "+methodName+" 실행 이전의 로그");
+		
+//		if(returnObj instanceof MemberVO) {
+//			MemberVO memberVO=(MemberVO)returnObj;
+//			System.out.println(methodName +"실행 완료 memberVO: "+memberVO);
+//			
+//			if(memberVO.getMemberSearch() != null) {
+//				if(memberVO.getMemberSearch().equals("로그인")) {
+//					System.out.println("\t로그인");
+//				}
+//				else {
+//					System.out.println("\t해당 회원 존재 확인");
+//				}
+//			}
+//			
+//		}
+//		else if(returnObj instanceof TeaVO){
+//			TeaVO teaVO=(TeaVO)returnObj;
+//			System.out.println(methodName +" INPUT: \n\tteaVO: "+teaVO);
+//			// 판매 가능 여부?
+//		}
+//		else if(returnObj instanceof BuyVO){
+//			BuyVO buyVO=(BuyVO)returnObj;
+//			System.out.println(methodName +" INPUT: \n\tbuyVO: "+buyVO);	
+//		}
+//		else if(returnObj instanceof BuyDetailVO){
+//			BuyDetailVO buyDetailVO=(BuyDetailVO)returnObj;
+//			System.out.println(methodName +" INPUT: \n\tbuyDetailVO: "+buyDetailVO);	
+//			
+//			if(buyDetailVO.getBuySearch() != null) {
+//				if(buyDetailVO.getBuySearch().equals("주문번호")) {
+//					System.out.println("\t해당 회원의 가장 최근 주문내역 조회");
+//				}
+//				else {
+//					System.out.println("\t주문내역상세(단건) 조회");
+//				}
+//			}
+//			
+//		}
+//		else if(returnObj instanceof PaymentVO){
+//			PaymentVO paymentVO=(PaymentVO)returnObj;
+//			System.out.println(methodName +" INPUT: \n\tpaymentVO: "+paymentVO);	
+//		}
+//		else if(returnObj instanceof FavorVO){
+//			FavorVO favorVO=(FavorVO)returnObj;
+//			System.out.println(methodName +" INPUT: \n\tfavorVO: "+favorVO);	
+//			System.out.println("\t해당 회원의 찜 여부 조회");
+//		}
+//		else if(returnObj instanceof ReviewVO){
+//			ReviewVO reviewVO=(ReviewVO)returnObj;
+//			System.out.println(methodName +" INPUT: \n\treviewVO: "+reviewVO);
+//			
+//			if(reviewVO.getReviewSearch() != null) {
+//				if(reviewVO.getReviewSearch().equals("리뷰상세")) { 
+//					System.out.println("\t후기 상세 조회");
+//				}
+//				else {
+//					System.out.println("\t후기 확인 조회");
+//				}
+//			}
+//			
+//		}
+////		else if(((List<?>)returnObj).get(0) instanceof TeaVO) {
+////			System.out.println();
+////		}
+//		else{
+//			System.out.println(methodName +" INPUT: "+returnObj);
+//		}
+		System.out.print(RESET);
+		
+	}
 	
-	@After("PointCutCommon.aPointcut()")
+	@After("PointCutCommon.aPointcut()") // 모든 메서드에 실행
 	public void afterLog() {
 		System.out.println();
 		System.out.print(FONT_BLUE);
-		System.out.println("[횡단관심]");
-		System.out.println("     :비즈니스 메서드 수행 후에 호출됨");
+		System.out.println("횡단관심 After: 비즈니스 메서드 실행 이후의 로그");
 		System.out.print(RESET);
 	}
 	
-	@AfterReturning(pointcut="PointCutCommon.bPointcut()", returning="returnObj")
+	@AfterReturning(pointcut="PointCutCommon.bPointcut()", returning="returnObj") // select 메서드에 실행
 	public void afterReturningLog(JoinPoint jp, Object returnObj) {
 		System.out.println();
 		System.out.print(FONT_BLUE);
@@ -141,7 +234,7 @@ public class LogAdvice {
 //			System.out.println();
 //		}
 		else{
-			System.out.println("[데이터 열람] "+returnObj);
+			System.out.println("[데이터 열람] \n\t"+returnObj);
 		}
 		System.out.print(RESET);
 	}
@@ -159,7 +252,7 @@ public class LogAdvice {
 		System.out.print(RESET);
 	}
 	
-	@Around("PointCutCommon.cPointcut()")
+	@Around("PointCutCommon.cPointcut()") // selectAll 메서드에 실행
 	public Object aroundPrintLog(ProceedingJoinPoint pjp) throws Throwable {
 		System.out.println();
 		System.out.print(FONT_CYAN);
