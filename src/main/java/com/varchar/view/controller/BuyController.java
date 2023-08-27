@@ -136,7 +136,7 @@ public class BuyController {
 
 	// --------------------------------- 토스 결제 후 성공시 ---------------------------------
 	@RequestMapping(value = "/paySuccess.do")
-	public String pay(HttpServletRequest request, HttpSession session, BuyVO buyVO, BuyDetailVO buyDetailVO, TeaVO teaVO,
+	public String paySuccess(HttpServletRequest request, HttpSession session, BuyVO buyVO, BuyDetailVO buyDetailVO, TeaVO teaVO,
 			PaymentVO paymentVO, Model model) throws IOException {
 
 		// 결제 승인 API 호출하기

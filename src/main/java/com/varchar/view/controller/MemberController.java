@@ -1,6 +1,14 @@
 package com.varchar.view.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +61,7 @@ public class MemberController {
 		}
 		return "redirect:main.do";
 	}
-
+	
 	// ------------------------------------- 로그아웃 페이지 ------------------------------------------
 
 	@RequestMapping(value = "/logoutPage.do")
@@ -100,7 +108,7 @@ public class MemberController {
 			model.addAttribute("sweetAlert", sweetAlertVO);
 			
 			if(memberVO.getMemberEmail() != null) {
-				return "email.do";
+				return "signupEmail.do";
 			}
 		}
 		//** 회원가입 실패 ---> 유효성 추가 필요 */
@@ -143,7 +151,7 @@ public class MemberController {
 		//** 회원 정보 변경 실패시---> 유효성 추가 필요 */
 		if (memberService.update(memberVO)) {
 			System.out.println("로그 회원정보 변경성공");
-			AlertVO sweetAlertVO = new AlertVO("회원정보 변경", "회원정보 변경 성공!", null, "success", "logout.do");
+			AlertVO sweetAlertVO = new AlertVO("회원정보 변경", "회원정보 변경 성공!", null, "success", "main.do");
 			model.addAttribute("sweetAlert", sweetAlertVO);
 			return "alertTrue.jsp";
 		}
@@ -182,7 +190,12 @@ public class MemberController {
 
 	// ------------------------------------- 비밀번호 찾기 페이지  ------------------------------------------
 	
-	@RequestMapping(value="/findPw.do")
+	@RequestMapping(value="/findPw.do", method=RequestMethod.GET)
+	public String findPwPage() {
+		return "findPw.jsp";
+	}
+	
+	@RequestMapping(value="/findPw.do", method=RequestMethod.POST)
 	public String findPw(MemberVO memberVO, Model model) {
 		
 		String randomPw = RandomPw.main(null);
@@ -198,7 +211,7 @@ public class MemberController {
 	}
 	
 	// ------------------------------------- 이메일 전송 ------------------------------------------
-	@RequestMapping(value = "/email.do")
+	@RequestMapping(value = "/signupEmail.do")
 	public String signupEmail(MemberVO memberVO) {
 		System.out.println("로그: EmailController: signupSuccess() ");
 
@@ -227,5 +240,57 @@ public class MemberController {
 
 		return "alertTrue.jsp";
 	}
+	
+	// 네이버 로그인 테스트 중
+	@RequestMapping(value = "/loginNaver.do")
+	public String loginNaver(HttpSession session, HttpServletRequest request) throws UnsupportedEncodingException {
+		System.out.println("loginNaver.do 진입");
+		System.out.println(request.getAttribute("naver_id_login"));
+		System.out.println(request.getAttribute("access_token"));
+		System.out.println(request.getAttribute("token_type"));
+		System.out.println(request.getAttribute("expires_in"));
+		
+	    String clientId = "gSqN5AjK3F7dFSVLcJF0";//애플리케이션 클라이언트 아이디값";
+	    String clientSecret = "29uaXEXBbp";//애플리케이션 클라이언트 시크릿값";
+	    String code = request.getParameter("code");
+	    String state = request.getParameter("state");
+	    String redirectURI = URLEncoder.encode("http://localhost:8088/app/loginNaver.do", "UTF-8");
+	    String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code"
+	        + "&client_id=" + clientId
+	        + "&client_secret=" + clientSecret
+	        + "&redirect_uri=" + redirectURI
+	        + "&code=" + code
+	        + "&state=" + state;
+	    String accessToken = "";
+	    String refresh_token = "";
+	    
+	    System.out.println("apiURL: "+apiURL);
+	    try {
+	      URL url = new URL(apiURL);
+	      HttpURLConnection con = (HttpURLConnection)url.openConnection();
+	      con.setRequestMethod("GET");
+	      int responseCode = con.getResponseCode();
+	      BufferedReader br;
+	      if (responseCode == 200) { // 정상 호출
+	        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	      } else {  // 에러 발생
+	        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+	      }
+	      String inputLine;
+	      StringBuilder res = new StringBuilder();
+	      while ((inputLine = br.readLine()) != null) {
+	        res.append(inputLine);
+	      }
+	      br.close();
+	      if (responseCode == 200) {
+	    	  System.out.println(res.toString());
+	      }
+	    } catch (Exception e) {
+	      // Exception 로깅
+	    }
+		//session.setAttribute("sessionMemberId", accessToken);
+		return "main.do";
+	}
+
 
 }

@@ -1,4 +1,4 @@
-package com.varchar.biz.common;
+package com.varchar.view.controller;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 
 import com.varchar.biz.tea.TeaService;
 import com.varchar.biz.tea.TeaVO;
-import com.varchar.view.controller.TeaController;
 
 public class Product {
 

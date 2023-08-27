@@ -1,4 +1,4 @@
-package com.varchar.biz.common;
+package com.varchar.view.controller;
 
 import javax.servlet.http.HttpServletRequest;
 

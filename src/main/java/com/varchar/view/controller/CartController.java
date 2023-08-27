@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.varchar.biz.buy.BuyDetailService;
 import com.varchar.biz.buy.BuyDetailVO;
-import com.varchar.biz.common.Product;
 import com.varchar.biz.tea.TeaService;
 import com.varchar.biz.tea.TeaVO;
 
@@ -137,7 +136,7 @@ public class CartController {
 	// --------------------------------- 장바구니 총 가격 계산 ---------------------------------
 	@ResponseBody
 	@RequestMapping(value = "/total.do")
-	public String buy(HttpServletRequest request, HttpSession session) {
+	public String cartTotal(HttpServletRequest request, HttpSession session) {
 		
 		List<TeaVO> cart = (List<TeaVO>) session.getAttribute("cart");
 

@@ -70,7 +70,7 @@ public class FavorController {
 	}
 	
 	// --------------------------------- 찜 확인 ---------------------------------
-	
+	// 현재 사용하지 않는 액션
 	@ResponseBody
 	@RequestMapping(value = "/checkFavor.do")
 	public String CheckFavorAction(HttpSession session, FavorVO favorVO){

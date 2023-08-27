@@ -1,4 +1,4 @@
-package com.varchar.biz.common;
+package com.varchar.view.controller;
 
 public class PagingVO {
 	

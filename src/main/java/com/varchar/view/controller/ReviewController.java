@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.varchar.biz.buy.BuyDetailService;
 import com.varchar.biz.buy.BuyDetailVO;
 import com.varchar.biz.common.AlertVO;
-import com.varchar.biz.common.Paging;
-import com.varchar.biz.common.PagingVO;
 import com.varchar.biz.review.ReviewService;
 import com.varchar.biz.review.ReviewVO;
 import com.varchar.biz.tea.TeaService;

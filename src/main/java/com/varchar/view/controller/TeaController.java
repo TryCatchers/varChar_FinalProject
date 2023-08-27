@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.varchar.biz.common.Paging;
-import com.varchar.biz.common.PagingVO;
 import com.varchar.biz.favor.FavorService;
 import com.varchar.biz.favor.FavorVO;
 import com.varchar.biz.review.ReviewService;
