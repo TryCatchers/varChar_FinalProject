@@ -9,7 +9,7 @@ public class PointCutCommon {
 	public void bPointcut() {}
 	@Pointcut("execution(* com.varchar.biz..*Impl.selectAll(..))")
 	public void cPointcut() {}
-	
-//	@Pointcut("execution(* com.varchar.view..*(..))")
-//	public void dPointcut() {}
+	@Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping)")
+	public void dPointcut() {}
+
 }
