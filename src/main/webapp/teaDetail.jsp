@@ -103,9 +103,27 @@
                 });
                 //
         	} // if-else 문 끝
+        });
+        
+        console.log("확인2");
+        $("#reviewPlus").on("click",function(){
         	
+        	$.ajax({
+				 url: 'teaDetailPage.do?searchName='+${ page.searchName }+'&teaNum='+${ teaData.teaNum }+'&page='+${ page.currentPage + 1 },
+				 type: 'POST',
+				 success: function(result){
+					/////console.log('result ['+result+']');
+					$("#reviewForEach").remove();
+					//$("#cartForEach").append();
+				 },
+				 error: function(error){
+					alert('error ['+error+']');
+				 }
+			  });
         	
         });
+        
+        
      });
     </script>
     <style type="text/css">
@@ -205,7 +223,8 @@
         </div>   		
     	</div>
     	<div class="container">
-    		<div class="row">
+    		<div id="reviewForEach" class="row">
+    		<!--  
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
     					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
@@ -235,13 +254,16 @@
     					</div>
     				</div>
     			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
+    			-->
+    			<!-- 반복 시작 -->
+    			<c:forEach var="reviewData" items="${ reviewDatas }">
+    			<div  class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="Colorlib Template">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="${ reviewData.imageUrl }" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Strawberry</a></h3>
+    						<h3><a href="#">${ reviewData.reviewContent }</a></h3>
     						<div class="d-flex">
     							<div class="pricing">
 		    						<p class="price"><span>$120.00</span></p>
@@ -263,63 +285,16 @@
     					</div>
     				</div>
     			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
-	    					<div class="overlay"></div>
-	    				</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Green Beans</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span>$120.00</span></p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Purple Cabbage</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span>$120.00</span></p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
+    			</c:forEach>
+    			<!-- 반복 끝 -->
     		</div>
+    			<c:if test="${ page.currentPage < page.endPage }">
+    			<span id="reviewPlus">
+    			
+    			<a href="teaDetailPage.do?searchName=${ page.searchName }&teaNum=${ teaData.teaNum }&page=${ page.currentPage + 1 }">+</a>
+    			
+    			</span>
+    			</c:if>
     	</div>
     </section>
 

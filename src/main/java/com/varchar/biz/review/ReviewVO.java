@@ -16,6 +16,7 @@ public class ReviewVO {
 	private int buyCnt;
 	private int startRnum;
 	private int endRnum;
+	private int teaNum;
 	
 	public ReviewVO() {
 		this(0, "", 0, "");
@@ -27,7 +28,16 @@ public class ReviewVO {
 		this.buySerial = buySerial;
 		this.reviewContent = reviewContent;
 	}
+
 	
+	public int getTeaNum() {
+		return teaNum;
+	}
+
+	public void setTeaNum(int teaNum) {
+		this.teaNum = teaNum;
+	}
+
 	public String getTeaContent() {
 		return teaContent;
 	}

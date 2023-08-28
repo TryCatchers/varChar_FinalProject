@@ -35,6 +35,7 @@ public class TeaVO {
 		this.teaCondition = "";
 	}
 	
+	
 
 	public int getFavorResult() {
 		return favorResult;

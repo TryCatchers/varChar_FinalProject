@@ -84,21 +84,17 @@ public class TeaController {
 	//** set 구조 변경 */
 	
 	@RequestMapping(value="/teaDetailPage.do")
-	public String teaDetailPage(TeaVO teaVO, FavorVO favorVO, ReviewSet reviewSetVO, ReviewVO reviewVO, HttpSession session, Model model) { // 상품 상세
+	public String teaDetailPage(TeaVO teaVO, FavorVO favorVO, PagingVO pagingVO, ReviewVO reviewVO, HttpSession session, Model model) { // 상품 상세
 
 //		int favor = 0;
 		int favorResult = 0;
+		
 		System.out.println("favorResult 로그: "+ favorResult);
 
 		// System.out.println(request.getParameter("teaNum"));
 
 		teaVO = teaService.selectOne(teaVO);
 
-		reviewVO.setSearchName("REVIEW");
-		reviewVO.setReviewSearch(teaVO.getTeaName());
-		List<ReviewVO> reviewDatas = reviewService.selectAll(reviewVO);
-		int reviewCnt = reviewDatas.size();
-		
 		favorVO.setMemberId((String)session.getAttribute("sessionMemberId"));
 		if (session.getAttribute("sessionMemberId") == null) {
 			favorResult = 0;
@@ -108,31 +104,76 @@ public class TeaController {
 		}
 
 		System.out.println("로그 selctOne 결과:" + teaVO);
+		////////////////////////////////////////////////////////////////////////
 
-		List<ReviewSet> reviewSetDatas = null;
-		String count = teaVO.getCount();
+		int pageSize = 4;
+		
+		String searchName = pagingVO.getSearchName(); //DETAIL
+//		String reviewSearch = pagingVO.getReviewSearch();
+//		String memberId = pagingVO.getMemberId();
+//		reviewVO.setMemberId(memberId == null ? "" : memberId);
+//		reviewVO.setReviewSearch(reviewSearch == null ? "" : reviewSearch);
+		
+		reviewVO.setSearchName(searchName == null ? "" : searchName);
+		
+		//** 리뷰 NULL일때(아무 리뷰도 없을때) NPE ---> 유효성 추가 필요 */
+		List<ReviewVO> reviewDatasTotal = reviewService.selectAll(reviewVO); // 총 리뷰 개수
+		
+		pagingVO.setPageSize(pageSize);
+		pagingVO.setTotalCnt(reviewDatasTotal.size());
+		pagingVO.setCurrentPageStr(pagingVO.getPage());
 
-		if (count == null || count.isEmpty() || count.isBlank() || count.equals("")) {
-			count = "4";
-		}
-		int cnt = Integer.parseInt(count);
+		// 페이지네이션 모듈화
+		pagingVO = Paging.paging(pagingVO);
+		
+		pagingVO.setSearchName(searchName);
+//		pagingVO.setReviewSearch(reviewSearch);
+//		pagingVO.setMemberId(memberId);
+		
+		model.addAttribute("page", pagingVO);
 
-		teaVO.setStartRnum(cnt);
+		reviewVO.setSearchName(searchName + "_PAGING");
+		reviewVO.setStartRnum(0);
+		reviewVO.setEndRnum(pagingVO.getEndRnum());
+		List<ReviewVO> reviewDatas = reviewService.selectAll(reviewVO); // startRnum 부터 endRnum 까지의 리뷰
+		
+		model.addAttribute("teaData", teaVO);
+		model.addAttribute("favorResult", favorResult);
+		model.addAttribute("reviewDatas", reviewDatas);
+		
+		System.out.println(reviewDatas);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		////////////////////////////////////////////////////////////////////////////////
+//		reviewVO.setStartRnum(0);
+//		reviewVO.setEndRnum(4);
+//		reviewVO.setSearchName("DETAIL_PAGING");
+//		System.out.println("reviewVO 로그: "+reviewVO);
+//		//reviewVO.setStartRnum(pagingVO.getStartRnum());
+//		//reviewVO.setEndRnum(pagingVO.getEndRnum());
+//		List<ReviewVO> reviewDatas = reviewService.selectAll(reviewVO); // startRnum 부터 endRnum 까지의 리뷰
+//		model.addAttribute("reviewDatas", reviewDatas);
+//		
+//		System.out.println(reviewDatas);
 
-		if (teaVO != null) {
-			// 리뷰 형태 결정 후
-			// 해당 상품 리뷰도 같이 추출
-			reviewSetVO.setTea(teaVO);
-			
-			reviewSetDatas = reviewSetService.selectAll(reviewSetVO);
-			
-			model.addAttribute(count);
-			model.addAttribute("teaData", teaVO);
-			model.addAttribute("reviewSetDatas", reviewSetDatas);
-			model.addAttribute("favorResult", favorResult);
-			model.addAttribute("count", count);
-			model.addAttribute("reviewCnt", reviewCnt);
-		}
+		
+		
 		return "teaDetail.jsp";
 	}
 

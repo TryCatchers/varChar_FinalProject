@@ -27,14 +27,26 @@ public class ReviewDAO {
 	//			+ "ORDER BY r.REVIEW_NUM DESC ";
 
 	static final private String SQL_SELECTALL = // 후기 목록
-			"SELECT REVIEW_NUM, MEMBER_ID, BUY_SERIAL, REVIEW_CONTENT, TEA_NAME, IMAGE_URL "
+			"SELECT REVIEW_NUM, MEMBER_ID, BUY_SERIAL, REVIEW_CONTENT, TEA_NUM, TEA_NAME, IMAGE_URL "
 			+ "FROM ( "
-			+ "SELECT r.REVIEW_NUM, r.MEMBER_ID, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NAME, i.IMAGE_URL, ROWNUM AS rnum "
+			+ "SELECT r.REVIEW_NUM, r.MEMBER_ID, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NUM, t.TEA_NAME, i.IMAGE_URL, ROWNUM AS rnum "
 			+ "FROM REVIEW r "
 			+ "JOIN BUY_DETAIL bd ON r.BUY_SERIAL = bd.BUY_SERIAL "
 			+ "JOIN TEA t ON t.TEA_NUM = bd.TEA_NUM "
 			+ "JOIN IMAGE i ON i.TEA_NUM = t.TEA_NUM "
 			+ "WHERE i.IMAGE_DIVISION = 1 "
+			+ "ORDER BY r.REVIEW_NUM DESC "
+			+ ") r ";
+	
+	static final private String SQL_SELECTALL_DETAIL = // 후기 목록
+			"SELECT REVIEW_NUM, MEMBER_ID, BUY_SERIAL, REVIEW_CONTENT, TEA_NUM, TEA_NAME, IMAGE_URL "
+			+ "FROM ( "
+			+ "SELECT r.REVIEW_NUM, r.MEMBER_ID, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NUM, t.TEA_NAME, i.IMAGE_URL, ROWNUM AS rnum "
+			+ "FROM REVIEW r "
+			+ "JOIN BUY_DETAIL bd ON r.BUY_SERIAL = bd.BUY_SERIAL "
+			+ "JOIN TEA t ON t.TEA_NUM = bd.TEA_NUM "
+			+ "JOIN IMAGE i ON i.TEA_NUM = t.TEA_NUM "
+			+ "WHERE i.IMAGE_DIVISION = 1 AND t.TEA_NUM = ?"
 			+ "ORDER BY r.REVIEW_NUM DESC "
 			+ ") r ";
 
@@ -153,6 +165,12 @@ public class ReviewDAO {
 			Object[] args = { reviewVO.getMemberId() };
 			return jdbcTemplate.query(SQL_SELECTALL_MEMBER, args, new ReviewSelectAllRowMapper());
 		}
+		// 해당 상품의 후기
+		else if(reviewVO.getSearchName().equals("DETAIL")) {
+			System.out.println("DETAIL");
+			Object[] args = { reviewVO.getTeaNum() };
+			return jdbcTemplate.query(SQL_SELECTALL_DETAIL, args, new ReviewSelectAllRowMapper());
+		}
 		// 후기 목록 페이징
 		else if(reviewVO.getSearchName().equals("ALL_PAGING")) {
 			System.out.println("ALL_PAGING");
@@ -170,6 +188,12 @@ public class ReviewDAO {
 			System.out.println("CATEGORY_PAGING");
 			Object[] args = { reviewVO.getReviewSearch(), reviewVO.getStartRnum(), reviewVO.getEndRnum() };
 			return jdbcTemplate.query(SQL_SELECTALL_CATE + PAGING, args, new ReviewSelectAllRowMapper());
+		}
+		// 해당 상품의 후기 페이징
+		else if(reviewVO.getSearchName().equals("DETAIL_PAGING")) {
+			System.out.println("DETAIL_PAGING");
+			Object[] args = { reviewVO.getTeaNum(), reviewVO.getStartRnum(), reviewVO.getEndRnum() };
+			return jdbcTemplate.query(SQL_SELECTALL_DETAIL + PAGING, args, new ReviewSelectAllRowMapper());
 		}
 		// 내 후기 페이징
 		else { // MEMBER_PAGING
