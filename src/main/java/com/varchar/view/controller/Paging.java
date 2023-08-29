@@ -1,7 +1,5 @@
 package com.varchar.view.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 public class Paging {
 
 	public static PagingVO paging(PagingVO pagingVO) {

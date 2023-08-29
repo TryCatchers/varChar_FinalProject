@@ -13,6 +13,7 @@ import java.util.Base64;
 import java.util.Base64.Encoder;
 import java.util.List;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +21,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,6 +56,9 @@ public class BuyController {
 	private PaymentService paymentService;
 	@Autowired
 	private TeaService teaService;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 
 	////////////////////////////////////////////////////////////////////////////////////
 	// 주문 목록 페이지 이동
@@ -89,7 +95,7 @@ public class BuyController {
 		session.setAttribute("buyList", cart);
 		session.setAttribute("total", total);
 
-		//** 해당 회원 NULL 혹은 로그인 안함 ---> 유효성 추가 필요 */
+		// ** 해당 회원 NULL 혹은 로그인 안함 ---> 유효성 추가 필요 */
 		memberVO.setMemberId((String) session.getAttribute("sessionMemberId"));
 		memberVO.setMemberSearch("회원정보변경");
 		memberVO = memberService.selectOne(memberVO);
@@ -108,7 +114,7 @@ public class BuyController {
 	@RequestMapping(value = "/buyDetailPage.do")
 	public String buyDetailPage(Model model, BuyDetailVO buyDetailVO, ReviewVO reviewVO) {
 
-		//** 해당 주문 상세 내역이 없을 경우 ---> 유효성 추가 필요 */
+		// ** 해당 주문 상세 내역이 없을 경우 ---> 유효성 추가 필요 */
 		buyDetailVO.setBuySearch("주문상세");
 		List<BuyDetailVO> buyDetailDatas = buyDetailService.selectAll(buyDetailVO);
 
@@ -134,10 +140,11 @@ public class BuyController {
 		return "buyDetail.jsp";
 	}
 
-	// --------------------------------- 토스 결제 후 성공시 ---------------------------------
+	// --------------------------------- 토스 결제 후 성공시
+	// ---------------------------------
 	@RequestMapping(value = "/paySuccess.do")
-	public String paySuccess(HttpServletRequest request, HttpSession session, BuyVO buyVO, BuyDetailVO buyDetailVO, TeaVO teaVO,
-			PaymentVO paymentVO, Model model) throws IOException {
+	public String paySuccess(HttpServletRequest request, HttpSession session, BuyVO buyVO, BuyDetailVO buyDetailVO,
+			TeaVO teaVO, PaymentVO paymentVO, Model model, MemberVO memberVO) throws IOException {
 
 		// 결제 승인 API 호출하기
 
@@ -181,11 +188,11 @@ public class BuyController {
 		JSONParser parser = new JSONParser();
 		try {
 			System.out.println("try 들어옴");
-			
+
 			JSONObject jsonObject = (JSONObject) parser.parse(reader);
 			request.setAttribute("JSONObject", jsonObject);
 			request.setAttribute("isSuccess", isSuccess);
-			
+
 			// 이거 안되서 뭔가 생각좀 해봐야 될거 같은데
 			// 그냥 우리가 가진 VO DAO로 출력하는게 제일 나을거 같다는 생각이 듦.....
 			System.out.println("로그: jsonObject " + jsonObject);
@@ -193,6 +200,8 @@ public class BuyController {
 
 //====================================================== 기존 로직 ======================================================
 			List<TeaVO> buyList = (List<TeaVO>) session.getAttribute("buyList");
+			System.out.println("로그 buyList: "+ buyList);
+			String buyListText;
 
 			String memberId = (String) session.getAttribute("sessionMemberId");
 			buyVO.setMemberId(memberId);
@@ -209,18 +218,44 @@ public class BuyController {
 					teaVO.setTeaNum(buyList.get(i).getTeaNum());
 					teaVO.setTeaCnt(buyList.get(i).getTeaCnt());
 
-					//** 상세 주문 추가 / 재고 변경(검사도 필요) 각각 실패시 ---> 유효성 추가 필요 */
+					// ** 상세 주문 추가 / 재고 변경(검사도 필요) 각각 실패시 ---> 유효성 추가 필요 */
 					buyDetailService.insert(buyDetailVO); // 상세 주문 추가
 					teaService.update(teaVO); // 상품 재고 변경
 				}
 				paymentVO.setPaymentName(memberId);
 				paymentVO.setPaymentCustomer(memberId);
-				//** 결제 정보 추가 실패시 ---> 유효성 추가 필요 */
+				// ** 결제 정보 추가 실패시 ---> 유효성 추가 필요 */
 				paymentService.insert(paymentVO);
 				session.removeAttribute("buyList");
 				session.removeAttribute("cart");
 			}
-			
+
+			// 주문내역 이메일 안내
+//			String receiver = memberVO.getMemberEmail();
+//			if (receiver != null) {
+//				String title = "[var茶] 주문내역 안내";
+//				String name = memberVO.getMemberName();
+//				String content = "<h2>" + name + "님의 주문내역을 안내드립니다~!!</h2><br>" + "var茶의 상품을 주문해주셔서 정말 감사합니다.<br>"
+//						+ "앞으로 더 나은 서비스를 제공하겠습니다!"
+//						+ name;
+//				String from = "TryCathers";
+//				// 이메일 제목과 내용 설정
+//
+//				try {
+//					MimeMessage mail = mailSender.createMimeMessage();
+//					MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
+//
+//					mailHelper.setFrom(from);
+//					mailHelper.setTo(receiver);
+//					mailHelper.setSubject(title);
+//					mailHelper.setText(content, true);
+//
+//					mailSender.send(mail);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+
 // 해당 로직은 결제 단건 VO / DAO 만든거 같아서 참고용으로 둡니다
 //====================================================== 별빛역 로직 ======================================================
 //		         HttpSession session = request.getSession();// 세션 객체 생성
