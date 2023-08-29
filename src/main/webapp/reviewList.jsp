@@ -42,7 +42,7 @@
           <div class="col-lg-8 ftco-animate">
 			<div class="row">
               <c:if test="${ empty reviewDatas }">
-
+				리뷰 X
               </c:if>
               <c:if test="${ not empty reviewDatas }">
                 <c:forEach var="reviewData" items="${ reviewDatas }">

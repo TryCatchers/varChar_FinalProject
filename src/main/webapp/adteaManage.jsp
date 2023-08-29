@@ -111,7 +111,7 @@
 										<div class="form-group">
 											<label for="exampleInputPassword1">상품 설명</label> <input
 												type="text" class="form-control form-control-lg"
-												id="exampleInputPassword1" placeholder="$-{teaData.teaContent}">
+												id="teaContent" placeholder="$-{teaData.teaContent}">
 										</div>
 										<button id="scrolltodelete" type="submit" class="btn btn-primary me-2">Submit</button>
 										<button class="btn btn-light">Cancel</button>
@@ -808,7 +808,7 @@ const selectprice = document.getElementById("selectprice");
 const fixcnt=document.getElementById("fixcnt");
 const fixprice=document.getElementById("fixprice");
 
-//라디오 버튼 상태 변화를 감지하는 이벤트 리스너를 추가합니다.
+//라디오 버튼 상태 변화를 감지하는 이벤트 리스너 추가
 // 1) 모두에 체크되었을때
 both.addEventListener("change", function(){
 	if(both.checked){
@@ -832,7 +832,8 @@ selectprice.addEventListener("change", function(){
 		fixcnt.disabled = true;
 	}
 });
-</script>	
+</script>
+
 </body>
 
 </html>

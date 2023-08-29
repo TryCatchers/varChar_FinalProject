@@ -67,27 +67,27 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="card-body">
-                      <h4 class="card-title">상품 해시태그 추가/삭제/수정</h4>
+                      <h4 class="card-title">후기 해시태그 추가/삭제/수정</h4>
                       <p class="card-description">Add class <code>.btn-{color}</code> for buttons in theme colors</p>
                       <div class="template-demo">
 									  <div class="form-group">
 										<h5><strong>상품 카테고리 선택 [1) 카테코리를 먼저 지정한다.]</strong></h5>
 										<select class="form-control" id="exampleFormControlSelect2">
-											<option>$-{teaData.teaCategory}</option>
-											<option>$-{teaData.teaCategory}</option>
-											<option>$-{teaData.teaCategory}</option>
-											<option>$-{teaData.teaCategory}</option>
-											<option>$-{teaData.teaCategory}</option>
+											<option>$-{그 리뷰 관련 EL 넣으면 될듯합니다 ㅎㅎ}</option>
+											<option>$-{그 리뷰 관련 EL 넣으면 될듯합니다 ㅎㅎ}</option>
+											<option>$-{그 리뷰 관련 EL 넣으면 될듯합니다 ㅎㅎ}</option>
+											<option>$-{그 리뷰 관련 EL 넣으면 될듯합니다 ㅎㅎ}</option>
+											<option>$-{그 리뷰 관련 EL 넣으면 될듯합니다 ㅎㅎ}</option>
 										</select>
 									</div>
 										<div class="form-group">
 										<h5><strong>상품 선택 [2) 위에서 나눈 카테고리 별로 상품이 출력되게 한다.]</strong></h5>
 										<select class="form-control" id="exampleFormControlSelect2">
-											<option>$-{teaData.teaNum}</option>
-											<option>$-{teaData.teaNum}</option>
-											<option>$-{teaData.teaNum}</option>
-											<option>$-{teaData.teaNum}</option>
-											<option>$-{teaData.teaNum}</option>
+											<option>$-{그 리뷰 관련 EL 넣으면 될듯합니다 ㅎㅎ}</option>
+											<option>$-{그 리뷰 관련 EL 넣으면 될듯합니다 ㅎㅎ}</option>
+											<option>$-{그 리뷰 관련 EL 넣으면 될듯합니다 ㅎㅎ}</option>
+											<option>$-{그 리뷰 관련 EL 넣으면 될듯합니다 ㅎㅎ}</option>
+											<option>$-{그 리뷰 관련 EL 넣으면 될듯합니다 ㅎㅎ}</option>
 										</select>
 									</div>
                     	<form id="hashTagForm" method="post" action="aaa.do" onsubmit="return false;">

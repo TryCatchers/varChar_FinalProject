@@ -95,17 +95,18 @@ public class ReviewController {
 		
 		buyDetailVO.setBuySearch("주문상세");
 		buyDetailVO = buyDetailService.selectOne(buyDetailVO);
+		teaVO.setTeaNum(buyDetailVO.getTeaNum());
 		
 		//** 해당 상품 존재 안함 ---> 유효성 추가 필요 */
 		teaVO = teaService.selectOne(teaVO);
 		model.addAttribute("reviewData", reviewVO);
-		model.addAttribute("teaDatas", teaVO);
-		model.addAttribute("buyDetalDatas", buyDetailVO);
+		model.addAttribute("teaData", teaVO);
+		model.addAttribute("buyDetailData", buyDetailVO);
 		
-		System.out.println("InsertReviewsPageAction buySerial 로그: " + buyDetailVO);
-		System.out.println("InsertReviewsPageAction buySerial 로그: " + teaVO);
-		System.out.println("InsertReviewsPageAction buySerial 로그: " + buyDetailVO.getBuySerial());
-		System.out.println("InsertReviewsPageAction buySerial 로그: " + reviewVO);
+		System.out.println("InsertReviewsPageAction buySerial 로그 buyDetailVO: " + buyDetailVO);
+		System.out.println("InsertReviewsPageAction buySerial 로그 teaVO: " + teaVO);
+		System.out.println("InsertReviewsPageAction buySerial 로그 buyDetailVO.getBuySerial(): " + buyDetailVO.getBuySerial());
+		System.out.println("InsertReviewsPageAction buySerial 로그 reviewVO: " + reviewVO);
 		
 		return "insertReview.jsp";
 	}
