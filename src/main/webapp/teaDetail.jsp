@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="try"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -105,25 +106,6 @@
         	} // if-else 문 끝
         });
         
-        console.log("확인2");
-        $("#reviewPlus").on("click",function(){
-        	
-        	$.ajax({
-				 url: 'teaDetailPage.do?searchName='+${ page.searchName }+'&teaNum='+${ teaData.teaNum }+'&page='+${ page.currentPage + 1 },
-				 type: 'POST',
-				 success: function(result){
-					/////console.log('result ['+result+']');
-					$("#reviewForEach").remove();
-					//$("#cartForEach").append();
-				 },
-				 error: function(error){
-					alert('error ['+error+']');
-				 }
-			  });
-        	
-        });
-        
-        
      });
     </script>
     <style type="text/css">
@@ -222,9 +204,12 @@
           </div>
         </div>   		
     	</div>
-    	<div class="container">
+    	<c:set var="reviewSize" value="${ fn:length(reviewDatas) }"/>>
+    	<c:set var="endRnum" value="4"/>
+    	<div id ="reviewContainer" class="container">
     		<div id="reviewForEach" class="row">
     		<!--  
+    		<c:set var="endRnum" value="4"/>
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
     					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
@@ -256,8 +241,8 @@
     			</div>
     			-->
     			<!-- 반복 시작 -->
-    			<c:forEach var="reviewData" items="${ reviewDatas }">
-    			<div  class="col-md-6 col-lg-3 ftco-animate">
+    			<c:forEach var="reviewData" items="${ reviewDatas }" begin="0" end="${ reviewSize }" varStatus="status">
+    			<div id="${ status.index }" class="col-md-6 col-lg-3 ftco-animate" style="display: none;">
     				<div class="product">
     					<a href="#" class="img-prod"><img class="img-fluid" src="${ reviewData.imageUrl }" alt="Colorlib Template">
     						<div class="overlay"></div>
@@ -288,14 +273,56 @@
     			</c:forEach>
     			<!-- 반복 끝 -->
     		</div>
+    		<c:if test="${ endRnum < reviewSize }">
+    			<p><a id="reviewPlus" class="btn btn-primary py-2 px-3">Read more</a></p>
+    		</c:if>
+
+    		<!--  
     			<c:if test="${ page.currentPage < page.endPage }">
-    			<span id="reviewPlus">
-    			
-    			<a href="teaDetailPage.do?searchName=${ page.searchName }&teaNum=${ teaData.teaNum }&page=${ page.currentPage + 1 }">+</a>
-    			
-    			</span>
+    				<span id="reviewPlus">
+    					<a href="teaDetailPage.do?searchName=${ page.searchName }&teaNum=${ teaData.teaNum }&page=${ page.currentPage + 1 }">+</a>
+    				</span>
     			</c:if>
+    		-->
     	</div>
+    		<script>
+    			$(document).ready(function(){
+    				//document.getElementsByClassName("col-md-6 col-lg-3 ftco-animate").style.display="none";
+    				var endRnum = ${ endRnum };
+    				console.log("최초 endRnum: " + endRnum);
+    				
+    				for (i = 0; i < endRnum; i++){
+						document.getElementsByClassName("col-md-6 col-lg-3 ftco-animate")[i].style.display="block";
+						console.log("i 확인: "+ i);
+					}
+    				
+    				$('#reviewPlus').click(function(){
+    					console.log("리뷰 더하기 버튼 클릭 확인");
+
+    					endRnum += 4;
+    					console.log("endRnum: " + endRnum);
+    					
+    					if(endRnum >= ${ reviewSize }){
+    						console.log("확인2 endRnum: "+ endRnum);
+    						var con = document.getElementById("reviewPlus");
+    						con.style.display = "none";
+    					}
+    					
+    					for (i = 0; i < endRnum; i++){
+    						document.getElementsByClassName("col-md-6 col-lg-3 ftco-animate")[i].style.display="block";
+    						console.log("i 확인: "+ i);
+    					}
+    					
+    				});
+    				
+    				if(endRnum >= ${ reviewSize }){
+						console.log("확인2 endRnum: "+ endRnum);
+						var con = document.getElementById("reviewPlus");
+						con.style.display = "none";
+					}
+    				
+    			});
+    		</script>
     </section>
 
 		

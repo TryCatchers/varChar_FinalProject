@@ -75,11 +75,11 @@
 			   <c:forEach var="teaData" items="${ teaDatas }">  
     			<div class="col-md-6 col-lg-3 ftco-animate"> <!-- 반복 시작점 -->
     				<div class="product">
-    					<a href="teaDetailPage.do?teaNum=${ teaData.teaNum }" class="img-prod"><img class="img-fluid" src="${ teaData.imageUrl }" alt="Colorlib Template">
+    					<a href="teaDetailPage.do?teaNum=${ teaData.teaNum }&searchName=DETAIL" class="img-prod"><img class="img-fluid" src="${ teaData.imageUrl }" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="teaDetailPage.do?teaNum=${ teaData.teaNum }">${ teaData.teaName }</a></h3>
+    						<h3><a href="teaDetailPage.do?teaNum=${ teaData.teaNum }&searchName=DETAIL">${ teaData.teaName }</a></h3>
     						<div class="d-flex">
     							<div class="pricing">
 		    						<p class="price"><span>${ teaData.teaPrice } ₩</span></p>

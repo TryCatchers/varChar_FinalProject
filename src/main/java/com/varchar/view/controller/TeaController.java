@@ -86,12 +86,8 @@ public class TeaController {
 	@RequestMapping(value="/teaDetailPage.do")
 	public String teaDetailPage(TeaVO teaVO, FavorVO favorVO, PagingVO pagingVO, ReviewVO reviewVO, HttpSession session, Model model) { // 상품 상세
 
-//		int favor = 0;
 		int favorResult = 0;
-		
 		System.out.println("favorResult 로그: "+ favorResult);
-
-		// System.out.println(request.getParameter("teaNum"));
 
 		teaVO = teaService.selectOne(teaVO);
 
@@ -105,75 +101,19 @@ public class TeaController {
 
 		System.out.println("로그 selctOne 결과:" + teaVO);
 		////////////////////////////////////////////////////////////////////////
-
-		int pageSize = 4;
 		
 		String searchName = pagingVO.getSearchName(); //DETAIL
-//		String reviewSearch = pagingVO.getReviewSearch();
-//		String memberId = pagingVO.getMemberId();
-//		reviewVO.setMemberId(memberId == null ? "" : memberId);
-//		reviewVO.setReviewSearch(reviewSearch == null ? "" : reviewSearch);
-		
 		reviewVO.setSearchName(searchName == null ? "" : searchName);
 		
 		//** 리뷰 NULL일때(아무 리뷰도 없을때) NPE ---> 유효성 추가 필요 */
 		List<ReviewVO> reviewDatasTotal = reviewService.selectAll(reviewVO); // 총 리뷰 개수
 		
-		pagingVO.setPageSize(pageSize);
-		pagingVO.setTotalCnt(reviewDatasTotal.size());
-		pagingVO.setCurrentPageStr(pagingVO.getPage());
-
-		// 페이지네이션 모듈화
-		pagingVO = Paging.paging(pagingVO);
-		
-		pagingVO.setSearchName(searchName);
-//		pagingVO.setReviewSearch(reviewSearch);
-//		pagingVO.setMemberId(memberId);
-		
-		model.addAttribute("page", pagingVO);
-
-		reviewVO.setSearchName(searchName + "_PAGING");
-		reviewVO.setStartRnum(0);
-		reviewVO.setEndRnum(pagingVO.getEndRnum());
-		List<ReviewVO> reviewDatas = reviewService.selectAll(reviewVO); // startRnum 부터 endRnum 까지의 리뷰
-		
 		model.addAttribute("teaData", teaVO);
 		model.addAttribute("favorResult", favorResult);
-		model.addAttribute("reviewDatas", reviewDatas);
+		model.addAttribute("reviewDatas", reviewDatasTotal);
+		System.out.println("전체 후기: "+reviewDatasTotal);
 		
-		System.out.println(reviewDatas);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		////////////////////////////////////////////////////////////////////////////////
-//		reviewVO.setStartRnum(0);
-//		reviewVO.setEndRnum(4);
-//		reviewVO.setSearchName("DETAIL_PAGING");
-//		System.out.println("reviewVO 로그: "+reviewVO);
-//		//reviewVO.setStartRnum(pagingVO.getStartRnum());
-//		//reviewVO.setEndRnum(pagingVO.getEndRnum());
-//		List<ReviewVO> reviewDatas = reviewService.selectAll(reviewVO); // startRnum 부터 endRnum 까지의 리뷰
-//		model.addAttribute("reviewDatas", reviewDatas);
-//		
-//		System.out.println(reviewDatas);
 
-		
-		
 		return "teaDetail.jsp";
 	}
 
