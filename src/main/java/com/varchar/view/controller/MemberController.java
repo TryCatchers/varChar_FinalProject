@@ -43,8 +43,16 @@ public class MemberController {
 	public String login(MemberVO memberVO, HttpSession session, Model model) {
 		System.out.println("LoginController 로그");
 
+		String salt = Password.generateRandomPassword(10);
+		String shaPW = Password.ShaPass(memberVO.getMemberPw()+salt);
+		System.out.println("암호화pw: "+shaPW);
+		System.out.println("사용된 salt: "+salt);
+		//String salt = memverVO.getSalt();
+		//memberVO.setMemberPw(shaPW);
+		
 		memberVO.setMemberSearch("로그인");
 		memberVO = memberService.selectOne(memberVO);
+		
 
 		if (memberVO != null) {
 			session.setAttribute("sessionMemberId", memberVO.getMemberId());
@@ -52,7 +60,6 @@ public class MemberController {
 //			if(memberVO.getMemberGrade().equals("ADMIN")) { // 관리자 검사
 //				return "관리자 페이지";
 //			}
-			
 			
 		} else {
 			AlertVO sweetAlertVO = new AlertVO("로그인실패", "로그인실패", null, "error", null);
@@ -93,6 +100,18 @@ public class MemberController {
 
 	@RequestMapping(value = "/signup.do", method=RequestMethod.POST)
 	public String signup(MemberVO memberVO, Model model) { // 회원가입
+		
+		/*
+		String salt = Password.generateRandomPassword(10);
+		String shaPW = Password.ShaPass(memberVO.getMemberPw()+salt);
+		System.out.println("암호화pw: "+shaPW);
+		System.out.println("사용된 salt: "+salt);
+		//String salt = memverVO.getSalt();
+		//memberVO.setMemberPw(shaPW);
+		//String salt = memverVO.getSalt();
+		//memberVO.setMemberPw(shaPW);
+		 * 
+		 */
 
 //		memberVO.setMemberId(request.getParameter("memberId"));
 //		memberVO.setMemberPw(request.getParameter("memberPw"));
@@ -178,6 +197,18 @@ public class MemberController {
 
 	@RequestMapping(value = "/updatePw.do", method=RequestMethod.POST)
 	public String updatePw(MemberVO memberVO, Model model) {
+		
+		/*
+		String salt = Password.generateRandomPassword(10);
+		String shaPW = Password.ShaPass(memberVO.getMemberPw()+salt);
+		System.out.println("암호화pw: "+shaPW);
+		System.out.println("사용된 salt: "+salt);
+		//String salt = memverVO.getSalt();
+		//memberVO.setMemberPw(shaPW);
+		//String salt = memverVO.getSalt();
+		//memberVO.setMemberPw(shaPW);
+		 * 
+		 */
 
 		memberVO.setMemberSearch("비밀번호변경");
 		//** 비밀번호 변경 실패 ---> 유효성 추가 필요 */
@@ -198,8 +229,19 @@ public class MemberController {
 	@RequestMapping(value="/findPw.do", method=RequestMethod.POST)
 	public String findPw(MemberVO memberVO, Model model) {
 		
-		String randomPw = RandomPw.main(null);
+		String randomPw = Password.main(null);
 		System.out.println("임시비밀번호 : " + randomPw);
+		/*
+		String salt = Password.generateRandomPassword(10);
+		String shaPW = Password.ShaPass(randomPw+salt);
+		System.out.println("암호화pw: "+shaPW);
+		System.out.println("사용된 salt: "+salt);
+		//String salt = memverVO.getSalt();
+		//memberVO.setMemberPw(shaPW);
+		//String salt = memverVO.getSalt();
+		//memberVO.setMemberPw(shaPW);
+		 * 
+		 */
 		
 		memberVO.setMemberSearch("비밀번호변경");
 		memberVO.setMemberPw(randomPw);
@@ -241,7 +283,7 @@ public class MemberController {
 		return "alertTrue.jsp";
 	}
 	
-	// 네이버 로그인 테스트 중
+	// // ------------------------------------- 네이버 로그인 테스트 중 -------------------------------------
 	@RequestMapping(value = "/loginNaver.do")
 	public String loginNaver(HttpSession session, HttpServletRequest request) throws UnsupportedEncodingException {
 		System.out.println("loginNaver.do 진입");
