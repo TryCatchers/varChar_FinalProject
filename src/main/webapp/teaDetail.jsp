@@ -169,7 +169,11 @@
   		0%   { transform: scale(30); }
   		100% { transform: scale(1); }
 	}
-    
+    	.reviewCon {
+	    	overflow: hidden;
+	    	text-overflow: ellipsis;
+	    	white-space: nowrap;
+    	}
 
     </style>
   </head>
@@ -277,123 +281,145 @@
     	</div>
     	<c:set var="reviewSize" value="${ fn:length(reviewDatas) }"/>>
     	<c:set var="endRnum" value="4"/>
-    	<div id ="reviewContainer" class="container">
-    		<div id="reviewForEach" class="row">
-    		<!--  
-    		<c:set var="endRnum" value="4"/>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
-    						<span class="status">30%</span>
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Bell Pepper</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span class="mr-2 price-dc">$120.00</span><span class="price-sale">$80.00</span></p>
-		    					</div>
-	    					</div>
-	    					<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
+    	
+    	<c:choose>
+    		<c:when test="${ reviewSize == 0 }">
+    			<div class="container">
+    				<h3 class="heading text-center">후기가 존재하지 않습니다.</h3>
     			</div>
-    			-->
-    			<!-- 반복 시작 -->
-    			<c:forEach var="reviewData" items="${ reviewDatas }" begin="0" end="${ reviewSize }" varStatus="status">
-    			<div id="${ status.index }" class="col-md-6 col-lg-3 ftco-animate" style="display: none;">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="${ reviewData.imageUrl }" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">${ reviewData.reviewContent }</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span>$120.00</span></p>
+    		</c:when>
+    		<c:otherwise>
+		    	<div id ="reviewContainer" class="container">
+		    		<div id="reviewForEach" class="row">
+		    		<!--  
+		    		<c:set var="endRnum" value="4"/>
+		    			<div class="col-md-6 col-lg-3 ftco-animate">
+		    				<div class="product">
+		    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
+		    						<span class="status">30%</span>
+		    						<div class="overlay"></div>
+		    					</a>
+		    					<div class="text py-3 pb-4 px-3 text-center">
+		    						<h3><a href="#">Bell Pepper</a></h3>
+		    						<div class="d-flex">
+		    							<div class="pricing">
+				    						<p class="price"><span class="mr-2 price-dc">$120.00</span><span class="price-sale">$80.00</span></p>
+				    					</div>
+			    					</div>
+			    					<div class="bottom-area d-flex px-3">
+			    						<div class="m-auto d-flex">
+			    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+			    								<span><i class="ion-ios-menu"></i></span>
+			    							</a>
+			    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+			    								<span><i class="ion-ios-cart"></i></span>
+			    							</a>
+			    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
+			    								<span><i class="ion-ios-heart"></i></span>
+			    							</a>
+		    							</div>
+		    						</div>
 		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			</c:forEach>
-    			<!-- 반복 끝 -->
-    		</div>
-    		<c:if test="${ endRnum < reviewSize }">
-    			<p><a id="reviewPlus" class="btn btn-primary py-2 px-3">Read more</a></p>
-    		</c:if>
-
-    		<!--  
-    			<c:if test="${ page.currentPage < page.endPage }">
-    				<span id="reviewPlus">
-    					<a href="teaDetailPage.do?searchName=${ page.searchName }&teaNum=${ teaData.teaNum }&page=${ page.currentPage + 1 }">+</a>
-    				</span>
-    			</c:if>
-    		-->
-    	</div>
-    		<script>
-    			$(document).ready(function(){
-    				//document.getElementsByClassName("col-md-6 col-lg-3 ftco-animate").style.display="none";
-    				var endRnum = ${ endRnum };
-    				console.log("최초 endRnum: " + endRnum);
-    				
-    				for (i = 0; i < endRnum; i++){
-						document.getElementsByClassName("col-md-6 col-lg-3 ftco-animate")[i].style.display="block";
-						console.log("i 확인: "+ i);
-					}
-    				
-    				$('#reviewPlus').click(function(){
-    					console.log("리뷰 더하기 버튼 클릭 확인");
-
-    					endRnum += 4;
-    					console.log("endRnum: " + endRnum);
-    					
-    					if(endRnum >= ${ reviewSize }){
-    						console.log("확인2 endRnum: "+ endRnum);
-    						var con = document.getElementById("reviewPlus");
-    						con.style.display = "none";
-    					}
-    					
-    					for (i = 0; i < endRnum; i++){
-    						document.getElementsByClassName("col-md-6 col-lg-3 ftco-animate")[i].style.display="block";
-    						console.log("i 확인: "+ i);
-    					}
-    					
-    				});
-    				
-    				if(endRnum >= ${ reviewSize }){
-						console.log("확인2 endRnum: "+ endRnum);
-						var con = document.getElementById("reviewPlus");
-						con.style.display = "none";
-					}
-    				
-    			});
-    		</script>
+		    				</div>
+		    			</div>
+		    			-->
+		    			<!-- 반복 시작 -->
+		    			<c:forEach var="reviewData" items="${ reviewDatas }" begin="0" end="${ reviewSize }" varStatus="status">
+		    			<div id="${ status.index }" class="col-md-6 col-lg-3 ftco-animate" style="display: none;">
+		    				<div class="product">
+		    					<a href="#" class="img-prod"><img class="img-fluid" src="${ reviewData.imageUrl }" alt="Colorlib Template">
+		    						<div class="overlay"></div>
+		    					</a>
+		    					<div class="text py-3 pb-4 px-3 text-center">
+		    						<h3 class="reviewsCon ${ reviewData.reviewNum }"><a href="#">${ reviewData.reviewContent }</a></h3>
+		    						<script type="text/javascript">
+				                        $(document).ready(function(){
+				                          var con = $('.reviewsCon.${ reviewData.reviewNum }').text();
+				                          console.log(con);
+				                          $('.reviewsCon.${ reviewData.reviewNum } > a').text(con);
+				                          var htm = $('.reviewsCon.${ reviewData.reviewNum } > a').html();
+				                          console.log(htm);
+				                          htm = htm.replace(/&nbsp;/g, '');
+				                          $('.reviewsCon.${ reviewData.reviewNum } > a').text(htm);
+				                        });
+			                        </script>
+		    						<div class="d-flex">
+		    							<div class="pricing">
+				    						<p class="price"><span>$120.00</span></p>
+				    					</div>
+			    					</div>
+		    						<div class="bottom-area d-flex px-3">
+			    						<div class="m-auto d-flex">
+			    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+			    								<span><i class="ion-ios-menu"></i></span>
+			    							</a>
+			    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+			    								<span><i class="ion-ios-cart"></i></span>
+			    							</a>
+			    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
+			    								<span><i class="ion-ios-heart"></i></span>
+			    							</a>
+		    							</div>
+		    						</div>
+		    					</div>
+		    				</div>
+		    			</div>
+		    			</c:forEach>
+		    			<!-- 반복 끝 -->
+		    		</div>
+		    		<c:if test="${ endRnum < reviewSize }">
+		    			<p><a id="reviewPlus" class="btn btn-primary py-2 px-3">Read more</a></p>
+		    		</c:if>
+		
+		    		<!--  
+		    			<c:if test="${ page.currentPage < page.endPage }">
+		    				<span id="reviewPlus">
+		    					<a href="teaDetailPage.do?searchName=${ page.searchName }&teaNum=${ teaData.teaNum }&page=${ page.currentPage + 1 }">+</a>
+		    				</span>
+		    			</c:if>
+		    		-->
+		    	</div>
+		    		<script>
+		    			$(document).ready(function(){
+		    				//document.getElementsByClassName("col-md-6 col-lg-3 ftco-animate").style.display="none";
+		    				var endRnum = ${ endRnum };
+		    				console.log("최초 endRnum: " + endRnum);
+		    				
+		    				for (i = 0; i < endRnum; i++){
+								document.getElementsByClassName("col-md-6 col-lg-3 ftco-animate")[i].style.display="block";
+								console.log("i 확인: "+ i);
+							}
+		    				
+		    				$('#reviewPlus').click(function(){
+		    					console.log("리뷰 더하기 버튼 클릭 확인");
+		
+		    					endRnum += 4;
+		    					console.log("endRnum: " + endRnum);
+		    					
+		    					if(endRnum >= ${ reviewSize }){
+		    						console.log("확인2 endRnum: "+ endRnum);
+		    						var con = document.getElementById("reviewPlus");
+		    						con.style.display = "none";
+		    					}
+		    					
+		    					for (i = 0; i < endRnum; i++){
+		    						document.getElementsByClassName("col-md-6 col-lg-3 ftco-animate")[i].style.display="block";
+		    						console.log("i 확인: "+ i);
+		    					}
+		    					
+		    				});
+		    				
+		    				if(endRnum >= ${ reviewSize }){
+								console.log("확인2 endRnum: "+ endRnum);
+								var con = document.getElementById("reviewPlus");
+								con.style.display = "none";
+							}
+		    				
+		    			});
+		    		</script>
+    		</c:otherwise>
+    	</c:choose>
+    	
     </section>
 
 		

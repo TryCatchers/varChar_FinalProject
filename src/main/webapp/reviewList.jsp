@@ -15,11 +15,14 @@
     <!-- 링크 부분 태그 -->
     <try:link/>
     <style type="text/css">
-    	.edit-reviewCon {
+    	.reviewCon {
     		overflow: hidden;
     		text-overflow: ellipsis;
     		white-space: nowrap;
     	}
+    	#emptyReview {
+	    	color: gray;
+	    }
     </style>
   </head>
   <body class="goto-here">
@@ -42,7 +45,13 @@
           <div class="col-lg-8 ftco-animate">
 			<div class="row">
               <c:if test="${ empty reviewDatas }">
-				리뷰 X
+				<div class="col-md-12 ftco-animate fadeInUp ftco-animated">
+		          <div class="blog-entry align-self-stretch d-md-flex">
+		          	<div class="text d-block pl-md-4">
+		              <h3 id="emptyReview" class="heading text-center">후기가 존재하지 않습니다.</h3>
+		            </div>
+		          </div>
+		        </div>
               </c:if>
               <c:if test="${ not empty reviewDatas }">
                 <c:forEach var="reviewData" items="${ reviewDatas }">

@@ -80,12 +80,12 @@
 	
 	<link rel="icon" type="image/svg+xml" href="/vite.svg" />
 
-	<div style="width: 1000px; height: 300px; margin: 0 auto;">
 	<script src="https://js.tosspayments.com/v1/payment-widget"></script>
-
-
-    <button id="payment-request-button">결제하기</button>
-	<div id="payment-method"></div>
+	<div style="width: 1000px; height: 300px; margin: 0 auto;">
+	<div id="payment-method">
+	</div>
+	<button id="payment-request-button">결제하기</button>
+    
     
 <%--     <!-- 총 가격 구하기 -->
     <c:set var="sum" value="0" />
@@ -139,7 +139,7 @@
 	
 
 	<!-- 커스텀 태그 적용하기 -->
-		<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+	<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
       <div class="container py-4">
         <div class="row d-flex justify-content-center py-5">
           <div class="col-md-6">

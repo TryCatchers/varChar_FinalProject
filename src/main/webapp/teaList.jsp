@@ -53,6 +53,16 @@
 
     <section class="ftco-section">
     	<div class="container">
+	   	  <div class="row d-flex justify-content-center py-5">
+	        <div class="col-md-6 d-flex align-items-center">
+	          <form action="teaListPage.do" class="subscribe-form">
+	            <div class="form-group d-flex">
+	              <input type="text" name="teaSearchWord" class="form-control" placeholder="검색">
+	              <input type="submit" value="검색" class="submit px-3">
+	            </div>
+	          </form>
+	        </div>
+          </div>
     		<div class="row justify-content-center">
     			<div class="col-md-10 mb-5 text-center">
     				<ul class="product-category">

@@ -42,7 +42,7 @@
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item active"><a href="main.do" class="nav-link">홈</a></li>
 	          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="teaListPage.do" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">티 제품
+              <a class="nav-link dropdown-toggle" href="teaListPage.do" id="dropdown04" aria-haspopup="true" aria-expanded="false">티 제품
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
               	<a class="dropdown-item" href="teaListPage.do?teaCategory=녹차">녹차</a>
