@@ -12,14 +12,24 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="menu-icon mdi mdi-tag-text-outline"></i>
-              <span class="menu-title">해시태그 관리</span>
+              <span class="menu-title">상품 해시태그 관리</span>
               <i class="menu-arrow"></i> 
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="adhashTag.jsp">해시태그 추가</a></li>
-                <li class="nav-item"> <a class="nav-link" href="adhashTag.jsp">해시태그 삭제</a></li>
-                <li class="nav-item"> <a class="nav-link" href="adhashTag.jsp">해시태그 수정</a></li>
+                <li class="nav-item"> <a class="nav-link" href="adhashTag.jsp">상품 Htg 추가/삭제/수정</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+              <i class="menu-icon mdi mdi-tag-faces"></i>
+              <span class="menu-title">후기 해시태그 관리</span>
+              <i class="menu-arrow"></i> 
+            </a>
+            <div class="collapse" id="charts">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="adhashTagRw.jsp">후기 Htg 추가/삭제/수정</a></li>
               </ul>
             </div>
           </li>
@@ -41,6 +51,7 @@
         </ul>
       </nav>
      <script>
+     // 스크롤되면 옆에 사이드바도 같이 따라서 내려오는 스크립트
      var sidebar = document.getElementById("sidebar");
 
      window.addEventListener("scroll", function () {

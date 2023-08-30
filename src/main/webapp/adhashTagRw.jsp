@@ -43,6 +43,7 @@
 
 .hashTagItem button {
     margin-top: 10px; /* 원하는 간격으로 조정 */
+    margin-right: 5px;
 }
 </style>    
 </head>
@@ -90,7 +91,7 @@
 											<option>$-{그 리뷰 관련 EL 넣으면 될듯합니다 ㅎㅎ}</option>
 										</select>
 									</div>
-                    	<form id="hashTagForm" method="post" action="aaa.do" onsubmit="return false;">
+                    	<form id="hashTagForm" method="post" action="admin.jsp" onsubmit="return false;">
                     	<div id="hashTagContainer" class="template-demo">
                          </div> <br>
                         <button type="button" class="btn btn-primary">저장(Save)</button>
@@ -526,6 +527,7 @@
 var hashTagContainer = document.getElementById("hashTagContainer");
 var isButtonVisible = false;
 
+
 // <div> 내의 클릭 이벤트를 처리
 hashTagContainer.addEventListener("click", function(event) {
     // 클릭한 요소를 가져오기
@@ -533,48 +535,84 @@ hashTagContainer.addEventListener("click", function(event) {
     // 클릭한 요소가 <input> 요소이며 클래스에 "btn"이 포함되어 있는 경우에만 해당 요소를 삭제
     if (clickedElement.tagName === "INPUT" && clickedElement.classList.contains("btn")) {
     	 var containerDiv = clickedElement.nextElementSibling;
+    	 // nextElementSibling, nextSibling 모두 같은 노드 레벨의 다음 값을 가져온다.
+    	 // 다만 Element는 Element(요소)만 가져오고, nextSibling은 공백이든 텍스트든 가리지 않고 다음값을 가져온다.
          if (!containerDiv || !containerDiv.classList.contains("hashTagItem")) {
              // 버튼이 아직 추가되지 않았으면 수정하기 버튼과 삭제하기 버튼을 추가
-             var editButton = document.createElement("button");
-             editButton.textContent = "수정하기";
-             editButton.classList.add("btn", "btn-outline-dark", "btn-sm");
-             editButton.addEventListener("click", function() {
-            	 event.stopPropagation();
-                 // 수정하기 버튼을 클릭했을 때 수행할 동작을 여기에 추가
-                 alert("수정하기 버튼이 클릭되었습니다.");
-                 return true;
-             });
+             var editButton = document.createElement("button"); // <button> 생성
+             editButton.textContent = "수정"; // 브라우저에서 "수정"이라는 글자의 버튼이 나오도록
+             editButton.classList.add("btn", "btn-outline-dark", "btn-sm"); // 버튼 디자인 및 색깔 지정
 
-             var deleteButton = document.createElement("button");
-             deleteButton.textContent = "삭제하기";
-             deleteButton.classList.add("btn", "btn-outline-danger", "btn-sm");
-             deleteButton.addEventListener("click", function() {
-            	 event.stopPropagation();
-                 // 삭제하기 버튼을 클릭했을 때 수행할 동작을 여기에 추가
-                 alert("삭제하기 버튼이 클릭되었습니다.");
-                 return true;
-             });
+             var deleteButton = document.createElement("button"); // <button> 생성
+             deleteButton.textContent = "삭제"; // 브라우저에서 "삭제"라는 글자의 버튼이 나오도록
+             deleteButton.classList.add("btn", "btn-outline-danger", "btn-sm"); // 버튼 디자인 및 색깔 지정
 
-             // 클릭한 <input> 요소의 부모인 <div> 요소를 찾기
+             // 위의 수정, 삭제 버튼들을 담아낼 hashTagItem이라는 <div> 생성 
              containerDiv = document.createElement("div");
              containerDiv.classList.add("hashTagItem");
 
-             // 수정하기 버튼과 삭제하기 버튼을 <div> 요소 안에 추가
+             // <div class="hashTagItem">의 하위요소 (자식) 으로 들어가게 설정 --> <div class="hashTagIem"> *버튼들이 들어갈 공간* </div>
              containerDiv.appendChild(editButton);
              containerDiv.appendChild(deleteButton);
 
              // div 요소를 <input> 요소 앞에 추가
              clickedElement.parentElement.insertBefore(containerDiv, clickedElement.nextElementSibling);
-             isButtonVisible = true;
+             isButtonVisible = true; // 요거 밑의 else랑 같이 토글형식 구현
          } else {
              // 클릭한 버튼을 다시 클릭하면 버튼을 숨기도록 설정
              containerDiv.remove();
              isButtonVisible = false;
          }
+    	 
+             editButton.addEventListener("click", function() {
+            	 event.stopPropagation();
+            	 var fixTag = prompt("수정할 해시태그를 입력하세요.")
+				 var inputElements = hashTagContainer.querySelectorAll("input[type='button']"); // 유효성 검사를 위해 해시태그 입력란 내 모든 input 요소 찾기
+				 console.log(inputElements);
+                if (Validation.isSpecialCharacterOrNumber(fixTag)) { // 이쪽의 Validation은 script 하단쪽에 모듈화 시킨 상태
+                alert("특수 문자나 숫자는 허용되지 않습니다.");
+                return;
+               } else if (Validation.isMaxLengthExceeded(fixTag, 15)) { // 이미 해시태그를 입력해서 추가하는 곳에 유사한 유효성 검사식이 작성되었기 때문
+                alert("해시태그는 총 15자까지만 가능합니다.");
+                return;
+               } else if (Validation.isNullOrWhitespace(fixTag)) { // js파일 임포트하는거 몰라서... ㅎㅎ ㅈㅅ
+                alert("공백은 허용하지 않습니다.");
+                return; // 여기까지가 해시태그를 입력해서 추가했을 때의 유효성 검사식 모듈화
+                
+               //======================== 여기서 부터 해시태그 수정 자체 유효성 검사식 ===============================
+            	   
+               } else if (fixTag === clickedElement.value){ // 나중에 js 너무 길어진다 싶으면 저희 webapp 폴더 내 js 폴더에 넣어서 가독성 높이고 임포트/익스포트 하는 방향으로 고려하겠음
+            	alert("기존의 해시태그와 다른 해시태그를 입력해주세요.");
+            	return;
+               } else if (hashZungBok(fixTag, inputElements)){ // 위에서 선언한 inputElements 사용 -> 이렇게 안하면 일일히 js에서 for문 돌려야ㅐ한다
+            	  alert("해당 상품에 동일한 해시태그가 존재합니다.");
+            	  return;
+               }
+                 // 수정하기 버튼을 클릭했을 때 수행할 동작을 여기에 추가
+                 clickedElement.value = fixTag; // clickedElement -> <input name="teaHashTagName">
+                 console.log("수정 완료시"); // 콘솔로그로 잘 되는 지 확인 + 위의 메서드는 기존의 아래의 js식에서 진행된 newhashTag를 fixTag로 고치는 것
+                 alert("수정이 완료되었습니다!.");
+                 return true;
+             });
+         
+             deleteButton.addEventListener("click", function() {
+            	 event.stopPropagation();
+                 // 삭제하기 버튼을 클릭했을 때 수행할 동작을 여기에 추가
+                 if(!confirm("정말로 삭제하시겠어요?")){
+                  return;
+                 }
+                 clickedElement.remove();
+                 console.log("삭제시 실행되는 <input> 값 사라짐 로그");
+                 containerDiv.remove();
+                 console.log("삭제시 실행되는 수정/삭제 버튼 사라짐 로그");
+                 alert("삭제 완료!");
+                 return true;
+                 
+             });
      }
  });
 
-// 기존 관리자 페이지에서 제공하는 버튼 디자인 배열
+// 기존 관리자 페이지에서 제공하는 버튼 디자인 배열 : 후에 해시태그 입력시 밑 배열 디자인 중 하나가 랜덤으로 배정
 var classNames = ["btn-success", "btn-warning","btn-info", "btn-dark"];
 document.getElementById("addHashTag").addEventListener("click", function() {
 	// 해시태그 입력란을 찾기
@@ -601,12 +639,19 @@ document.getElementById("addHashTag").addEventListener("click", function() {
     }
     
     if (newHashTag) {
+    	// form에 담겨서 C에게 제출해야 하므로 <input>태그를 만드는 과정
         var hashTagElement = document.createElement("input");
+    	// <>를 input으로 설정해준다.
         hashTagElement.type = "button";
+    	// 타입은 버튼으로 설정
         hashTagElement.style.display = "block";
+    	// 디자인은 블록으로
         // 랜덤으로 버튼 클래스 (버튼 디자인) 선택
         var randomIndex = Math.floor(Math.random() * classNames.length);
         hashTagElement.className = "btn " + classNames[randomIndex];
+        // 상단에 설정해둔 var classNames 배열의 인덱스 값중 하나가 랜덤으로 선택됨
+        hashTagElement.setAttribute('name','teaHashtagName')
+        // 실제로 Form 영역에 담아서 제출해야 하므로, name의 인자를 M이 설정해둔 인자명과 동일하게 설정해서 보내주기 위한 메서드 (setAttribute)
         hashTagElement.value = newHashTag;
         // 해시태그에 특수 문자나 숫자 막기      
         if (/[\d!@#$%^&*()_+{}\[\]:;<>,.?~\\|'"`=\/\-]/.test(newHashTag)) {
@@ -616,9 +661,13 @@ document.getElementById("addHashTag").addEventListener("click", function() {
         else if(newHashTag.length > 15){
         	alert("해시태그는 총 15자까지만 가능합니다.");
         	return;	
-        }        
+        }
+        else if(newHashTag === null || newHashTag.trim() === ''){
+        	alert("공백은 허용하지 않습니다.");
+        	return;
+        }
         document.getElementById("hashTagContainer").appendChild(hashTagElement);
-        var hashTagField = document.getElementById("hashTagField");
+//        var hashTagField = document.getElementById("hashTagField");
 //        var hiddenInput = document.createElement("input");
 //        hiddenInput.type = "hidden";
 //        hiddenInput.name = "hashtags[]"; 
@@ -640,6 +689,23 @@ function hashZungBok(newHashTag, inputElements) {
     // 새로운 해시태그가 이미 존재하는지 확인
     return hashTags.has(newHashTag);
 }
+
+// 해시태그 수정시 똑같은 유효성 검사가 들어가기 때문에 별도로 모듈화 시킴
+const Validation = {
+    isSpecialCharacterOrNumber: function(inputString) {
+    // 특수문자와 기호 막기
+        return /[\d!@#$%^&*()_+{}\[\]:;<>,.?~\\|'"`=\/\-]/.test(inputString);
+    },
+    isMaxLengthExceeded: function(inputString, maxLength) {
+    // 최대 글자수 제한	
+        return inputString.length > maxLength;
+    },
+    isNullOrWhitespace: function(inputString) {
+    // 공백 제한	
+        return inputString === null || inputString.trim() === '';
+    }
+};
+
 </script>
 </body>
 </html>
