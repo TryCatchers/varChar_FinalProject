@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="try"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,26 +52,27 @@
 							</c:if>
 							<c:if test="${ not empty buyDatas }">
 								<c:forEach var="buyData" items="${ buyDatas }">
+								<c:set var="buyCount" value="${ buyData.buyCount-1 }"/>
+									<c:if test="${ buyCount <= 0 }"><c:set var="buyCount" value=""/></c:if>
+									<c:if test="${ buyCount > 0 }"><c:set var="buyCount" value="외 ${ buyData.buyCount-1 }건"/></c:if>
 									<form action="cartRetry.do?buyNum=${ buyData.buyNum }" method="post">
-										<c:set var="sum" value="0" />
-										<c:set var="sum" value="${ sum + buyData.teaPrice }" />
 										<tr class="text-center">
 											<td class="product-remove"><a href="buyDetailPage.do?buyNum=${ buyData.buyNum }">${ buyData.buyNum }</a></td>
 											
 											<td class="image-prod"><div class="img" style="background-image:url(images/product-1.jpg);"></div></td>
 											
 											<td class="product-name">
-												<h3>Bell Pepper</h3>
+												<h3>"${buyData.buyName}"${ buyCount }</h3>
 												<p>Far far away, behind the word mountains, far from the countries</p>
 											</td>
 											
 											<td class="quantity">
 												<div class="input-group">
-												<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+												<input type="text" name="quantity" class="quantity form-control input-number" value="${ buyData.buyCnt }" min="1" max="100" readonly="readonly">
 											</div>
 											</td>
 											
-											<td class="total">${ sum }</td>
+											<td class="total">${ buyData.teaPrice }</td>
 											<td>
 												<input type="submit" class="btn btn-primary py-3 px-4" value="다시담기">
 											</td>

@@ -7,6 +7,8 @@ public class BuyVO {
 	// 임시 변수
 	private int teaPrice;
 	private int buyCnt;
+	private int buyCount;
+	private String buyName;
 	
 	public BuyVO() {
 		this(0, "");
@@ -17,6 +19,22 @@ public class BuyVO {
 		this.memberId = memberId;
 	}
 	
+	public int getBuyCount() {
+		return buyCount;
+	}
+
+	public void setBuyCount(int buyCount) {
+		this.buyCount = buyCount;
+	}
+
+	public String getBuyName() {
+		return buyName;
+	}
+
+	public void setBuyName(String buyName) {
+		this.buyName = buyName;
+	}
+
 	public int getTeaPrice() {
 		return teaPrice;
 	}

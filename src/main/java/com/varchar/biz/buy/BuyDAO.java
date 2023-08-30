@@ -16,7 +16,7 @@ public class BuyDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	static final private String SQL_SELECTALL = "SELECT b.BUY_NUM, SUM(t.TEA_PRICE) AS TEA_PRICE, SUM(bd.BUY_CNT) AS BUY_CNT "
+	static final private String SQL_SELECTALL = "SELECT b.BUY_NUM, SUM(t.TEA_PRICE * bd.BUY_CNT) AS TEA_PRICE, SUM(bd.BUY_CNT) AS BUY_CNT, MAX(t.TEA_NAME) AS BUY_NAME, COUNT(t.TEA_NUM) AS BUY_COUNT "
 			+ "FROM BUY b "
 			+ "JOIN BUY_DETAIL bd ON b.BUY_NUM = bd.BUY_NUM "
 			+ "JOIN TEA t ON bd.TEA_NUM = t.TEA_NUM "
@@ -74,7 +74,9 @@ class BuyRowMapper implements RowMapper<BuyVO> {
 		BuyVO data = new BuyVO();
 		data.setBuyNum(rs.getInt("BUY_NUM"));
 		data.setTeaPrice(rs.getInt("TEA_PRICE"));
+		data.setBuyCount(rs.getInt("BUY_COUNT"));
 		data.setBuyCnt(rs.getInt("BUY_CNT"));
+		data.setBuyName(rs.getString("BUY_NAME"));
 		return data;
 	}
 
