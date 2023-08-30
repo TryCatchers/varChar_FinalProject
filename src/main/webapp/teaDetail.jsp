@@ -29,7 +29,7 @@
            $("#fc").removeClass("fa-solid").addClass("fa-regular");
         }
 
-        $("#fc").on("click", function(){
+        $("#fcBtn").on("click", function(){
         	console.log('찜 버튼 클릭 확인');
         	
         	if(favorResult == 0){
@@ -40,6 +40,7 @@
                    success: function(fresult){
                       console.log('favorResult [' + favorResult + ']');
                       $("#fc").removeClass("fa-regular").addClass("fa-solid");
+                      $("#fc").addClass('animate-like');
                       favorResult = 1;
                       /**
                       if (fresult == 1) {
@@ -76,6 +77,7 @@
                    success: function(fresult){
                        console.log('favorResult [' + favorResult + ']');
                        $("#fc").removeClass("fa-solid").addClass("fa-regular");
+                       $("#fc").removeClass('animate-like');
                        favorResult = 0;
                       /**
                       if (fresult == 1) {
@@ -119,6 +121,56 @@
     .text{
     	padding : 15px;
     }
+    
+    /** 좋아요 찜 스타일 */
+    .like-content {
+    display: inline-block;
+    width: 100%;
+    margin: 40px 0 0;
+    padding: 40px 0 0;
+    font-size: 18px;
+    border-top: 10px dashed #eee;
+    text-align: center;
+	}
+	.like-content span {
+	  	color: #9d9da4;
+	  	font-family: monospace;
+	}
+	.like-content .btn-secondary {
+   		display: block;
+		margin: 40px auto 0px;
+    	text-align: center;
+    	background: #ed2553;
+    	border-radius: 3px;
+    	box-shadow: 0 10px 20px -8px rgb(240, 75, 113);
+    	padding: 10px 17px;
+    	font-size: 18px;
+    	cursor: pointer;
+    	border: none;
+    	outline: none;
+    	color: #ffffff;
+    	text-decoration: none;
+    	-webkit-transition: 0.3s ease;
+   		transition: 0.3s ease;
+	}
+	.like-content .btn-secondary:hover {
+   		transform: translateY(-3px);
+	}
+	.like-content .btn-secondary .fa {
+    	margin-right: 5px;
+	}
+	.animate-like {
+  		animation-name: likeAnimation;
+  		animation-iteration-count: 1;
+  		animation-fill-mode: forwards;
+  		animation-duration: 0.65s;
+	}
+	@keyframes likeAnimation {
+  		0%   { transform: scale(30); }
+  		100% { transform: scale(1); }
+	}
+    
+
     </style>
   </head>
   <body class="goto-here">
@@ -181,17 +233,36 @@
 	             	</div>
 	          	<div class="w-100"></div>
 	          	<div class="text">
-	          		<p style="color: #000;">600 kg available</p>
-          	<p><button type="submit" class="primary-btn">Add to Cart</button></p>
+	          		<p style="color: #000;">600 kg available</p> <!-- 판매 상태하면 될듯? 아마동?? -->
+	          	</div>
+			<p>
+          		<button type="submit" class="primary-btn">Add to Cart</button> <!-- 카트 추가 버튼 -->
+          		
+          		<c:if test="${ not empty sessionMemberId }">
+				<button id="fcBtn" type="button" class="btn-secondary like-review"> <!-- 찜 좋아요 버튼 -->
+					<i id="fc" class="fa fa-heart" aria-hidden="true" style="color: #f22202;" ></i> Like
+  				</button>
+  				</c:if>
+  				<c:if test="${ empty sessionMemberId }">
+  					<a href="login.do">
+  						<button type="button" class="btn-secondary like-review"> <!-- 찜 좋아요 버튼 -->
+						<i id="fc" class="fa fa-heart" aria-hidden="true" style="color: #f22202;" ></i> Like
+  						</button>
+  					</a>
+  				</c:if>
+			</p>
+          	</form> 
+          	
+          	<!--  기존하트
 	        <div id="heartbox">
 	        	<i id="fc" class="fa-regular fa-heart" style="color: #f22202;"></i>
 	        </div>
+	        -->
 	          	</div>				
-          	</form> 
           	</div>
     			</div>
     		</div>
-    	</div>
+    	
     </section>
 
     <section class="ftco-section">
