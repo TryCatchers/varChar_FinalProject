@@ -6,9 +6,6 @@
    #addressBtn {
    		background-color: #F0F0F0 !important;
    }
-   #detailAddress {
-      margin-bottom: 100px;
-   }
 </style>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -61,6 +58,20 @@
                 } else {
                     guideTextBox.css("display", "none");
                 }
+                $("#inputAddress").val(fullAddr);
+  				$("#inputAddress").attr("readonly", false);
+  				if ($("#inputAddress").val() == fullAddr) {
+  					$("#LabelAddress").html('주소 <span id="SpanAddress"><i class="mdi mdi-check"></i></span>');
+        		    $("#SpanAddress").css("color", "green");
+    		    	FlagAddress = true;
+  				} else {
+  					$("#LabelAddress").html('주소 <span id="SpanAddress"><i class="mdi mdi-close"></i> 필수 정보입니다.</span>');
+    		    	$("#SpanAddress").css("color", "red");
+        		    FlagAddress = false;
+  				}
+  				$("#inputAddress").attr("readonly", true);
+  				$("#inputAddressDetail").focus();
+  				console.log(FlagAddress);
             },
             theme: {
                 bgColor: "#23512E", //바탕 배경색

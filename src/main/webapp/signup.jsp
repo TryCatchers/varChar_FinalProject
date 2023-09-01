@@ -13,6 +13,7 @@
 	<try:link/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script> 
+  	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   	<style type="text/css">
   		.edit-d-f {
   			display: flex;
@@ -54,34 +55,33 @@
         <div class="row justify-content-center">
           <div class="col-xl-7 ftco-animate">
           	<!-- 회원가입 폼 태그 -->
-			<form action="signup.do" method="post" class="billing-form" onsubmit="return test()">
+			<form id="signForm" action="signup.do" method="post" class="billing-form">
 	          	<h3 class="mb-4 billing-heading" style="padding-bottom: 25px; border-bottom: 1px solid #e1e1e1">회원가입</h3>
 	          	<div class="row align-items-end">
 	          	<div class="col-md-12">
-	                <label for="id">아이디<span class="edit-red"> *</span></label>
+	                <label for="id">아이디<span id="spanId" class="edit-red"> *</span></label>
 	            	<div class="form-group edit-d-f">
-	                  <input type="text" name="memberId" class="form-control" placeholder="아이디를 입력하세요." required>
-	                  <input type="button" value="중복검사" class="submit">
+	                  <input type="text" id="inputId" name="memberId" class="form-control" placeholder="아이디를 입력하세요." required>
 	            	</div>
 	            </div>
 	            <div class="w-100"></div>
 	            <div class="col-md-12">
-	                <label for="name">이름<span class="edit-red"> *</span></label>
+	                <label for="name">이름<span id="spanName" class="edit-red"> *</span></label>
 	                <div class="form-group">
-	                  <input type="text" name="memberName" class="form-control" placeholder="이름을 입력하세요." required>
+	                  <input type="text" id="inputName" name="memberName" class="form-control" placeholder="이름을 입력하세요." required>
 	                </div>
                 </div>
                 <div class="w-100"></div>
                 <div class="col-md-12">
-                	<label for="password">비밀번호<span class="edit-red"> *</span></label>
+                	<label for="password">비밀번호<span id="spanPassword1" class="edit-red"> *</span></label>
 	                <div class="form-group edit-d-f">
-	                  <input type="password" name="memberPw" id="inputPassword1" class="form-control" placeholder="새 비밀번호를 입력하세요.(최소 8글자 이상)" required>
+	                  <input type="password" id="inputPassword1" name="memberPw" class="form-control" placeholder="비밀번호를 입력하세요." required>
 	                  <button type="button" id="inputBtnPassword1" class="edit-btn"><i class="fa-solid fa-eye-slash"></i></button>
 	                </div>
 	              </div>
                 <div class="w-100"></div>
 	          	<div class="col-md-12">
-	                <label for="passwordre">비밀번호 확인<span class="edit-red"> *</span></label>
+	                <label for="passwordre">비밀번호 확인<span id="spanPassword2" class="edit-red"> *</span></label>
 	                <div class="form-group edit-d-f">
 	                  <input type="password" id="inputPassword2" class="form-control" placeholder="비밀번호를 한번 더 입력하세요." required>
 	                  <button type="button" id="inputBtnPassword2" class="edit-btn"><i class="fa-solid fa-eye-slash"></i></button>
@@ -113,31 +113,96 @@
                   </script>
                 <div class="w-100"></div>
 				<div class="col-md-12">
-	                <label for="phone">연락처</label>
+	                <label for="phone">연락처<span id="spanPhone" class="edit-red"> *</span></label>
 	                <div class="form-group edit-d-f">
-	                  	<input type="text" name="memberPhone" id="memberPhone" class="form-control" placeholder="하이픈(-), 공백없이 기입해주세요. ex) 00012345678">
-	                  	<input type="button" value="중복검사" class="submit">
+	                  	<input type="text" id="inputPhone" name="memberPhone" class="form-control" placeholder="연락처를 입력해주세요.">
 	                </div>
                 </div>
                 <div class="w-100"></div>
 				<div class="col-md-12">
-                	<label for="email">이메일</label>
+                	<label for="email">이메일<span id="spanEmail" class="edit-red"> *</span></label>
 	                <div class="form-group edit-d-f">
-	                  <input type="text" name="memberEmail" id="memberEmail" class="form-control" placeholder="@포함 이메일 형식에 맞춰서 기입해주세요. ex) aaa@xxx.com">
-	                  <input type="button" value="중복검사" class="submit">
+	                  <input type="text" id="inputEmail" name="memberEmail" class="form-control" placeholder="이메일을 입력해주세요.">
 	                </div>
                 </div>
                 <div class="w-100"></div>
                 <div class="col-md-12">
-                	<label for="address">주소</label>
-	                <div class="form-group" style="margin-bottom: 150px;">
-	                  <!-- 주소 API 적용 -->
-	                  <try:addressAPI/>
+                	<label for="address">주소<span id="spanAddress" class="edit-red"> *</span></label>
+	                <div class="form-group">
+	                	<input type="button" id="inputBtnAddress" class="form-control" onclick="daumPost()" value="우편번호 찾기"><br>
+	                	<input type="text" id="inputAddress" name="memberAddress" class="form-control" placeholder="주소를 입력해주세요." readonly>
+	                </div>
+	            </div>
+	            <div class="col-md-12">
+                	<label for="email">상세주소<span id="spanAddressDetail" class="edit-red"> *</span></label>
+	                <div class="form-group edit-d-f">
+	                  <input type="text" id="inputAddressDetail" class="form-control" placeholder="상세주소를 입력해주세요.">
 	                </div>
                 </div>
+	                
+		      	<!-- kakao 우편번호 서비스 -->
+                <script>
+              		var flagAddress = false;
+                      
+                    function daumPost() {
+                      	new daum.Postcode({
+                      		oncomplete: function(data) {
+                      			var fullAddr = '';
+                      			var extraAddr = '';
+                      			
+                      			//도로명 주소를 선택했을 경우
+                      			if (data.userSelectedType === 'R') {
+                      				fullAddr = data.roadAddress;
+                      			//지번 주소를 선택했을 경우
+                      			} else {
+                      				fullAddr = data.jibunAddress;
+                      			}
+                      			//도로명일때 조합
+                      			if (data.userSelectedType === 'R') {
+                      				//법정동명 추가
+                      				if (data.bname !== '') {
+                      					extraAddr += data.bname;
+                      				}
+                      				//건물명 추가
+                      				if (data.buildingName !== '') {
+                      					extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                      				}
+                      				//괄호 추가
+                      				fullAddr += (extraAddr !== '' ? ' (' + extraAddr + ')' : '');
+                      			}
+                      			$("#inputAddress").val(fullAddr);
+                      			$("#inputAddress").attr("readonly", false);
+                      			if ($("#inputAddress").val() == fullAddr) {
+                      				$("#spanAddress").html(' <i class="fa-solid fa-check"></i>');
+                            	    $("#spanAddress").css("color", "green");
+                        		   	flagAddress = true;
+                      			} else {
+                      				$("#spanAddress").html(' <i class="fa-solid fa-x"></i> 필수 정보입니다.');
+                        		   	$("#spanAddress").css("color", "red");
+                            	    flagAddress = false;
+                      			}
+                      			$("#inputAddress").attr("readonly", true);
+                      			$("#inputAddressDetail").focus();
+                      			console.log(flagAddress);
+                      		},
+                      		theme: {
+                                bgColor: "#23512E", //바탕 배경색
+                                searchBgColor: "#FFFFFF", //검색창 배경색
+                                contentBgColor: "#FFFFFF", //본문 배경색(검색결과,결과없음,첫화면,검색서제스트)
+                                //pageBgColor: "", //페이지 배경색
+                                textColor: "#222222" //기본 글자색
+                                //queryTextColor: "", //검색창 글자색
+                                //postcodeTextColor: "", //우편번호 글자색
+                                //emphTextColor: "", //강조 글자색
+                                //outlineColor: "", //테두리
+                            }
+                      	}).open();
+                    }
+                </script>
+                <div class="w-100"></div>
 	            </div>
 				<div style="margin:auto; text-align:center;">
-					<p><input type="submit" class="btn btn-primary py-3 px-4" value="  가입하기  "style="vertical-align:middle; display:inline-block;"></p>
+					<p><input id="inputSubmit" type="button" class="btn btn-primary py-3 px-4" value="  가입하기  "style="vertical-align:middle; display:inline-block;"></p>
 				</div>
 	          </form>
           	  <!-- 회원가입 폼 태그 끝 -->
@@ -147,6 +212,305 @@
     </section>
 	<!-- 회원가입 섹션 끝-->
 
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var inputId = null;
+    		var inputPassword1 = null;
+    		var inputPassword2 = null;
+    		var inputName = null;
+    		var inputEmail = null;
+    		var inputPhone = null;
+    		var inputAddress = null;
+    		var inputAddressDetail = null;
+
+    		var flagId = false;
+    		var flagPassword1 = false;
+    		var flagPassword2 = false;
+    		var flagName = false;
+    		var flagEmail = false;
+    		var flagPhone = false;
+    		var flagAddressDetail = false;
+    		
+			// 아이디 입력
+			$("#inputId").on("input", function(){
+				checkInputId();
+    		})
+			
+			// 아이디 함수
+    		function checkInputId() {
+    			var regexId = /^[0-9a-zA-Z]{7,20}$/;
+    			inputId = $("#inputId").val();
+    			
+    			if (!regexId.test(inputId)) {
+    				if (inputId == '') {
+    					$("#spanId").html(' <i class="fa-solid fa-x"></i> 필수 정보입니다.');
+    				} else {
+    					$("#spanId").html(' <i class="fa-solid fa-x"></i> 7 ~ 20자의 영문, 숫자만 사용 가능합니다.');
+    				}
+    				$("#spanId").css("color", "red");
+    				flagId = false;
+    			} else {
+    				console.log("checkInputId AJAX 진입");
+    				$.ajax({
+    					url: "checkId.do",
+    					data: {
+    						memberId: inputId
+    					},
+    					type: "post",
+    				    dataType: "json",
+    					success: function(result){
+    					    if (result == 1) {
+    			    			$("#spanId").html(' <i class="fa-solid fa-x"></i> 중복된 아이디가 있습니다.');
+    			    			$("#spanId").css("color", "red");
+    			        		flagId = false;
+    			    		} else {
+    			    			$("#spanId").html(' <i class="fa-solid fa-check"></i>');
+    			    			$("#spanId").css("color", "green");
+    			        		flagId = true;
+    			    		}
+    					},
+    					error: function(error){
+    					    console.log(error);
+    				    }
+    		    	});
+    			}
+    			console.log(flagId);
+    		}
+			
+			// 비밀번호 입력
+			$("#inputPassword1").on("input", function(){
+				checkInputPassword1();
+    		})
+    		
+    		// 비밀번호 함수
+    		function checkInputPassword1(){
+				var regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+    			inputPassword1 = $("#inputPassword1").val();
+    			inputPassword2 = $("#inputPassword2").val();
+    			
+    			if (!regexPassword.test(inputPassword1)) {
+    				if (inputPassword1 == '') {
+    					$("#spanPassword1").html(' <i class="fa-solid fa-x"></i> 필수 정보입니다.');
+    				} else {
+    					$("#spanPassword1").html(' <i class="fa-solid fa-x"></i> 8 ~ 20자의 영문 대 소문자, 숫자, 특수문자를 사용하세요.');
+    				}
+    				$("#spanPassword1").css("color", "red");
+    				flagPassword1 = false;
+    			} else {
+    				$("#spanPassword1").html(' <i class="fa-solid fa-check"></i>');
+    				$("#spanPassword1").css("color", "green");
+    				flagPassword1 = true;
+    			}
+    			
+    			if (inputPassword1 != inputPassword2) {
+    				$("#spanPassword2").html(' <i class="fa-solid fa-x"></i> 비밀번호가 일치하지 않습니다.');
+    				$("#spanPassword2").css("color", "red");
+    				flagPassword2 = false;
+    			} else {
+    				$("#spanPassword2").html(' <i class="fa-solid fa-check"></i>');
+    				$("#spanPassword2").css("color", "green");
+    				flagPassword2 = true;
+    			}
+    			console.log(flagPassword1);
+    			console.log(flagPassword2);
+			}
+			
+			// 비밀번호 확인 입력
+			$("#inputPassword2").on("input", function(){
+				checkInputPassword2();
+    		})
+    		
+    		// 비밀번호 확인 함수
+    		function checkInputPassword2(){
+				inputPassword1 = $("#inputPassword1").val();
+				inputPassword2 = $("#inputPassword2").val();
+    			
+    			if (inputPassword1 != inputPassword2) {
+    				$("#spanPassword2").html(' <i class="fa-solid fa-x"></i> 비밀번호가 일치하지 않습니다.');
+    				$("#spanPassword2").css("color", "red");
+    				flagPassword2 = false;
+    			} else {
+    				$("#spanPassword2").html(' <i class="fa-solid fa-check"></i>');
+    				$("#spanPassword2").css("color", "green");
+    				flagPassword2 = true;
+    			}
+    			console.log(flagPassword2);
+			}
+			
+			// 이름 입력
+			$("#inputName").on("input", function(){
+				checkInputName();
+    		})
+    		
+    		// 이름 함수
+    		function checkInputName(){
+    			var regexName = /(^[가-힣]{2,5}$)|(^[a-zA-Z]{2,20}(\s[a-zA-Z]{2,20})?$)/;
+    			inputName = $("#inputName").val();		
+    			
+    			if (!regexName.test(inputName)) {
+    				if (inputName == '') {
+    					$("#spanName").html(' <i class="fa-solid fa-x"></i> 필수 정보입니다.');
+    				} else {
+    					$("#spanName").html(' <i class="fa-solid fa-x"></i> 한글과 영문 대 소문자를 사용하세요. 한글: 2~5자, 영문: 2~20자');
+    				}
+    				flagName = false;
+    				$("#spanName").css("color", "red");
+    			} else {
+    				$("#spanName").html(' <i class="fa-solid fa-check"></i>');
+    				$("#spanName").css("color", "green");
+    				flagName = true;
+    			}
+    			console.log(flagName);
+    		}
+			
+			// 연락처 입력
+			$("#inputPhone").on("input", function(){
+				checkInputPhone();
+    		})
+    		
+    		// 연락처 함수
+    		function checkInputPhone(){
+				var regexPhone = /^010\d{8}$/;
+				inputPhone = $("#inputPhone").val();
+    			
+    			if (!regexPhone.test(inputPhone)) {
+    				if (inputPhone == '') {
+    					$("#spanPhone").html(' <i class="fa-solid fa-x"></i> 필수 정보입니다.');
+    				} else {
+    					$("#spanPhone").html(' <i class="fa-solid fa-x"></i> 휴대전화 형식이 맞지 않습니다. ex)01012345678');
+    				}
+    				flagPhone = false;
+    				$("#spanPhone").css("color", "red");
+    			} else {
+    				$.ajax({
+    					url: "checkPhone.do",
+    					data: {
+    					    memberPhone:inputPhone
+    					},
+    				    dataType: "json",
+    					type: "post",
+    					success: function(result){
+    					    if (result == 1) {
+    					    	$("#spanPhone").html(' <i class="fa-solid fa-x"></i> 중복된 휴대전화 번호가 있습니다.');
+    			        		$("#spanPhone").css("color", "red");
+    			        		flagPhone = false;
+    			    		} else {
+    			    			$("#spanPhone").html(' <i class="fa-solid fa-check"></i>');
+    		    				$("#spanPhone").css("color", "green");
+    		    				flagPhone = true;
+    			    		}
+    					},
+    					error: function(error){
+    					    console.log(error);
+    				    }
+    		    	})
+    			}
+    			console.log(flagPhone);
+			}
+			
+			// 이메일 입력
+			$("#inputEmail").on("input", function(){
+				checkInputEmail();
+    		})
+    		
+    		// 이메일 함수
+			function checkInputEmail(){
+				var regexEmail = /^[A-Za-z0-9\.\-_]+@([a-z0-9\-]+\.)+[a-z]{2,6}$/;
+    			inputEmail = $("#inputEmail").val();
+    			
+    			if (!regexEmail.test(inputEmail)) {
+    				if (inputEmail == '') {
+    					$("#spanEmail").html(' <i class="fa-solid fa-x"></i> 필수 정보입니다.');
+    				} else {
+    					$("#spanEmail").html(' <i class="fa-solid fa-x"></i> 이메일 형식이 맞지 않습니다. ex)varchar1234@varchar.com');
+    				}
+    				flagEmail = false;
+    				$("#spanEmail").css("color", "red");
+    			} else {
+    				$.ajax({
+    					url: "checkEmail.do",
+    					data: {
+    					    memberEmail:inputEmail
+    					},
+    				    dataType: "json",
+    					type: "post",
+    					success: function(result){
+    					    if (result == 1) {
+    			    			$("#spanEmail").html(' <i class="fa-solid fa-x"></i> 중복된 이메일이 있습니다.');
+    			        		$("#spanEmail").css("color", "red");
+    			        		flagEmail = false;
+    			    		} else {
+    			    			$("#spanEmail").html(' <i class="fa-solid fa-check"></i>');
+    		    				$("#spanEmail").css("color", "green");
+    		    				flagEmail = true;
+    			    		}
+    					},
+    					error: function(error){
+    					    console.log(error);
+    				    }
+    		    	})
+    			}
+    			console.log(flagEmail);
+			}
+			
+			// 주소
+    		inputAddress = $("inputAddress").val();
+			
+			// 상세주소 입력
+			$("#inputAddressDetail").on("input", function(){
+				checkInputAddressDetail();
+    		})
+			
+    		// 상세주소 함수
+    		function checkInputAddressDetail(){
+				inputAddressDetail = $("#inputAddressDetail").val();		
+    			
+				if (inputAddressDetail == '') {
+					$("#spanAddressDetail").html(' <i class="fa-solid fa-x"></i> 필수 정보입니다.');
+					$("#spanAddressDetail").css("color", "red");
+					flagAddressDetail = false;
+    			} else {
+    				$("#spanAddressDetail").html(' <i class="fa-solid fa-check"></i>');
+    				$("#spanAddressDetail").css("color", "green");
+    				flagAddressDetail = true;
+    			}
+				console.log(flagAddressDetail);
+			}
+			
+			// Submit 유효성 검사
+	    	$("#inputSubmit").on("click", function(){
+		    	if (!flagId) {
+		    		checkInputId();
+		    		$("#inputId").focus();
+		    	} else if (!flagPassword1) {
+		    		checkInputPassword1();
+		    		$("#inputPassword1").focus();
+		    	} else if (!flagPassword2) {
+		    		checkInputPassword2();
+		    		$("#inputPassword2").focus();
+		    	} else if (!flagName) {
+		    		checkInputName();
+		    		$("#inputName").focus();
+		    	} else if (!flagEmail) {
+		    		checkInputEmail();
+		    		$("#inputEmail").focus();
+		    	} else if (!flagPhone) {
+		    		checkInputPhone();
+		    		$("#inputPhone").focus();
+		    	} else if (!flagAddress) {
+		    		$("#spanAddress").html(' <i class="fa-solid fa-x"></i> 필수 정보입니다.');
+		        	$("#spanAddress").css("color", "red");
+		        	$("#inputAddress").focus();
+		    	} else if (!flagAddressDetail) {
+		    		checkInputAddressDetail();
+		    		$("#inputAddressDetail").focus();
+		    	} else {
+              		$("#signForm").submit();                			
+		    	}
+	    	});
+		});
+	
+	</script>
 
 	<!-- 커스텀 태그 적용하기 -->
 	<try:footer/>	
@@ -191,74 +555,5 @@
 		    
 		});
 	</script>
-	
-	 <script type="text/javascript">
-	 	// 전화번호, 이메일 유효성 검사
-    	function checkPh() {
- 	  		var ph = document.getElementById('memberPhone').value;
- 	  	    var mail = document.getElementById('memberEmail').value;
- 	        const test= "@";    		
-       		if((ph.length == 11 && mail == '') || (ph == '' && mail == '') || (ph == '' && mail.indexOf(test) !== -1) || (ph.length == 11 && mail.indexOf(test) !== -1)){
-       			return true;
-       		}
-       		else if(ph.length !== 11){
-   			alert('전화번호는 하이픈(-) 공백없이 11자리 입력해주세요.');
-       		return false;
-       		}
-       		else if(mail.indexOf(test) == -1){
-       		alert('이메일은 @포함 정확하게 입력하세요');
-            return false;
-       		}            			
-      	}
-    </script>
-    
-    <script type="text/javascript">
-
-    	// 비밀번호, 이메일 정규식 유효성 검사
-		function test() { // 회원가입 버튼에서 실행될 함수 (버튼을 submit으로 설정 X)
-    		var p1 = document.getElementById('pw').value; 
-    		// MemberVO의 패스워드 멤버변수 memberPw와 동일한 name을 갖춰서 보내야할 인풋값
-    		var p2 = document.getElementById('pw2').value; 
-    		// 단순 2차 비번 확인용
-    		var ph = document.getElementById('memberPhone').value; // 연락처
-    		var mail = document.getElementById('memberEmail').value; // 이메일
-    		const test = "@"; // 이메일
-    
-    		if (p1 !== p2) { // 비번이 일치하지 않을 경우
-        		alert("비밀번호가 일치하지 않아서 회원가입을 완료할 수 없습니다.");
-    		}
-    		else if (p1.length < 8) { // 비번 일치여부와는 관계없이 8글자 미만일경우
-        		alert("비밀번호는 8글자 이상으로 설정해야 합니다.");
-    		}
-    		else {
-        		// 연락처와 이메일 유효성 검사
-        		const phoneRegex = /^\d{11}$/; // 11자리의 숫자만 허용 (하이픈 없음)
-        		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // 정규표현식을 통한 이메일 유효성 검사
-        		const isPhoneValid = ph.length === 0 || ph.match(phoneRegex);
-       			const isEmailValid = mail.length === 0 || mail.match(emailRegex);
-
-        		if (isPhoneValid && isEmailValid) {
-            		// 연락처와 이메일 모두 유효성 검사를 통과한 경우
-           		 	return true;
-        		}
-        		else if (!isPhoneValid && !isEmailValid) {
-            		// 둘 다 입력되지 않은 경우 유효성 검사를 제외하고 회원가입 진행
-            		return true;
-        		}
-        		else {
-            		// 유효성 검사를 통과하지 못한 경우
-            		if (!isPhoneValid) {
-                		alert('연락처를 11자리 숫자로 입력해주세요.');
-            		}
-            		if (!isEmailValid) {
-                		alert('이메일을 정확하게 입력하세요.');
-            		}
-        		}
-    		}
-    		return false;
-		}
-
-	</script>
-    
   </body>
 </html>

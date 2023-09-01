@@ -16,8 +16,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.varchar.biz.common.AlertVO;
 import com.varchar.biz.member.MemberService;
@@ -334,5 +337,44 @@ public class MemberController {
 		return "main.do";
 	}
 
+	// ------------------------------------- 회원가입 아이디 중복검사 ------------------------------------------
+	@ResponseBody
+	@RequestMapping(value = "/checkId.do")
+	public String checkId(@RequestParam("memberId")String memberId, MemberVO memberVO) {
+		memberVO.setMemberSearch("아이디 중복검사");
+		memberVO.setMemberId(memberId);
 
+		System.out.println(memberService.selectOne(memberVO));
+		if (memberService.selectOne(memberVO) == null) {
+			return String.valueOf(0);
+		}
+		return String.valueOf(1);
+		
+	}
+	
+	// ------------------------------------- 회원가입 연락처 중복검사 ------------------------------------------
+	@ResponseBody
+	@RequestMapping(value = "/checkPhone.do")
+	public String checkPhone(@RequestParam("memberPhone")String memberPhone, MemberVO memberVO) {
+		memberVO.setMemberSearch("연락처 중복검사");
+		memberVO.setMemberPhone(memberPhone);
+		
+		if (memberService.selectOne(memberVO) == null) {
+			return String.valueOf(0);
+		}
+		return String.valueOf(1);
+	}
+	
+	// ------------------------------------- 회원가입 이메일 중복검사 ------------------------------------------
+	@ResponseBody
+	@RequestMapping(value = "/checkEmail.do")
+	public String checkEmail(@RequestParam("memberEmail")String memberEmail, MemberVO memberVO) {
+		memberVO.setMemberSearch("이메일 중복검사");
+		memberVO.setMemberEmail(memberEmail);
+		
+		if (memberService.selectOne(memberVO) == null) {
+			return String.valueOf(0);
+		}
+		return String.valueOf(1);
+	}
 }

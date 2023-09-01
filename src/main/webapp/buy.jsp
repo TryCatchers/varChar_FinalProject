@@ -36,8 +36,77 @@
           <div class="col-xl-7 ftco-animate">
           	<!-- 주문 폼 태그 -->
 			<form action="buy.do?total=${ total }" method="post" class="billing-form" onsubmit="return checkPh();">
-	          	<h3 class="mb-4 billing-heading" style="padding-bottom: 15px; border-bottom: 1px solid #e1e1e1">주문자 정보</h3>
+	          	<h3 class="mb-4 billing-heading">주문자 정보</h3>
 	          	<div class="row align-items-end">
+	          	
+	          		<div class="col-md-6">
+		                <div class="form-group">
+		                	<label for="firstname">아이디</label>
+		                  <input type="text" name="memberID" value="${ memberVO.memberId }" class="form-control">
+		                </div>
+	              	</div>
+	              	<div class="col-md-6">
+		                <div class="form-group">
+		                	<label for="lastname">이름</label>
+		                  <input type="text" name="memberName" class="form-control" placeholder="이름을 입력하세요.">
+		                </div>
+                	</div>
+	          		
+	          		<div class="w-100"></div>
+	          		
+	          		<div class="col-md-6">
+		                <div class="form-group">
+		                	<label for="firstname">연락처</label>
+		                  <input type="text" name="memberPhone" value="${ memberVO.memberPhone }" class="form-control" placeholder="연락처를 입력하세요.">
+		                </div>
+	              	</div>
+	              	<div class="col-md-6">
+		                <div class="form-group">
+		                	<label for="lastname">이메일</label>
+		                  <input type="text" name="memberEmail" class="form-control" placeholder="이메일을 입력하세요.">
+		                </div>
+                	</div>
+	          		
+	          		<div class="w-100"></div>
+	          		
+	          		<div class="col-md-6">
+		                <div class="form-group">
+		                	<label for="firstname">주소</label>
+		                  <input type="text" name="memberID" class="form-control">
+		                </div>
+	              	</div>
+	              	<div class="col-md-6">
+		                <div class="form-group">
+		                	<label for="lastname">상세주소</label>
+		                  <input type="text" name="memberName" class="form-control" placeholder="이름을 입력하세요.">
+		                </div>
+                	</div>
+	          		
+	          		
+	          		
+		            <div class="col-md-12">
+		                <label for="name">이름<span class="edit-red"> *</span></label>
+		                <div class="form-group">
+		                  <input type="text" name="memberName" class="form-control" placeholder="이름을 입력하세요." required>
+		                </div>
+	                </div>
+	                
+	                <div class="w-100"></div>
+		            <div class="col-md-12">
+		                <label for="name">아이디<span class="edit-red"> *</span></label>
+		                <div class="form-group">
+		                  <input type="text" name="memberID" value="${ memberVO.memberId }" class="form-control" readonly>
+		                </div>
+	                </div>
+	                
+	                <div class="w-100"></div>
+		            <div class="col-md-12">
+		                <label for="name">이름<span class="edit-red"> *</span></label>
+		                <div class="form-group">
+		                  <input type="text" name="memberName" class="form-control" placeholder="이름을 입력하세요." required>
+		                </div>
+	                </div>
+	                
 	          		<div class="col-md-6" style="margin-top: 30px;">
 	                <div class="form-group">
 	                	<label for="firstname" >아이디</label>
@@ -60,7 +129,7 @@
 				<div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="lastname">이메일</label>
-	                  <input type="text" class="form-control" value="${ memberData.memberEmail }" placeholder="@포함 이메일 형식에 맞춰서 입력하세요." value="0${ memberVO.memberPhone }" required>
+	                  <input type="text" class="form-control" value="${ memberData.memberEmail }" placeholder="@포함 이메일 형식에 맞춰서 입력하세요." value="${ memberVO.memberPhone }" required>
 	                </div>
                 </div>
                 <div class="w-100"></div>

@@ -22,8 +22,8 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="main.do">Home</a></span> <span>login</span></p>
-            <h1 class="mb-0 bread">로그인</h1>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="main.do">Home</a></span> <span>Find Password</span></p>
+            <h1 class="mb-0 bread">비밀번호 찾기</h1>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
           <div class="col-xl-7 ftco-animate">
           	<!-- 로그인 폼 태그 -->
 			<form action="findPw.do" method="post" class="billing-form" onsubmit="return checkPw();">
-				<h3 class="mb-4 billing-heading" style="padding-bottom: 15px; border-bottom: 1px solid #e1e1e1">로그인</h3>
+				<h3 class="mb-4 billing-heading" style="padding-bottom: 15px; border-bottom: 1px solid #e1e1e1">비밀번호 찾기</h3>
 	          	<div class="row align-items-end">
 	          		<div class="col-md-6" style="margin-top: 30px;">
 	                <div class="form-group">
