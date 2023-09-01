@@ -9,6 +9,7 @@ public class BuyVO {
 	private int buyCnt;
 	private int buyCount;
 	private String buyName;
+	private String imageUrl;
 	
 	public BuyVO() {
 		this(0, "");
@@ -18,7 +19,16 @@ public class BuyVO {
 		this.buyNum = buyNum;
 		this.memberId = memberId;
 	}
+
 	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
 	public int getBuyCount() {
 		return buyCount;
 	}

@@ -59,7 +59,7 @@
 										<tr class="text-center">
 											<td class="product-remove"><a href="buyDetailPage.do?buyNum=${ buyData.buyNum }">${ buyData.buyNum }</a></td>
 											
-											<td class="image-prod"><div class="img" style="background-image:url(images/product-1.jpg);"></div></td>
+											<td class="image-prod"><div class="img" style="background-image:url(${ buyData.imageUrl });"></div></td>
 											
 											<td class="product-name">
 												<h3>"${buyData.buyName}"${ buyCount }</h3>

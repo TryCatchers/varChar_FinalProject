@@ -16,13 +16,31 @@ public class BuyDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	static final private String SQL_SELECTALL = "SELECT b.BUY_NUM, SUM(t.TEA_PRICE * bd.BUY_CNT) AS TEA_PRICE, SUM(bd.BUY_CNT) AS BUY_CNT, MAX(t.TEA_NAME) AS BUY_NAME, COUNT(t.TEA_NUM) AS BUY_COUNT "
+	static final private String SQL_SELECTALL = "SELECT "
+			+ "    b.BUY_NUM,\n"
+			+ "    (SELECT SUM(t2.TEA_PRICE * bd2.BUY_CNT) "
+			+ "     FROM BUY_DETAIL bd2\n"
+			+ "     JOIN TEA t2 ON bd2.TEA_NUM = t2.TEA_NUM "
+			+ "     WHERE bd2.BUY_NUM = b.BUY_NUM) AS TEA_PRICE, "
+			+ "    (SELECT SUM(bd3.BUY_CNT) FROM BUY_DETAIL bd3 WHERE bd3.BUY_NUM = b.BUY_NUM) AS BUY_CNT, "
+			+ "    (SELECT COUNT(bd4.TEA_NUM) AS BUY_COUNT FROM BUY_DETAIL bd4 WHERE bd4.BUY_NUM = b.BUY_NUM) AS BUY_COUNT, "
+			+ "    t.TEA_NUM, t.TEA_NAME AS BUY_NAME, i.IMAGE_URL "
 			+ "FROM BUY b "
 			+ "JOIN BUY_DETAIL bd ON b.BUY_NUM = bd.BUY_NUM "
 			+ "JOIN TEA t ON bd.TEA_NUM = t.TEA_NUM "
-			+ "WHERE MEMBER_ID = ? "
-			+ "GROUP BY b.BUY_NUM "
-			+ "ORDER BY b.BUY_NUM DESC";
+			+ "JOIN IMAGE i ON i.TEA_NUM = t.TEA_NUM "
+			+ "JOIN ( "
+			+ "    SELECT b2.BUY_NUM, MIN(t2.TEA_NUM) AS MIN_TEA_NUM "
+			+ "    FROM BUY b2 "
+			+ "    JOIN BUY_DETAIL bd2 ON b2.BUY_NUM = bd2.BUY_NUM "
+			+ "    JOIN TEA t2 ON bd2.TEA_NUM = t2.TEA_NUM "
+			+ "    WHERE MEMBER_ID = ? "
+			+ "    GROUP BY b2.BUY_NUM "
+			+ ") min_tea ON b.BUY_NUM = min_tea.BUY_NUM "
+			+ "WHERE MEMBER_ID = ? AND i.IMAGE_DIVISION = 1 AND t.TEA_NUM = min_tea.MIN_TEA_NUM "
+			+ "GROUP BY b.BUY_NUM, t.TEA_NUM, t.TEA_NAME, i.IMAGE_URL "
+			+ "ORDER BY b.BUY_NUM DESC ";
+	
 	static final private String SQL_SELECTONE = "SELECT b.BUY_NUM, t.TEA_PRICE, bd.BUY_CNT "
 			+ "FROM BUY b "
 			+ "JOIN BUY_DETAIL bd ON b.BUY_NUM = bd.BUY_NUM "
@@ -34,7 +52,7 @@ public class BuyDAO {
 
 	public List<BuyVO> selectAll(BuyVO buyVO) {
 
-		Object[] args = { buyVO.getMemberId() };
+		Object[] args = { buyVO.getMemberId(), buyVO.getMemberId() };
 		return jdbcTemplate.query(SQL_SELECTALL, args, new BuyRowMapper());
 	}
 
@@ -77,6 +95,7 @@ class BuyRowMapper implements RowMapper<BuyVO> {
 		data.setBuyCount(rs.getInt("BUY_COUNT"));
 		data.setBuyCnt(rs.getInt("BUY_CNT"));
 		data.setBuyName(rs.getString("BUY_NAME"));
+		data.setImageUrl(rs.getString("IMAGE_URL"));
 		return data;
 	}
 
