@@ -2,19 +2,18 @@ package com.varchar.biz.tea;
 
 public class ImageVO {
 	private int imageNum;
-	private int teaNum;
+	private int teaReviewNum;
 	private String imageUrl;
 	private int imageDivision;
 	
 	// 임시변수
-	
 	public ImageVO() {
 		this(0, 0, "", 0);
 	}
 	
-	public ImageVO(int imageNum, int teaNum, String imageUrl, int imageDivision) {
+	public ImageVO(int imageNum, int teaReviewNum, String imageUrl, int imageDivision) {
 		this.imageNum = imageNum;
-		this.teaNum = teaNum;
+		this.teaReviewNum = teaReviewNum;
 		this.imageUrl = imageUrl;
 		this.imageDivision = imageDivision;
 	}
@@ -27,12 +26,12 @@ public class ImageVO {
 		this.imageNum = imageNum;
 	}
 
-	public int getTeaNum() {
-		return teaNum;
+	public int getTeaReviewNum() {
+		return teaReviewNum;
 	}
 
-	public void setTeaNum(int teaNum) {
-		this.teaNum = teaNum;
+	public void setTeaReviewNum(int teaReviewNum) {
+		this.teaReviewNum = teaReviewNum;
 	}
 
 	public String getImageUrl() {

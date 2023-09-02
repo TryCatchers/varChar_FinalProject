@@ -27,28 +27,28 @@ public class ReviewDAO {
 	//			+ "ORDER BY r.REVIEW_NUM DESC ";
 
 	static final private String SQL_SELECTALL = // 후기 목록
-			"SELECT REVIEW_NUM, MEMBER_ID, BUY_SERIAL, REVIEW_CONTENT, TEA_NUM, TEA_NAME, IMAGE_URL "
+			"SELECT REVIEW_NUM, MEMBER_ID, BUY_SERIAL, REVIEW_CONTENT, TEA_NAME, IMAGE_URL "
 			+ "FROM ( "
-			+ "SELECT r.REVIEW_NUM, r.MEMBER_ID, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NUM, t.TEA_NAME, i.IMAGE_URL, ROWNUM AS rnum "
-			+ "FROM REVIEW r "
-			+ "JOIN BUY_DETAIL bd ON r.BUY_SERIAL = bd.BUY_SERIAL "
-			+ "JOIN TEA t ON t.TEA_NUM = bd.TEA_NUM "
-			+ "JOIN IMAGE i ON i.TEA_NUM = t.TEA_NUM "
-			+ "WHERE i.IMAGE_DIVISION = 1 "
-			+ "ORDER BY r.REVIEW_NUM DESC "
-			+ ") r ";
+				+ "SELECT r.REVIEW_NUM, r.MEMBER_ID, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NAME, i.IMAGE_URL "
+				+ "FROM REVIEW r "
+				+ "JOIN BUY_DETAIL bd ON r.BUY_SERIAL = bd.BUY_SERIAL "
+				+ "JOIN TEA t ON t.TEA_NUM = bd.TEA_NUM "
+				+ "JOIN IMAGE i ON i.TEA_NUM = t.TEA_NUM "
+				+ "WHERE i.IMAGE_DIVISION = 1 "
+				+ "ORDER BY r.REVIEW_NUM DESC "
+			+ ") ";
 	
-	static final private String SQL_SELECTALL_DETAIL = // 후기 목록
+	static final private String SQL_SELECTALL_DETAIL = // 해당 상품 후기
 			"SELECT REVIEW_NUM, MEMBER_ID, BUY_SERIAL, REVIEW_CONTENT, TEA_NUM, TEA_NAME, IMAGE_URL "
 			+ "FROM ( "
-			+ "SELECT r.REVIEW_NUM, r.MEMBER_ID, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NUM, t.TEA_NAME, i.IMAGE_URL, ROWNUM AS rnum "
+			+ "SELECT r.REVIEW_NUM, r.MEMBER_ID, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NUM, t.TEA_NAME, i.IMAGE_URL, ROWNUM AS row_num "
 			+ "FROM REVIEW r "
 			+ "JOIN BUY_DETAIL bd ON r.BUY_SERIAL = bd.BUY_SERIAL "
 			+ "JOIN TEA t ON t.TEA_NUM = bd.TEA_NUM "
 			+ "JOIN IMAGE i ON i.TEA_NUM = t.TEA_NUM "
 			+ "WHERE i.IMAGE_DIVISION = 1 AND t.TEA_NUM = ?"
 			+ "ORDER BY r.REVIEW_NUM DESC "
-			+ ") r ";
+			+ ")  ";
 
 	//	static final private String SQL_SELECTALL_REVIEW = // 후기 검색
 	//			"SELECT r.REVIEW_NUM, r.MEMBER_ID, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NAME, i.IMAGE_URL "
@@ -62,13 +62,13 @@ public class ReviewDAO {
 	static final private String SQL_SELECTALL_REVIEW = // 후기 검색
 			"SELECT REVIEW_NUM, MEMBER_ID, BUY_SERIAL, REVIEW_CONTENT, TEA_NAME, IMAGE_URL "
 			+ "FROM ( "
-			+ "SELECT r.REVIEW_NUM, r.MEMBER_ID, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NAME, i.IMAGE_URL, ROW_NUMBER() OVER (ORDER BY r.REVIEW_NUM DESC) AS rnum "
-			+ "FROM REVIEW r "
-			+ "JOIN BUY_DETAIL bd ON r.BUY_SERIAL = bd.BUY_SERIAL "
-			+ "JOIN TEA t ON t.TEA_NUM = bd.TEA_NUM "
-			+ "JOIN IMAGE i ON i.TEA_NUM = t.TEA_NUM "
-			+ "WHERE t.TEA_NAME LIKE '%' || ? || '%' AND i.IMAGE_DIVISION = 1 "
-			+ ") r ";
+				+ "SELECT r.REVIEW_NUM, r.MEMBER_ID, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NAME, i.IMAGE_URL, ROW_NUMBER() OVER (ORDER BY r.REVIEW_NUM DESC) AS row_num "
+				+ "FROM REVIEW r "
+				+ "JOIN BUY_DETAIL bd ON r.BUY_SERIAL = bd.BUY_SERIAL "
+				+ "JOIN TEA t ON t.TEA_NUM = bd.TEA_NUM "
+				+ "JOIN IMAGE i ON i.TEA_NUM = t.TEA_NUM "
+				+ "WHERE t.TEA_NAME LIKE '%' || ? || '%' AND i.IMAGE_DIVISION = 1 "
+			+ ") ";
 
 	//	static final private String SQL_SELECTALL_CATE = // 후기 카테고리 검색
 	//			"SELECT r.REVIEW_NUM, r.MEMBER_ID, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NAME, i.IMAGE_URL "
@@ -82,13 +82,13 @@ public class ReviewDAO {
 	static final private String SQL_SELECTALL_CATE = // 후기 카테고리 검색
 			"SELECT REVIEW_NUM, MEMBER_ID, BUY_SERIAL, REVIEW_CONTENT, TEA_NAME, IMAGE_URL "
 			+ "FROM ( "
-			+ "SELECT r.REVIEW_NUM, r.MEMBER_ID, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NAME, i.IMAGE_URL, ROW_NUMBER() OVER (ORDER BY r.REVIEW_NUM DESC) AS rnum "
-			+ "FROM REVIEW r "
-			+ "JOIN BUY_DETAIL bd ON r.BUY_SERIAL = bd.BUY_SERIAL "
-			+ "JOIN TEA t ON t.TEA_NUM = bd.TEA_NUM "
-			+ "JOIN IMAGE i ON i.TEA_NUM = t.TEA_NUM "
-			+ "WHERE t.TEA_CATEGORY LIKE '%' || ? || '%' AND i.IMAGE_DIVISION = 1 "
-			+ ") r ";
+				+ "SELECT r.REVIEW_NUM, r.MEMBER_ID, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NAME, i.IMAGE_URL, ROW_NUMBER() OVER (ORDER BY r.REVIEW_NUM DESC) AS row_num "
+				+ "FROM REVIEW r "
+				+ "JOIN BUY_DETAIL bd ON r.BUY_SERIAL = bd.BUY_SERIAL "
+				+ "JOIN TEA t ON t.TEA_NUM = bd.TEA_NUM "
+				+ "JOIN IMAGE i ON i.TEA_NUM = t.TEA_NUM "
+				+ "WHERE t.TEA_CATEGORY LIKE '%' || ? || '%' AND i.IMAGE_DIVISION = 1 "
+			+ ") ";
 
 	//	static final private String SQL_SELECTALL_MEMBER = // 내가 쓴 후기
 	//			"SELECT r.REVIEW_NUM, r.MEMBER_ID, r.BUY_SERIAL, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NAME, i.IMAGE_URL "
@@ -102,13 +102,13 @@ public class ReviewDAO {
 	static final private String SQL_SELECTALL_MEMBER = // 내가 쓴 후기
 			"SELECT REVIEW_NUM, MEMBER_ID, BUY_SERIAL, REVIEW_CONTENT, TEA_NAME, IMAGE_URL "
 			+ "FROM ( "
-			+ "SELECT r.REVIEW_NUM, r.MEMBER_ID, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NAME, i.IMAGE_URL, ROWNUM AS rnum "
-			+ "FROM REVIEW r "
-			+ "JOIN BUY_DETAIL bd ON r.BUY_SERIAL = bd.BUY_SERIAL "
-			+ "JOIN TEA t ON t.TEA_NUM = bd.TEA_NUM "
-			+ "JOIN IMAGE i ON i.TEA_NUM = t.TEA_NUM "
-			+ "WHERE r.MEMBER_ID = ? AND i.IMAGE_DIVISION = 1 "
-			+ ") r ";
+				+ "SELECT r.REVIEW_NUM, r.MEMBER_ID, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NAME, i.IMAGE_URL, ROW_NUMBER() OVER (ORDER BY r.REVIEW_NUM DESC) AS row_num "
+				+ "FROM REVIEW r "
+				+ "JOIN BUY_DETAIL bd ON r.BUY_SERIAL = bd.BUY_SERIAL "
+				+ "JOIN TEA t ON t.TEA_NUM = bd.TEA_NUM "
+				+ "JOIN IMAGE i ON i.TEA_NUM = t.TEA_NUM "
+				+ "WHERE r.MEMBER_ID = ? AND i.IMAGE_DIVISION = 1 "
+			+ ") ";
 
 
 	//	static final private String SQL_SELECTONE = // 후기 상세
@@ -131,7 +131,7 @@ public class ReviewDAO {
 			"SELECT REVIEW_NUM FROM REVIEW WHERE BUY_SERIAL = ?";
 
 	//	static final private String PAGING = "LIMIT ?, 6;"; // 페이징 처리
-	static final private String PAGING = "WHERE r.rnum BETWEEN ? AND ?";
+	static final private String PAGING = "WHERE ROWNUM BETWEEN ? AND ? + 5";
 
 	//	static final private String SQL_INSERT = "INSERT INTO REVIEW(MEMBER_ID, BUY_SERIAL, REVIEW_CONTENT) VALUES(?, ?, ?);";
 	static final private String SQL_INSERT = "INSERT INTO REVIEW(REVIEW_NUM, MEMBER_ID, BUY_SERIAL, REVIEW_CONTENT) "
@@ -144,61 +144,46 @@ public class ReviewDAO {
 		
 		// 후기 목록
 		if(reviewVO.getSearchName().equals("ALL")) {
-			System.out.println("ALL");
 			return jdbcTemplate.query(SQL_SELECTALL, new ReviewSelectAllRowMapper());
+		}
+		// 해당 상품의 후기
+		else if(reviewVO.getSearchName().equals("DETAIL")) {
+			Object[] args = { reviewVO.getTeaNum() };
+			return jdbcTemplate.query(SQL_SELECTALL_DETAIL, args, new ReviewSelectAllRowMapper());
 		}
 		// 후기 검색
 		else if(reviewVO.getSearchName().equals("REVIEW")) {
-			System.out.println("REVIEW");
 			Object[] args = { reviewVO.getReviewSearch() };
 			return jdbcTemplate.query(SQL_SELECTALL_REVIEW, args, new ReviewSelectAllRowMapper());
 		}
 		// 후기 카테고리 검색
 		else if(reviewVO.getSearchName().equals("CATEGORY")) {
-			System.out.println("CATEGORY");
 			Object[] args = { reviewVO.getReviewSearch() };
 			return jdbcTemplate.query(SQL_SELECTALL_CATE, args, new ReviewSelectAllRowMapper());
 		}
 		// 내 후기
 		else if(reviewVO.getSearchName().equals("MEMBER")) {
-			System.out.println("MEMBER");
 			Object[] args = { reviewVO.getMemberId() };
 			return jdbcTemplate.query(SQL_SELECTALL_MEMBER, args, new ReviewSelectAllRowMapper());
 		}
-		// 해당 상품의 후기
-		else if(reviewVO.getSearchName().equals("DETAIL")) {
-			System.out.println("DETAIL");
-			Object[] args = { reviewVO.getTeaNum() };
-			return jdbcTemplate.query(SQL_SELECTALL_DETAIL, args, new ReviewSelectAllRowMapper());
-		}
 		// 후기 목록 페이징
 		else if(reviewVO.getSearchName().equals("ALL_PAGING")) {
-			System.out.println("ALL_PAGING");
-			Object[] args = { reviewVO.getStartRnum(), reviewVO.getEndRnum() };
+			Object[] args = { reviewVO.getStartRnum(), reviewVO.getStartRnum() };
 			return jdbcTemplate.query(SQL_SELECTALL + PAGING, args, new ReviewSelectAllRowMapper());
 		}
 		// 후기 검색 페이징
 		else if(reviewVO.getSearchName().equals("REVIEW_PAGING")) {
-			System.out.println("REVIEW_PAGING");
-			Object[] args = { reviewVO.getReviewSearch(), reviewVO.getStartRnum(), reviewVO.getEndRnum() };
+			Object[] args = { reviewVO.getReviewSearch(), reviewVO.getStartRnum() };
 			return jdbcTemplate.query(SQL_SELECTALL_REVIEW + PAGING, args, new ReviewSelectAllRowMapper());
 		}
 		// 후기 카테고리 검색 페이징
 		else if(reviewVO.getSearchName().equals("CATEGORY_PAGING")) {
-			System.out.println("CATEGORY_PAGING");
-			Object[] args = { reviewVO.getReviewSearch(), reviewVO.getStartRnum(), reviewVO.getEndRnum() };
+			Object[] args = { reviewVO.getReviewSearch(), reviewVO.getStartRnum() };
 			return jdbcTemplate.query(SQL_SELECTALL_CATE + PAGING, args, new ReviewSelectAllRowMapper());
-		}
-		// 해당 상품의 후기 페이징
-		else if(reviewVO.getSearchName().equals("DETAIL_PAGING")) {
-			System.out.println("DETAIL_PAGING");
-			Object[] args = { reviewVO.getTeaNum(), reviewVO.getStartRnum(), reviewVO.getEndRnum() };
-			return jdbcTemplate.query(SQL_SELECTALL_DETAIL + PAGING, args, new ReviewSelectAllRowMapper());
 		}
 		// 내 후기 페이징
 		else { // MEMBER_PAGING
-			System.out.println("MEMBER_PAGING");
-			Object[] args = { reviewVO.getMemberId(), reviewVO.getStartRnum(), reviewVO.getEndRnum() };
+			Object[] args = { reviewVO.getMemberId(), reviewVO.getStartRnum(), reviewVO.getStartRnum() };
 			return jdbcTemplate.query(SQL_SELECTALL_MEMBER + PAGING, args, new ReviewSelectAllRowMapper());
 		}
 	}

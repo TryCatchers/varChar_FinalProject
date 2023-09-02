@@ -28,7 +28,6 @@ public class ReviewVO {
 		this.buySerial = buySerial;
 		this.reviewContent = reviewContent;
 	}
-
 	
 	public int getTeaNum() {
 		return teaNum;
@@ -36,6 +35,14 @@ public class ReviewVO {
 
 	public void setTeaNum(int teaNum) {
 		this.teaNum = teaNum;
+	}
+
+	public int getEndRnum() {
+		return endRnum;
+	}
+
+	public void setEndRnum(int endRnum) {
+		this.endRnum = endRnum;
 	}
 
 	public String getTeaContent() {
@@ -132,14 +139,6 @@ public class ReviewVO {
 
 	public void setStartRnum(int startRnum) {
 		this.startRnum = startRnum;
-	}
-	
-	public int getEndRnum() {
-		return endRnum;
-	}
-
-	public void setEndRnum(int endRnum) {
-		this.endRnum = endRnum;
 	}
 
 	@Override

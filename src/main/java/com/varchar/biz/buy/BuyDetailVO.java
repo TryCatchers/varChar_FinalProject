@@ -1,8 +1,8 @@
 package com.varchar.biz.buy;
 
 public class BuyDetailVO {
+	
 	private int buySerial;
-
 	private int buyNum;
 	private int teaNum;
 	private int buyCnt;

@@ -16,14 +16,16 @@ public class ImageDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplete;
 	
-	static final private String SQL_SELECTALL = "SELECT IMAGE_URL, IMAGE_DIVISION FROM IMAGE WHERE TEA_NUM = ?";
+	static final private String SQL_SELECTALL = "SELECT IMAGE_URL, IMAGE_DIVISION FROM IMAGE WHERE TEA_REVIEW_NUM = ?";
 //	static final private String SQL_SELECTONE = "";
-//	static final private String SQL_INSERT = "";
-//	static final private String SQL_UPDATE = "";
+	static final private String SQL_INSERT = "INSERT INTO IMAGE(IMAGE_NUM, TEA_REVIEW_NUM, IMAGE_URL, IMAGE_DIVISION) "
+											+ "VALUES((SELECT NVL(MAX(IMAGE_NUM), 0) + 1 FROM IMAGE), ?, ?, SELECT COUNT(*) FROM IMAGE WHERE TEA_REVIEW_NUM = ?)";
+	static final private String SQL_UPDATE = "UPDATE IMAGE SET IMAGE_URL = ?"
+											+ "WHERE IMAGE_NUM = ? AND IMAGE_DIVISION = ?";
 //	static final private String SQL_DELETE = "";
 	
 	public List<ImageVO> selectAll(ImageVO imageVO){
-		Object[] args = { imageVO.getTeaNum() };
+		Object[] args = { imageVO.getTeaReviewNum() };
 		return jdbcTemplete.query(SQL_SELECTALL, args, new ImageRowMapper());
 	}
 	
@@ -32,11 +34,24 @@ public class ImageDAO {
 	}
 
 	public boolean insert(ImageVO imageVO) {
-		return false;
+		
+		int result = jdbcTemplete.update(SQL_INSERT, imageVO.getTeaReviewNum(), imageVO.getImageUrl(), imageVO.getImageDivision());
+		
+		if(result <= 0) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public boolean update(ImageVO imageVO) {
-		return false;
+		
+		int result = jdbcTemplete.update(SQL_UPDATE, imageVO.getImageUrl(), imageVO.getImageNum(), imageVO.getImageDivision());
+		
+		if(result <= 0) {
+			return false;
+		}
+		return true;
 	}
 	
 	public boolean delete(ImageVO imageVO) {

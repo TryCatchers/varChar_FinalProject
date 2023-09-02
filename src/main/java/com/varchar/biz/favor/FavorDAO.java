@@ -17,7 +17,7 @@ public class FavorDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	static final private String SQL_SELECTALL ="SELECT f.FAVOR_NUM, f.MEMBER_ID, f.TEA_NUM, t.TEA_NAME, t.TEA_CONTENT, t.TEA_PRICE, i.IMAGE_URL "
+	static final private String SQL_SELECTALL ="SELECT f.FAVOR_NUM, f.MEMBER_ID, f.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, i.IMAGE_URL "
 			+ "FROM FAVOR f "
 			+ "JOIN TEA t ON t.TEA_NUM = f.TEA_NUM "
 			+ "JOIN IMAGE i ON i.TEA_NUM = t.TEA_NUM "
@@ -83,7 +83,6 @@ class FavorSelectAllRowMapper implements RowMapper<FavorVO> {
 		data.setMemberId(rs.getString("MEMBER_ID"));
 		data.setTeaNum(rs.getInt("TEA_NUM"));
 		data.setTeaName(rs.getString("TEA_NAME"));
-		data.setTeaContent(rs.getString("TEA_CONTENT"));
 		data.setTeaPrice(rs.getInt("TEA_PRICE"));
 		data.setImageUrl(rs.getString("IMAGE_URL"));
 		return data;

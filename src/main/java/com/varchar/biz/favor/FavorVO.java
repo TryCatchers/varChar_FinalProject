@@ -7,7 +7,6 @@ public class FavorVO {
 	
 	//임시변수
 	private String teaName;
-	private String teaContent;
 	private String imageUrl;
 	private int teaPrice;
 	
@@ -53,14 +52,6 @@ public class FavorVO {
 		this.teaName = teaName;
 	}
 
-	public String getTeaContent() {
-		return teaContent;
-	}
-
-	public void setTeaContent(String teaContent) {
-		this.teaContent = teaContent;
-	}
-
 	public String getImageUrl() {
 		return imageUrl;
 	}
@@ -76,10 +67,9 @@ public class FavorVO {
 	public void setTeaPrice(int teaPrice) {
 		this.teaPrice = teaPrice;
 	}
+	
+	
+	
+	
 
-	@Override
-	public String toString() {
-		return "FavorVO [favorNum=" + favorNum + ", memberId=" + memberId + ", teaNum=" + teaNum + ", teaName="
-				+ teaName + ", teaContent=" + teaContent + ", imageUrl=" + imageUrl + ", teaPrice=" + teaPrice + "]";
-	}
 }

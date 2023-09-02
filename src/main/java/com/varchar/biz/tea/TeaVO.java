@@ -2,46 +2,56 @@ package com.varchar.biz.tea;
 
 public class TeaVO {
 	private int teaNum;
+	private int categoryNum;
 	private String teaName;
 	private int teaPrice;
 	private int teaCnt;
-	private String teaCategory;
 	private String teaContent;
+	private int teaStatus;
 
+	
 	// 임시변수
 	private String teaSearchWord;
 	private String teaCondition;
 	private String imageUrl;
 	private int startRnum;
-	private int endRnum;
-	private int teaCheckCnt;
+	private String memberId;
 	private int teaTotal;
+	private int teaCheckCnt;
 	private String count;
+	private int endRnum;
 	
 	private int favorResult;
+	private String categoryName;
 	
 	public TeaVO() {
-		this(0, "", 0, 0, "", "");
+		this(0, 0, "", 0, 0, "", 0);
 	}
 	
-	public TeaVO(int teaNum, String teaName, int teaPrice, int teaCnt, String teaCategory, String teaContent) {
+	public TeaVO(int teaNum, int categoryNum, String teaName, int teaPrice, int teaCnt, String teaContent, int teaStatus) {
 		this.teaNum = teaNum;
+		this.categoryNum = categoryNum;
 		this.teaName = teaName;
 		this.teaPrice = teaPrice;
 		this.teaCnt = teaCnt;
-		this.teaCategory = teaCategory;
 		this.teaContent = teaContent;
-		this.teaSearchWord = "";
-		this.teaCondition = "";
-	}
-	
-
-	public int getFavorResult() {
-		return favorResult;
+		this.teaStatus = teaStatus;
 	}
 
-	public void setFavorResult(int favorResult) {
-		this.favorResult = favorResult;
+	public int getTeaStatus() {
+		return teaStatus;
+	}
+
+	public void setTeaStatus(int teaStatus) {
+		this.teaStatus = teaStatus;
+	}
+
+	public int getEndRnum() {
+		return endRnum;
+	}
+
+	public void setEndRnum(int endRnum) {
+		this.endRnum = endRnum;
 	}
 
 	public String getCount() {
@@ -50,6 +60,38 @@ public class TeaVO {
 
 	public void setCount(String count) {
 		this.count = count;
+	}
+
+	public int getTeaCheckCnt() {
+		return teaCheckCnt;
+	}
+
+	public void setTeaCheckCnt(int teaCheckCnt) {
+		this.teaCheckCnt = teaCheckCnt;
+	}
+
+	public int getTeaTotal() {
+		return teaTotal;
+	}
+
+	public void setTeaTotal(int teaTotal) {
+		this.teaTotal = teaTotal;
+	}
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
+	public int getFavorResult() {
+		return favorResult;
+	}
+
+	public void setFavorResult(int favorResult) {
+		this.favorResult = favorResult;
 	}
 
 	public int getTeaNum() {
@@ -84,12 +126,20 @@ public class TeaVO {
 		this.teaCnt = teaCnt;
 	}
 
-	public String getTeaCategory() {
-		return teaCategory;
+	public int getCategoryNum() {
+		return categoryNum;
 	}
 
-	public void setTeaCategory(String teaCategory) {
-		this.teaCategory = teaCategory;
+	public void setCategoryNum(int categoryNum) {
+		this.categoryNum = categoryNum;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public String getTeaContent() {
@@ -124,14 +174,6 @@ public class TeaVO {
 		this.startRnum = startRnum;
 	}
 	
-	public int getEndRnum() {
-		return endRnum;
-	}
-
-	public void setEndRnum(int endRnum) {
-		this.endRnum = endRnum;
-	}
-
 	public String getTeaCondition() {
 		return teaCondition;
 	}
@@ -139,31 +181,14 @@ public class TeaVO {
 	public void setTeaCondition(String teaCondition) {
 		this.teaCondition = teaCondition;
 	}
-	
-	public int getTeaTotal() {
-		return teaTotal;
-	}
-
-	public void setTeaTotal(int teaTotal) {
-		this.teaTotal = teaTotal;
-	}
-	
-	public int getTeaCheckCnt() {
-		return teaCheckCnt;
-	}
-
-	public void setTeaCheckCnt(int teaCheckCnt) {
-		this.teaCheckCnt = teaCheckCnt;
-	}
 
 	@Override
 	public String toString() {
-		return "TeaVO [teaNum=" + teaNum + ", teaName=" + teaName + ", teaPrice=" + teaPrice + ", teaCnt=" + teaCnt
-				+ ", teaCategory=" + teaCategory + ", teaContent=" + teaContent + ", teaSearchWord=" + teaSearchWord
+		return "TeaVO [teaNum=" + teaNum + ", categoryNum=" + categoryNum + ", teaName=" + teaName + ", teaPrice="
+				+ teaPrice + ", teaCnt=" + teaCnt + ", teaContent=" + teaContent + ", teaSearchWord=" + teaSearchWord
 				+ ", teaCondition=" + teaCondition + ", imageUrl=" + imageUrl + ", startRnum=" + startRnum
-				+ ", teaTotal=" + teaTotal + ", favorResult="+ favorResult + "]";
+				+ ", favorResult=" + favorResult + ", categoryName=" + categoryName + "]";
 	}
-	
-	
 
+	
 }
