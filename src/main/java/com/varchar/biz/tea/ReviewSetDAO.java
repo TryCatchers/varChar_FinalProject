@@ -88,7 +88,7 @@ class ReviewSetTeaRowMapper implements RowMapper<ReviewSet> {
 		data.setTeaName(rs.getString("TEA_NAME"));
 		data.setTeaPrice(rs.getInt("TEA_PRICE"));
 		data.setTeaCnt(rs.getInt("TEA_CNT"));
-		data.setCategoryName(rs.getString("CATEGORY_NAME"));
+		//data.setCategoryName(rs.getString("CATEGORY_NAME"));
 		data.setTeaContent(rs.getString("TEA_CONTENT"));
 		res.setTea(data);
 		return res;

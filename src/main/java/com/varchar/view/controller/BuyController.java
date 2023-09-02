@@ -140,8 +140,7 @@ public class BuyController {
 		return "buyDetail.jsp";
 	}
 
-	// --------------------------------- 토스 결제 후 성공시
-	// ---------------------------------
+	// --------------------------------- 토스 결제 후 성공시  ---------------------------------
 	@RequestMapping(value = "/paySuccess.do")
 	public String paySuccess(HttpServletRequest request, HttpSession session, BuyVO buyVO, BuyDetailVO buyDetailVO,
 			TeaVO teaVO, PaymentVO paymentVO, Model model, MemberVO memberVO) throws IOException {
@@ -220,6 +219,7 @@ public class BuyController {
 
 					// ** 상세 주문 추가 / 재고 변경(검사도 필요) 각각 실패시 ---> 유효성 추가 필요 */
 					buyDetailService.insert(buyDetailVO); // 상세 주문 추가
+					teaVO.setTeaCondition("재고변경");
 					teaService.update(teaVO); // 상품 재고 변경
 				}
 				paymentVO.setPaymentName(memberId);

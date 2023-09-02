@@ -13,13 +13,21 @@ public class PagingVO {
 
 	private int currentPage;
 	private String currentPageStr;
-	private String teaCategory; 	//
+	private int categoryNum; 	//
 	private String teaSearchWord; 	// 
 	private String searchName; 		// 
 	private String reviewSearch; 	//
 	private String memberId;
+	private String categoryName;
 	
 	private int startRnum;
+	
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
 	private int endRnum;
 	
 	
@@ -96,11 +104,11 @@ public class PagingVO {
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
 	}
-	public String getTeaCategory() {
-		return teaCategory;
+	public int getCategoryNum() {
+		return categoryNum;
 	}
-	public void setTeaCategory(String teaCategory) {
-		this.teaCategory = teaCategory;
+	public void setCategoryNum(int categoryNum) {
+		this.categoryNum = categoryNum;
 	}
 	public String getTeaSearchWord() {
 		return teaSearchWord;
@@ -118,7 +126,7 @@ public class PagingVO {
 	public String toString() {
 		return "PagingVO [totalPageCnt=" + totalPageCnt + ", startPage=" + startPage + ", endPage=" + endPage
 				+ ", page=" + page + ", pageSize=" + pageSize + ", totalCnt=" + totalCnt + ", currentPage="
-				+ currentPage + ", currentPageStr=" + currentPageStr + ", teaCategory=" + teaCategory
+				+ currentPage + ", currentPageStr=" + currentPageStr + ", categoryNum=" + categoryNum
 				+ ", teaSearchWord=" + teaSearchWord + ", searchName=" + searchName + ", reviewSearch=" + reviewSearch
 				+ ", memberId=" + memberId + ", startRnum=" + startRnum + ", endRnum=" + endRnum + "]";
 	}

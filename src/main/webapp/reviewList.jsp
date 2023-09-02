@@ -164,7 +164,7 @@
               <ul>
               	<c:if test="${ page.startPage > 1 }">
               		<li>
-              	 	<a href="reviewListPage.do?searchName=${ page.searchName }&memberId=${ memberId }&reviewSearch=${ page.reviewSearch }&page=${ page.startPage - 1 }">
+              	 	<a href="reviewListPage.do?searchName=${ page.searchName }&memberId=${ page.memberId }&reviewSearch=${ page.reviewSearch }&page=${ page.startPage - 1 }">
               	 	&lt;
               	 	</a>
               	 	</li>
@@ -173,19 +173,19 @@
 					<c:choose>
 						<c:when test="${ page.currentPage eq p }">
 							<li class="active">
-								<a href="reviewListPage.do?searchName=${ page.searchName }&memberId=${ memberId }&reviewSearch=${ page.reviewSearch }&page=${ p }">${ p }</a>
+								<a href="reviewListPage.do?searchName=${ page.searchName }&memberId=${ page.memberId }&reviewSearch=${ page.reviewSearch }&page=${ p }">${ p }</a>
 							</li>
 						</c:when>
 						<c:otherwise>
 							<li>
-								<a href="reviewListPage.do?searchName=${ page.searchName }&memberId=${ memberId }&reviewSearch=${ page.reviewSearch }&page=${ p }">${ p }</a>
+								<a href="reviewListPage.do?searchName=${ page.searchName }&memberId=${ page.memberId }&reviewSearch=${ page.reviewSearch }&page=${ p }">${ p }</a>
 							</li>						
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${ page.endPage < page.totalPageCnt }">
 					<li>
-					<a href="reviewListPage.do?searchName=${ page.searchName }&memberId=${ memberId }&reviewSearch=${ page.reviewSearch }&page=${ page.endPage + 1 }">
+					<a href="reviewListPage.do?searchName=${ page.searchName }&memberId=${ page.memberId }&reviewSearch=${ page.reviewSearch }&page=${ page.endPage + 1 }">
 					&gt;
 					</a>
 					</li>

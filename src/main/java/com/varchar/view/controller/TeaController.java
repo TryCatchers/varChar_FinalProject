@@ -27,8 +27,6 @@ public class TeaController {
 	@Autowired
 	private FavorService favorService;
 	@Autowired
-	private ReviewSetService reviewSetService;
-	@Autowired
 	private ReviewService reviewService;
 	
 	// ---------------------------- 상품 목록 페이지 -------------------------------------
@@ -36,15 +34,19 @@ public class TeaController {
 	@RequestMapping(value="/teaListPage.do")
 	public String teaListPage(TeaVO teaVO, Model model, HttpSession session, PagingVO pagingVO) { // 상품 목록
 
-		String teaCategory = pagingVO.getTeaCategory();
+		int categoryNum = pagingVO.getCategoryNum();
 		String teaSearchWord = pagingVO.getTeaSearchWord();
+		String categoryName = pagingVO.getCategoryName();
 		int pageSize = 8;
 		
-		teaVO.setTeaCategory(teaCategory == null ? "" : teaCategory);
+		teaVO.setTeaCondition("ALL");
+		teaVO.setCategoryNum(categoryNum);
+		teaVO.setCategoryName(categoryName == null ? "" : categoryName);
 		teaVO.setTeaSearchWord(teaSearchWord == null ? "" : teaSearchWord);
 		
 		
-		System.out.println(teaCategory);
+		System.out.println(categoryNum);
+		System.out.println(categoryName);
 		System.out.println(teaSearchWord);
 		
 		//** 상품 NULL일때(아무 상품도 없을때) NPE 근데 아마 우리가 샘플 무조건 넣어서 괜찮긴 함 ---> 유효성 추가 필요 */
@@ -60,7 +62,8 @@ public class TeaController {
 			
 		//
 		pagingVO.setTeaSearchWord(teaSearchWord);
-		pagingVO.setTeaCategory(teaCategory);
+		pagingVO.setCategoryNum(categoryNum);
+		pagingVO.setCategoryName(categoryName);
 		model.addAttribute("page",pagingVO);
 		
 		//

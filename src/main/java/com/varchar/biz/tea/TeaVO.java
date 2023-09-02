@@ -37,7 +37,7 @@ public class TeaVO {
 		this.teaContent = teaContent;
 		this.teaStatus = teaStatus;
 	}
-
+	
 	public int getTeaStatus() {
 		return teaStatus;
 	}

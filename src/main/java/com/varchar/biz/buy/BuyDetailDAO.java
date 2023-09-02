@@ -21,7 +21,7 @@ public class BuyDetailDAO {
 	static final private String SQL_SELECTALL = "SELECT bd.BUY_SERIAL, t.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, i.IMAGE_URL, bd.BUY_NUM, bd.BUY_CNT "
 			+ "FROM BUY_DETAIL bd "
 			+ "JOIN TEA t ON t.TEA_NUM = bd.TEA_NUM "
-			+ "JOIN IMAGE i ON i.TEA_NUM = t.TEA_NUM "
+			+ "JOIN IMAGE i ON i.TEA_REVIEW_NUM = t.TEA_NUM "
 			+ "WHERE bd.BUY_NUM = ?";
 
 	static final private String SQL_SELECTALL_CARTRETRY =

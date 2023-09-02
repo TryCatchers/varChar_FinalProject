@@ -46,12 +46,15 @@ public class MemberController {
 	public String login(MemberVO memberVO, HttpSession session, Model model) {
 		System.out.println("LoginController 로그");
 
-		String salt = Password.generateRandomPassword(10);
-		String shaPW = Password.ShaPass(memberVO.getMemberPw()+salt);
+		memberVO.setMemberSearch("솔트");
+		String pw = memberVO.getMemberPw();
+		String salt = memberService.selectOne(memberVO).getMemberSalt(); // 회원의 솔트값 가져옴
+		String shaPW = Password.ShaPass(pw+salt);
+		memberVO.setMemberPw(shaPW);
+		
+		System.out.println("pw: "+ pw);
 		System.out.println("암호화pw: "+shaPW);
 		System.out.println("사용된 salt: "+salt);
-		//String salt = memverVO.getSalt();
-		//memberVO.setMemberPw(shaPW);
 		
 		memberVO.setMemberSearch("로그인");
 		memberVO = memberService.selectOne(memberVO);
@@ -104,26 +107,18 @@ public class MemberController {
 	@RequestMapping(value = "/signup.do", method=RequestMethod.POST)
 	public String signup(MemberVO memberVO, Model model) { // 회원가입
 		
-		/*
+		
 		String salt = Password.generateRandomPassword(10);
 		String shaPW = Password.ShaPass(memberVO.getMemberPw()+salt);
 		System.out.println("암호화pw: "+shaPW);
 		System.out.println("사용된 salt: "+salt);
-		//String salt = memverVO.getSalt();
-		//memberVO.setMemberPw(shaPW);
-		//String salt = memverVO.getSalt();
-		//memberVO.setMemberPw(shaPW);
-		 * 
-		 */
+		
+		memberVO.setMemberPw(shaPW);
+		memberVO.setMemberSalt(salt);
+		memberVO.setMemberGrade(0);
+		memberVO.setMemberPlatform("홈페이지"); // SNS 로그인 구현시 추후 논의 필요
 
-//		memberVO.setMemberId(request.getParameter("memberId"));
-//		memberVO.setMemberPw(request.getParameter("memberPw"));
-//		memberVO.setMemberName(request.getParameter("memberName"));
-//		memberVO.setMemberAddress(request.getParameter("memberAddress").equals("") ? null : request.getParameter("memberAddress"));
-//		memberVO.setMemberPhone(request.getParameter("memberPhone").equals("") ? 0 : Long.parseLong(request.getParameter("memberPhone")));
-//		memberVO.setMemberEmail(request.getParameter("memberEmail").equals("") ? null : request.getParameter("memberEmail"));
-
-//		System.out.println(memberVO);
+		System.out.println(memberVO);
 
 		if (memberService.insert(memberVO)) {
 			AlertVO sweetAlertVO = new AlertVO("회원가입", "회원가입 성공!", null, "success", "main.do");
@@ -162,12 +157,7 @@ public class MemberController {
 	public String updateInfo(MemberVO memberVO, Model model) {
 
 		memberVO.setMemberSearch("회원정보변경");
-//		memberVO.setMemberId(request.getParameter("memberId"));
-//		memberVO.setMemberName(request.getParameter("memberName"));
-//		memberVO.setMemberAddress(request.getParameter("memberAddress").equals("") ? null : request.getParameter("memberAddress"));
-//		memberVO.setMemberPhone(request.getParameter("memberPhone").equals("") ? 0 : Long.parseLong(request.getParameter("memberPhone")));
-//		memberVO.setMemberEmail(request.getParameter("memberEmail").equals("") ? null : request.getParameter("memberEmail"));
-//		System.out.println(memberVO);
+
 		System.out.println("로그 회원정보 변경 updateInfo.do memberVO: "+ memberVO);
 		// 혹시 계속 문제 발생시 memberId set 고려
 		//** 회원 정보 변경 실패시---> 유효성 추가 필요 */
@@ -201,17 +191,14 @@ public class MemberController {
 	@RequestMapping(value = "/updatePw.do", method=RequestMethod.POST)
 	public String updatePw(MemberVO memberVO, Model model) {
 		
-		/*
+
 		String salt = Password.generateRandomPassword(10);
 		String shaPW = Password.ShaPass(memberVO.getMemberPw()+salt);
+		memberVO.setMemberPw(shaPW);
+		memberVO.setMemberSalt(salt);
+		
 		System.out.println("암호화pw: "+shaPW);
 		System.out.println("사용된 salt: "+salt);
-		//String salt = memverVO.getSalt();
-		//memberVO.setMemberPw(shaPW);
-		//String salt = memverVO.getSalt();
-		//memberVO.setMemberPw(shaPW);
-		 * 
-		 */
 
 		memberVO.setMemberSearch("비밀번호변경");
 		//** 비밀번호 변경 실패 ---> 유효성 추가 필요 */
@@ -234,20 +221,16 @@ public class MemberController {
 		
 		String randomPw = Password.main(null);
 		System.out.println("임시비밀번호 : " + randomPw);
-		/*
+
 		String salt = Password.generateRandomPassword(10);
 		String shaPW = Password.ShaPass(randomPw+salt);
+		memberVO.setMemberPw(shaPW);
+		memberVO.setMemberSalt(salt);
+		
 		System.out.println("암호화pw: "+shaPW);
 		System.out.println("사용된 salt: "+salt);
-		//String salt = memverVO.getSalt();
-		//memberVO.setMemberPw(shaPW);
-		//String salt = memverVO.getSalt();
-		//memberVO.setMemberPw(shaPW);
-		 * 
-		 */
 		
 		memberVO.setMemberSearch("비밀번호변경");
-		memberVO.setMemberPw(randomPw);
 		if(memberService.update(memberVO)) {
 			MessageAPI_Test.main(memberVO, randomPw);
 			System.out.println("로그 : 임시비밀번호 문자 발송 성공");

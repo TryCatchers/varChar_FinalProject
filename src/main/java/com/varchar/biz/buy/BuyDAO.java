@@ -17,9 +17,9 @@ public class BuyDAO {
 	private JdbcTemplate jdbcTemplate;
 
 	static final private String SQL_SELECTALL = "SELECT "
-			+ "    b.BUY_NUM,\n"
+			+ "    b.BUY_NUM, "
 			+ "    (SELECT SUM(t2.TEA_PRICE * bd2.BUY_CNT) "
-			+ "     FROM BUY_DETAIL bd2\n"
+			+ "     FROM BUY_DETAIL bd2 "
 			+ "     JOIN TEA t2 ON bd2.TEA_NUM = t2.TEA_NUM "
 			+ "     WHERE bd2.BUY_NUM = b.BUY_NUM) AS TEA_PRICE, "
 			+ "    (SELECT SUM(bd3.BUY_CNT) FROM BUY_DETAIL bd3 WHERE bd3.BUY_NUM = b.BUY_NUM) AS BUY_CNT, "
@@ -28,7 +28,7 @@ public class BuyDAO {
 			+ "FROM BUY b "
 			+ "JOIN BUY_DETAIL bd ON b.BUY_NUM = bd.BUY_NUM "
 			+ "JOIN TEA t ON bd.TEA_NUM = t.TEA_NUM "
-			+ "JOIN IMAGE i ON i.TEA_NUM = t.TEA_NUM "
+			+ "JOIN IMAGE i ON i.TEA_REVIEW_NUM = t.TEA_NUM "
 			+ "JOIN ( "
 			+ "    SELECT b2.BUY_NUM, MIN(t2.TEA_NUM) AS MIN_TEA_NUM "
 			+ "    FROM BUY b2 "

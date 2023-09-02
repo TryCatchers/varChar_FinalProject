@@ -205,6 +205,7 @@ public class ReviewController {
 		
 		pagingVO.setSearchName(searchName);
 		pagingVO.setReviewSearch(reviewSearch);
+		pagingVO.setMemberId(memberId);
 		
 		model.addAttribute("page", pagingVO);
 		

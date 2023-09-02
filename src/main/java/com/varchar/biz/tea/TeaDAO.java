@@ -23,8 +23,8 @@ public class TeaDAO {
 		+ "JOIN IMAGE i ON t.TEA_NUM = i.TEA_REVIEW_NUM "
 		+ "JOIN CATEGORY c ON c.CATEGORY_NUM = t.CATEGORY_NUM "
 		+ "WHERE c.CATEGORY_NAME LIKE '%' || ? || '%' "
-		+ "AND TEA_NAME LIKE '%' || ? || '%' "
-		+ "AND IMAGE_DIVISION = 1";
+		+ "AND t.TEA_NAME LIKE '%' || ? || '%' "
+		+ "AND i.IMAGE_DIVISION = 1 ";
 
 //	static final private String SQL_SELECTALL_PAGING =
 //			"SELECT t.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, t.TEA_CNT, t.TEA_CONTENT, t.CATEGORY_NAME, t.IMAGE_URL "
@@ -37,10 +37,10 @@ public class TeaDAO {
 //			+ ") t "
 //			+ "WHERE t.rnum BETWEEN ? AND ? + 5";
 	
-	static final private String SQL_SELECTALL_PAGING_LIKE = "SELECT t.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, t.TEA_CNT, c.CATEGORY_NAME, t.TEA_CONTENT, t.TEA_STATUS, t.IMAGE_URL, t.FAVOR_NUM "
+	static final private String SQL_SELECTALL_PAGING_LIKE = "SELECT t.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, t.TEA_CNT, t.CATEGORY_NAME, t.TEA_CONTENT, t.TEA_STATUS, t.IMAGE_URL, t.FAVOR_NUM "
 			+ "FROM ( "
-				+ "SELECT t.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, t.TEA_CNT, c.CATEGORY_NAME, t.TEA_CONTENT, i.IMAGE_URL, f.FAVOR_NUM, ROWNUM AS rnum "
-				+ "FROM TEA t JOIN IMAGE i ON t.TEA_NUM = i.TEA_NUM "
+				+ "SELECT t.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, t.TEA_CNT, t.TEA_STATUS, c.CATEGORY_NAME, t.TEA_CONTENT, i.IMAGE_URL, f.FAVOR_NUM, ROWNUM AS rnum "
+				+ "FROM TEA t JOIN IMAGE i ON t.TEA_NUM = i.TEA_REVIEW_NUM "
 				+ "LEFT JOIN ( "
 					+ "SELECT FAVOR_NUM, TEA_NUM, MEMBER_ID "
 					+ "FROM FAVOR "
@@ -50,14 +50,14 @@ public class TeaDAO {
 				+ "JOIN CATEGORY c ON c.CATEGORY_NUM = t.CATEGORY_NUM "
 				+ "WHERE c.CATEGORY_NAME LIKE '%' || ? || '%' AND t.TEA_NAME LIKE '%' || ? || '%' AND i.IMAGE_DIVISION = 1 "
 			+ ") t "
-			+ "WHERE t.rnum BETWEEN ? AND ?";
+			+ "WHERE t.rnum BETWEEN ? AND ? ";
 
 	static final private String SQL_SELECTONE =
 			"SELECT t.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, t.TEA_CNT, t.TEA_CONTENT, c.CATEGORY_NAME, t.TEA_STATUS, i.IMAGE_URL "
 			+ "FROM TEA t JOIN IMAGE i ON t.TEA_NUM = i.TEA_REVIEW_NUM "
 			+ "JOIN CATEGORY c ON t.CATEGORY_NUM = c.CATEGORY_NUM "
 			+ "WHERE i.IMAGE_DIVISION = 1 "
-			+ "AND TEA_NUM = ?";
+			+ "AND TEA_NUM = ? ";
 
 	static final private String SQL_UPDATE = "UPDATE TEA SET TEA_CNT = (TEA_CNT - ?) "
 											+ "WHERE TEA_NUM = ? ";
@@ -72,11 +72,11 @@ public class TeaDAO {
 	public List<TeaVO> selectAll(TeaVO teaVO) {
 
 		if(teaVO.getTeaCondition().equals("페이징")) {
-			Object[] args = { teaVO.getMemberId(), teaVO.getCategoryName(), teaVO.getTeaName(), teaVO.getStartRnum(), teaVO.getEndRnum() };
+			Object[] args = { teaVO.getMemberId(), teaVO.getCategoryName(), teaVO.getTeaSearchWord(), teaVO.getStartRnum(), teaVO.getEndRnum() };
 			return jdbcTemplate.query(SQL_SELECTALL_PAGING_LIKE, args, new TeaPagingRowMapper());
 		}
-		else {
-			Object[] args = { teaVO.getCategoryName(), teaVO.getTeaName() };
+		else { // ALL
+			Object[] args = { teaVO.getCategoryName(), teaVO.getTeaSearchWord() };
 			return jdbcTemplate.query(SQL_SELECTALL, args, new TeaSelectRowMapper());
 		}
 	}

@@ -67,11 +67,11 @@
     			<div class="col-md-10 mb-5 text-center">
     				<ul class="product-category">
     					<li><a href="teaListPage.do">전체</a></li>
-    					<li><a href="teaListPage.do?teaCategory=녹차">녹차</a></li>
-    					<li><a href="teaListPage.do?teaCategory=홍차">홍차</a></li>
-    					<li><a href="teaListPage.do?teaCategory=루이보스">루이보스</a></li>
-    					<li><a href="teaListPage.do?teaCategory=우롱차">우롱차</a></li>
-    					<li><a href="teaListPage.do?teaCategory=허브차">허브차</a></li>
+    					<li><a href="teaListPage.do?categoryName=녹차">녹차</a></li>
+    					<li><a href="teaListPage.do?categoryName=홍차">홍차</a></li>
+    					<li><a href="teaListPage.do?categoryName=루이보스">루이보스</a></li>
+    					<li><a href="teaListPage.do?categoryName=우롱차">우롱차</a></li>
+    					<li><a href="teaListPage.do?categoryName=허브차">허브차</a></li>
     				</ul>
     			</div>
     		</div>
@@ -230,7 +230,7 @@
               <ul>
              	<c:if test="${ page.startPage > 1 }">
              		<li>
-					<a href="teaListPage.do?teaCategory=${ page.teaCategory }&teaSearchWord=${ page.teaSearchWord }&page=${ page.startPage - 1 }">
+					<a href="teaListPage.do?categoryName=${ page.categoryName }&teaSearchWord=${ page.teaSearchWord }&page=${ page.startPage - 1 }">
 					&lt;
 					</a>
 					</li>
@@ -239,19 +239,19 @@
 					<c:choose>
 						<c:when test="${ page.currentPage eq p }">
 							<li class="active">
-								<a href="teaListPage.do?teaCategory=${ page.teaCategory }&teaSearchWord=${ page.teaSearchWord }&page=${ p }">${ p }</a>
+								<a href="teaListPage.do?categoryName=${ page.categoryName }&teaSearchWord=${ page.teaSearchWord }&page=${ p }">${ p }</a>
 							</li>
 						</c:when>
 						<c:otherwise>
 							<li>
-								<a href="teaListPage.do?teaCategory=${ page.teaCategory }&teaSearchWord=${ page.teaSearchWord }&page=${ p }">${ p }</a>
+								<a href="teaListPage.do?categoryName=${ page.categoryName }&teaSearchWord=${ page.teaSearchWord }&page=${ p }">${ p }</a>
 							</li>						
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${ page.endPage < page.totalPageCnt }">
 					<li>
-					<a href="teaListPage.do?teaCategory=${ page.teaCategory }&teaSearchWord=${ page.teaSearchWord }&page=${ page.endPage + 1 }">
+					<a href="teaListPage.do?categoryName=${ page.categoryName }&teaSearchWord=${ page.teaSearchWord }&page=${ page.endPage + 1 }">
 					&gt;
 					</a>
 					</li>
