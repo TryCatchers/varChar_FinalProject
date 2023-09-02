@@ -67,7 +67,7 @@
 	                  		<input type="text" name="memberPhone" id="memberPhone" class="form-control" placeholder="하이픈(-), 공백없이 입력하세요. ex) 00012345678">
 	                	</c:if>
 	                	<c:if test="${ memberData.memberPhone != 0 }">
-	                  		<input type="text" name="memberPhone" id="memberPhone" class="form-control" value="0${ memberData.memberPhone }">
+	                  		<input type="text" name="memberPhone" id="memberPhone" class="form-control" value="${ memberData.memberPhone }">
 	               		</c:if>
 	                </div>
                 </div>
