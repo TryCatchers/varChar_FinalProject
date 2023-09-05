@@ -72,6 +72,7 @@ public class MemberController {
 			model.addAttribute("sweetAlert", sweetAlertVO);
 			return "alertFalse.jsp";
 		}
+		
 		return "redirect:main.do";
 	}
 	
@@ -110,13 +111,16 @@ public class MemberController {
 		
 		String salt = Password.generateRandomPassword(10);
 		String shaPW = Password.ShaPass(memberVO.getMemberPw()+salt);
-		System.out.println("암호화pw: "+shaPW);
-		System.out.println("사용된 salt: "+salt);
+		System.out.println("암호화pw: " + shaPW);
+		System.out.println("사용된 salt: " + salt);
 		
 		memberVO.setMemberPw(shaPW);
 		memberVO.setMemberSalt(salt);
 		memberVO.setMemberGrade(0);
-		memberVO.setMemberPlatform("varChar"); // SNS 로그인 구현시 추후 논의 필요
+		System.out.println(memberVO);
+		if (memberVO.getMemberPlatform().equals("")) {
+			memberVO.setMemberPlatform("varChar");
+		}
 
 		System.out.println(memberVO);
 
@@ -269,7 +273,7 @@ public class MemberController {
 		return "alertTrue.jsp";
 	}
 	
-	// // ------------------------------------- 네이버 로그인 테스트 중 -------------------------------------
+	// ------------------------------------- 네이버 로그인 테스트 중 -------------------------------------
 	@RequestMapping(value = "/loginNaver.do")
 	public String loginNaver(HttpSession session, HttpServletRequest request) throws UnsupportedEncodingException {
 		System.out.println("loginNaver.do 진입");
@@ -319,7 +323,19 @@ public class MemberController {
 		//session.setAttribute("sessionMemberId", accessToken);
 		return "main.do";
 	}
-
+	
+	@RequestMapping(value = "/snsLogin.do")
+	public String kakaoLogin(HttpServletRequest request, MemberVO memberVO, Model model, HttpSession session) {
+		System.out.println(memberVO);
+		memberVO.setMemberSearch("아이디 중복검사");
+		if (memberService.selectOne(memberVO) == null) {
+			model.addAttribute("memberData", memberVO);
+			return "signup.jsp";
+		}
+		session.setAttribute("sessionMemberId", memberVO.getMemberId());
+		return "main.do";
+	}
+	
 	// ------------------------------------- 회원가입 아이디 중복검사 ------------------------------------------
 	@ResponseBody
 	@RequestMapping(value = "/checkId.do")
