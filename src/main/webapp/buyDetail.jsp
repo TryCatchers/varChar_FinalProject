@@ -58,7 +58,7 @@
 
 											<td class="product-name">
 												<h3>${ buyDetailData.teaName }</h3>
-												<p>Far far away, behind the word mountains, far from the countries</p>
+												<p>${ buyDetailData.teaContent }</p>
 											</td>
 
 											<td class="price">${ sum }</td>

@@ -9,6 +9,7 @@ public class BuyDetailVO {
 	
 	// 임시변수
 	private String teaName;
+	private String teaContent;
 	private int teaPrice;
 	private String imageUrl;
 	private boolean reviewDone;
@@ -105,6 +106,14 @@ public class BuyDetailVO {
 
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
+	}
+	
+	public String getTeaContent() {
+		return teaContent;
+	}
+
+	public void setTeaContent(String teaContent) {
+		this.teaContent = teaContent;
 	}
 
 	@Override

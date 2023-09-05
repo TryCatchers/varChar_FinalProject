@@ -52,37 +52,75 @@
     </div>
 
     <section class="ftco-section ftco-cart">
+    		<div class="container">
+    			<div class="row">
+				<div class="col-md-12 ftco-animate">
+					<div class="cart-list">
+						<table class="table">
+							<thead class="thead-primary">
+								<tr class="text-center">
+									<th colspan="2">상품정보</th>
+									<th>가격</th>
+									<th>수량</th>
+									<th>총 가격</th>
+								</tr>
+							</thead>
+							<tbody id="tbodyCart">
+									<c:set var="priceSum" value="0" />
+									<c:forEach var="cart" items="${ buyCart }">
+										<tr id="cartForEach${ cart.teaNum }" class="text-center">
+											<td class="image-prod"><div class="img" style="background-image:url(${ cart.imageUrl });"></div></td>
+
+											<td class="product-name">
+												<h3>${ cart.teaName }</h3>
+												<p>${ cart.teaContent }</p>
+											</td>
+
+											<td class="price">${ cart.teaPrice }</td>
+
+											<td class="quantity">
+												<div class="input-group">
+													<input id="Cnt${ cart.teaNum }" type="text" name="quantity" class="quantity form-control input-number" value="${ cart.teaCnt }">
+												</div>
+											</td>
+											<c:set var="priceSum" value="${ cart.teaCnt * cart.teaPrice }" />
+											<td id="price${ cart.teaNum }" class="total">${ priceSum }</td>
+										</tr>
+										<!-- END TR-->
+									</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+    		</div>
 			<div class="container">
 				<div class="row">
     			<div class="col-md-12 ftco-animate">
-    				<h3>
-						주문해주셔서 감사합니다:D
-					</h3>
-							<p id="orderName"></p>
-							<p id="totalAmount"></p>
-							<p id="approvedAt"></p>
-							<p id="method"></p>
-							<p id="provider"></p>
-							<script	type="text/javascript">
-								let json = ${ data };
-								console.log(json.orderName);
-								console.log(json.totalAmount);
-								console.log(json.approvedAt);
-								console.log(json.method);
-								console.log(json.easyPay.provider);
-								document.getElementById("orderName").innerHTML = "주문자 : " + json.orderName;
-								document.getElementById("totalAmount").innerHTML = "가격 : " + json.totalAmount;
-								document.getElementById("approvedAt").innerHTML = "결제시간 : " + json.approvedAt;
-								document.getElementById("method").innerHTML = "결제수단 : " + json.method;
-								document.getElementById("provider").innerHTML = "결제방법 : " + json.easyPay.provider;
-							</script>
+					<p id="orderName"></p>
+					<p id="totalAmount"></p>
+					<p id="approvedAt"></p>
+					<p id="method"></p>
+					<p id="provider"></p>
+					<script	type="text/javascript">
+						let json = ${ data };
+						console.log(json.orderName);
+						console.log(json.totalAmount);
+						console.log(json.approvedAt);
+						console.log(json.method);
+						console.log(json.easyPay.provider);
+						document.getElementById("orderName").innerHTML = "주문자 : " + json.orderName;
+						document.getElementById("totalAmount").innerHTML = "총 가격 : " + json.totalAmount;
+						document.getElementById("approvedAt").innerHTML = "결제시간 : " + json.approvedAt;
+						document.getElementById("method").innerHTML = "결제수단 : " + json.method;
+						document.getElementById("provider").innerHTML = "결제방법 : " + json.easyPay.provider;
+					</script>
 						
-							<!--  
-							<h1>결제 실패</h1>
-							<p></p>
-							<span>에러코드: </span>
-							-->
-
+					<!--  
+					<h1>결제 실패</h1>
+					<p></p>
+					<span>에러코드: </span>
+					-->
     			</div>
     		</div>
 			<a href="main.do" class="btn btn-primary py-3 px-4">메인으로</a>

@@ -15,6 +15,29 @@
     <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
 	charset="utf-8">//naver api</script>
+	<style type="text/css">
+		.block-27 ul li span {
+			width: 70px;
+			height: 70px;
+		}
+		.block-27 ul li {
+			margin-right: 10px;
+			margin-left: 10px;
+		}
+		
+		#edit_span_kakao {
+			background-image: url("images/login_kakao.png");
+			background-size: 70px;
+		}
+		#edit_span_naver {
+			background-image: url("images/login_naver.png");
+			background-size: 70px;
+		}
+		#edit_span_google {
+			background-image: url("images/login_google.png");
+			background-size: 70px;
+		}
+	</style>
   </head>
   <body class="goto-here">
   <!-- 상단, 하단은 커스텀 태그로 넣어주셈 -->
@@ -63,7 +86,18 @@
 				</div>
 	          </form>
            	  <!-- 로그인 폼 태그 끝 -->
-	  			<div id="naver_id_login"></div>
+           	  <div class="row mt-5">
+		      	<div class="col text-center">
+		      		<div class="block-27">
+		              <ul>
+		                <li><span id="edit_span_kakao"></span></li>
+		                <li><span id="edit_span_naver"></span></li>
+		                <li><span id="edit_span_google"></span></li>
+		              </ul>
+		      		</div>
+		      	</div>
+		      </div>
+	  		<div id="naver_id_login"></div>
 			</div>
           </div> <!-- .col-md-8 -->
         </div>

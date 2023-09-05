@@ -50,7 +50,6 @@ public class Paging {
 			endRnum = totalCnt;
 		}
 		
-		
 		pagingVO.setStartPage(startPage);
 		pagingVO.setEndPage(endPage);
 		pagingVO.setTotalPageCnt(totalPageCnt);	

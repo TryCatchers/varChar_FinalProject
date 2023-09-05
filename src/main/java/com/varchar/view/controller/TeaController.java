@@ -2,7 +2,6 @@ package com.varchar.view.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +13,6 @@ import com.varchar.biz.favor.FavorService;
 import com.varchar.biz.favor.FavorVO;
 import com.varchar.biz.review.ReviewService;
 import com.varchar.biz.review.ReviewVO;
-import com.varchar.biz.tea.ReviewSet;
-import com.varchar.biz.tea.ReviewSetService;
 import com.varchar.biz.tea.TeaService;
 import com.varchar.biz.tea.TeaVO;
 

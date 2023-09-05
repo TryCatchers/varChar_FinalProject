@@ -18,7 +18,7 @@ public class BuyDetailDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	static final private String SQL_SELECTALL = "SELECT bd.BUY_SERIAL, t.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, i.IMAGE_URL, bd.BUY_NUM, bd.BUY_CNT "
+	static final private String SQL_SELECTALL = "SELECT bd.BUY_SERIAL, t.TEA_NUM, t.TEA_NAME, t.TEA_CONTENT, t.TEA_PRICE, i.IMAGE_URL, bd.BUY_NUM, bd.BUY_CNT "
 			+ "FROM BUY_DETAIL bd "
 			+ "JOIN TEA t ON t.TEA_NUM = bd.TEA_NUM "
 			+ "JOIN IMAGE i ON i.TEA_REVIEW_NUM = t.TEA_NUM "
@@ -118,6 +118,7 @@ class BuyDetailRowMapper implements RowMapper<BuyDetailVO> {
 		data.setBuySerial(rs.getInt("BUY_SERIAL"));
 		data.setTeaNum(rs.getInt("TEA_NUM"));
 		data.setTeaName(rs.getString("TEA_NAME"));
+		data.setTeaContent(rs.getString("TEA_CONTENT"));
 		data.setTeaPrice(rs.getInt("TEA_PRICE"));
 		data.setImageUrl(rs.getString("IMAGE_URL"));
 		data.setBuyNum(rs.getInt("BUY_NUM"));

@@ -45,10 +45,6 @@
     </div>
 	<!-- 페이지 제목 div 끝 -->
 
-	<script type="text/javascript">
-		
-	</script>
-
 	<!-- 회원가입 섹션 -->
 	<section class="ftco-section">
       <div class="container">
@@ -58,35 +54,13 @@
 			<form id="signForm" action="signup.do" method="post" class="billing-form">
 	          	<h3 class="mb-4 billing-heading" style="padding-bottom: 25px; border-bottom: 1px solid #e1e1e1">회원가입</h3>
 	          	<div class="row align-items-end">
-	          	<div class="col-md-12">
-	                <label for="id">아이디<span id="spanId" class="edit-red"> *</span></label>
-	            	<div class="form-group edit-d-f">
-	                  <input type="text" id="inputId" name="memberId" class="form-control" placeholder="아이디를 입력하세요." required>
-	            	</div>
-	            </div>
-	            <div class="w-100"></div>
-	            <div class="col-md-12">
-	                <label for="name">이름<span id="spanName" class="edit-red"> *</span></label>
-	                <div class="form-group">
-	                  <input type="text" id="inputName" name="memberName" class="form-control" placeholder="이름을 입력하세요." required>
-	                </div>
-                </div>
-                <div class="w-100"></div>
-                <div class="col-md-12">
-                	<label for="password">비밀번호<span id="spanPassword1" class="edit-red"> *</span></label>
-	                <div class="form-group edit-d-f">
-	                  <input type="password" id="inputPassword1" name="memberPw" class="form-control" placeholder="비밀번호를 입력하세요." required>
-	                  <button type="button" id="inputBtnPassword1" class="edit-btn"><i class="fa-solid fa-eye-slash"></i></button>
-	                </div>
-	              </div>
-                <div class="w-100"></div>
-	          	<div class="col-md-12">
-	                <label for="passwordre">비밀번호 확인<span id="spanPassword2" class="edit-red"> *</span></label>
-	                <div class="form-group edit-d-f">
-	                  <input type="password" id="inputPassword2" class="form-control" placeholder="비밀번호를 한번 더 입력하세요." required>
-	                  <button type="button" id="inputBtnPassword2" class="edit-btn"><i class="fa-solid fa-eye-slash"></i></button>
-	                </div>
-	              </div>
+					<c:if test="${ memberData.memberPlatform ne null }">
+						<try:signupSns/>
+					</c:if>
+					<c:if test="${ memberData.memberPlatform eq null }">
+						<try:signupOrigin/>
+					</c:if>
+					
 	              <script>
                       	$(document).ready(function(){
                       		$("#inputBtnPassword1").on("click", function(){
@@ -111,6 +85,13 @@
                       		});
                       	});
                   </script>
+                <div class="w-100"></div>
+	            <div class="col-md-12">
+	                <label for="name">이름<span id="spanName" class="edit-red"> *</span></label>
+	                <div class="form-group">
+	                  <input type="text" id="inputName" name="memberName" class="form-control" placeholder="이름을 입력하세요." required>
+	                </div>
+                </div>
                 <div class="w-100"></div>
 				<div class="col-md-12">
 	                <label for="phone">연락처<span id="spanPhone" class="edit-red"> *</span></label>

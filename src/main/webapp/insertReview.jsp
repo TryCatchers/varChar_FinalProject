@@ -123,10 +123,9 @@
 				        }).catch((error) => {
 				        	console.error(error);
 				        });
-				        
-				        
 			        </script>
-					<input type="text" class="form-control" id="hashtags-input">
+					<input type="text" class="form-control" id="hashtags-input" placeholder="해시태그를 입력해주세요.">
+					<input type="hidden" id="reviewHashtag" name="reviewHashtag">
 					<div class="tag-widget post-tag-container mb-5 mt-5">
 						<div id="hashtags-container" class="tagcloud">
 							
@@ -153,10 +152,17 @@
 		            			removeButton.addEventListener("click", () => {
 		            				hashtagsContainer.removeChild(a);
 		            				hashtags = hashtags.filter((hashtag) => hashtag !== tag);
+		            				document.getElementById("reviewHashtag").value = hashtags;
+		            				console.log(hashtags);
+		            				console.log(document.getElementById("reviewHashtag").value);
 		            			});
 		            			a.appendChild(removeButton);
 		            			hashtagsContainer.appendChild(a);
 		            			hashtags.push(tag);
+		            			
+		            			document.getElementById("reviewHashtag").value = hashtags;
+		            			console.log(hashtags);
+		            			console.log(document.getElementById("reviewHashtag").value);
 		            		}
 		            	}
 		            	
@@ -167,7 +173,6 @@
 		            			if (tag) {
 		            				addHashtag(tag);
 		            				hashtagsInput.value = "";
-		            				console.log(hashtags);
 		            			}
 		            		}
 		            	});
