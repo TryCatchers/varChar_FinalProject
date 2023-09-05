@@ -53,7 +53,7 @@ var positions = [
 ];
 
 // 마커 이미지의 이미지 주소입니다
-var imageSrc = "img/local.png"; 
+var imageSrc = "images/local.png"; 
 //var imageSrc = "img/pin.png"; 
 
     

@@ -227,17 +227,77 @@ public class BuyController {
 				// ** 결제 정보 추가 실패시 ---> 유효성 추가 필요 */
 				paymentService.insert(paymentVO);
 				session.removeAttribute("buyList");
+				model.addAttribute("buyCart", session.getAttribute("cart"));
 				session.removeAttribute("cart");
 			}
 
-			// 주문내역 이메일 안내
+//			//주문내역 이메일 안내
+//			memberVO.setMemberSearch("이메일"); // 아무거나 쓴거임 솔트로 바꿔도 무방
+//			memberVO.setMemberId(memberId);
+//			memberVO = memberService.selectOne(memberVO);
 //			String receiver = memberVO.getMemberEmail();
+//			String htag = "<style>\r\n"
+//					+ "table.type07 {\r\n"
+//					+ "  border-collapse: collapse;\r\n"
+//					+ "  text-align: left;\r\n"
+//					+ "  line-height: 1.5;\r\n"
+//					+ "  border: 1px solid #ccc;\r\n"
+//					+ "  margin: 20px 10px;\r\n"
+//					+ "}\r\n"
+//					+ "table.type07 thead {\r\n"
+//					+ "  border-right: 1px solid #ccc;\r\n"
+//					+ "  border-left: 1px solid #ccc;\r\n"
+//					+ "  background: #e7708d;\r\n"
+//					+ "}\r\n"
+//					+ "table.type07 thead th {\r\n"
+//					+ "  padding: 10px;\r\n"
+//					+ "  font-weight: bold;\r\n"
+//					+ "  vertical-align: top;\r\n"
+//					+ "  color: #fff;\r\n"
+//					+ "}\r\n"
+//					+ "table.type07 tbody th {\r\n"
+//					+ "  width: 150px;\r\n"
+//					+ "  padding: 10px;\r\n"
+//					+ "  font-weight: bold;\r\n"
+//					+ "  vertical-align: top;\r\n"
+//					+ "  border-bottom: 1px solid #ccc;\r\n"
+//					+ "  background: #fcf1f4;\r\n"
+//					+ "}\r\n"
+//					+ "table.type07 td {\r\n"
+//					+ "  width: 350px;\r\n"
+//					+ "  padding: 10px;\r\n"
+//					+ "  vertical-align: top;\r\n"
+//					+ "  border-bottom: 1px solid #ccc;\r\n"
+//					+ "}\r\n"
+//					+ "</style>\r\n"
+//					+ "\r\n"
+//					+ "<table class=\"type07\">\r\n"
+//					+ "  <thead>\r\n"
+//					+ "  <tr>\r\n"
+//					+ "    <th scope=\"cols\">주문번호: 00</th>\r\n"
+//					+ "    <th scope=\"cols\">상품정보</th>\r\n"
+//					+ "    <th scope=\"cols\">가격</th>\r\n"
+//					+ "    <th scope=\"cols\">수량</th>\r\n"
+//					+ "  </tr>\r\n"
+//					+ "  </thead>\r\n"
+//					+ "\r\n"
+//					+ "  <tbody>\r\n"
+//					+ "\r\n"
+//					+ "  <tr>\r\n"
+//					+ "    <th scope=\"row\"><div class=\"img\" style=\"background-image: url('');\"></th>\r\n"
+//					+ "    <td>상품이름</td>\r\n"
+//					+ "    <td>000원</td>\r\n"
+//					+ "    <td>0개</td>\r\n"
+//					+ "  </tr>\r\n"
+//					+ "\r\n"
+//					+ "  </tbody>\r\n"
+//					+ "</table>";
 //			if (receiver != null) {
 //				String title = "[var茶] 주문내역 안내";
 //				String name = memberVO.getMemberName();
 //				String content = "<h2>" + name + "님의 주문내역을 안내드립니다~!!</h2><br>" + "var茶의 상품을 주문해주셔서 정말 감사합니다.<br>"
 //						+ "앞으로 더 나은 서비스를 제공하겠습니다!"
-//						+ name;
+//						+ htag;
 //				String from = "TryCathers";
 //				// 이메일 제목과 내용 설정
 //

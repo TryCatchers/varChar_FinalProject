@@ -9,6 +9,7 @@ public class FavorVO {
 	private String teaName;
 	private String imageUrl;
 	private int teaPrice;
+	private String teaContent;
 	
 	public FavorVO() {
 		this(0, "", 0);
@@ -67,9 +68,19 @@ public class FavorVO {
 	public void setTeaPrice(int teaPrice) {
 		this.teaPrice = teaPrice;
 	}
-	
-	
-	
-	
 
+	public String getTeaContent() {
+		return teaContent;
+	}
+
+	public void setTeaContent(String teaContent) {
+		this.teaContent = teaContent;
+	}
+
+	@Override
+	public String toString() {
+		return "FavorVO [favorNum=" + favorNum + ", memberId=" + memberId + ", teaNum=" + teaNum + ", teaName="
+				+ teaName + ", imageUrl=" + imageUrl + ", teaPrice=" + teaPrice + ", teaContent=" + teaContent + "]";
+	}
+	
 }

@@ -116,7 +116,7 @@ public class MemberController {
 		memberVO.setMemberPw(shaPW);
 		memberVO.setMemberSalt(salt);
 		memberVO.setMemberGrade(0);
-		memberVO.setMemberPlatform("홈페이지"); // SNS 로그인 구현시 추후 논의 필요
+		memberVO.setMemberPlatform("varChar"); // SNS 로그인 구현시 추후 논의 필요
 
 		System.out.println(memberVO);
 
