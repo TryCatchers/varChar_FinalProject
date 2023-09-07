@@ -275,52 +275,20 @@ public class MemberController {
 	
 	// ------------------------------------- 네이버 로그인 테스트 중 -------------------------------------
 	@RequestMapping(value = "/loginNaver.do")
-	public String loginNaver(HttpSession session, HttpServletRequest request) throws UnsupportedEncodingException {
+	public String loginNaver(HttpSession session, HttpServletRequest request, MemberVO memberVO, Model model) throws UnsupportedEncodingException {
 		System.out.println("loginNaver.do 진입");
-		System.out.println(request.getAttribute("naver_id_login"));
-		System.out.println(request.getAttribute("access_token"));
-		System.out.println(request.getAttribute("token_type"));
-		System.out.println(request.getAttribute("expires_in"));
 		
-	    String clientId = "gSqN5AjK3F7dFSVLcJF0";//애플리케이션 클라이언트 아이디값";
-	    String clientSecret = "29uaXEXBbp";//애플리케이션 클라이언트 시크릿값";
-	    String code = request.getParameter("code");
-	    String state = request.getParameter("state");
-	    String redirectURI = URLEncoder.encode("http://localhost:8088/app/loginNaver.do", "UTF-8");
-	    String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code"
-	        + "&client_id=" + clientId
-	        + "&client_secret=" + clientSecret
-	        + "&redirect_uri=" + redirectURI
-	        + "&code=" + code
-	        + "&state=" + state;
-	    String accessToken = "";
-	    String refresh_token = "";
-	    
-	    System.out.println("apiURL: "+apiURL);
-	    try {
-	      URL url = new URL(apiURL);
-	      HttpURLConnection con = (HttpURLConnection)url.openConnection();
-	      con.setRequestMethod("GET");
-	      int responseCode = con.getResponseCode();
-	      BufferedReader br;
-	      if (responseCode == 200) { // 정상 호출
-	        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	      } else {  // 에러 발생
-	        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-	      }
-	      String inputLine;
-	      StringBuilder res = new StringBuilder();
-	      while ((inputLine = br.readLine()) != null) {
-	        res.append(inputLine);
-	      }
-	      br.close();
-	      if (responseCode == 200) {
-	    	  System.out.println(res.toString());
-	      }
-	    } catch (Exception e) {
-	      // Exception 로깅
-	    }
-		//session.setAttribute("sessionMemberId", accessToken);
+//		System.out.println(request.getAttribute("naver_id_login"));
+//		System.out.println(request.getAttribute("access_token"));
+//		System.out.println(request.getAttribute("token_type"));
+//		System.out.println(request.getAttribute("expires_in"));
+		
+		memberVO.setMemberSearch("아이디 중복검사");
+		if (memberService.selectOne(memberVO) == null) {
+			model.addAttribute("memberData", memberVO);
+			return "signup.jsp";
+		}
+		session.setAttribute("sessionMemberId", memberVO.getMemberId());
 		return "main.do";
 	}
 	
