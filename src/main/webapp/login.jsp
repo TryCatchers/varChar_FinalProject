@@ -198,7 +198,8 @@
 				};
 			</script>
 			<!-- google API END -->
-	  		 <div id="naver_id_login"></div>
+	  		 <div class="edit_hidden" id="naver_id_login"></div>
+	  		     
 			</div>
           </div> <!-- .col-md-8 -->
         </div>
@@ -265,14 +266,12 @@
        		return true;
       	}
     </script>
-    
     <script type="text/javascript">
-    
-    $('#edit_span_naver').click(function(){
-    	console.log('네이버 클릭 확인');
-		$('#naver_id_login_anchor').trigger('click');
-    	location.href = naverLogin.generateAuthorizeUrl();
-	});
+    	$('#edit_span_naver').click(function(){
+    		console.log('네이버 클릭 확인');
+    		
+    		$("#naver_id_login_anchor").get(0).click();
+		});
 
 		// ---[ 네이버 로그인 ]-------------------------------------------------------------------------------------------------------------------------------------------------
 		var naver_id_login = new naver_id_login("gSqN5AjK3F7dFSVLcJF0", "http://localhost:8088/app/login.jsp");
@@ -284,10 +283,7 @@
 		
 		naver_id_login.init_naver_id_login();
   		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  		
-/* 		$('#edit_span_naver').click(function(){
-			naverSignInCallback();
-  		}); */
+
   		
   		// 네이버 사용자 프로필 조회
     	naver_id_login.get_naver_userprofile("naverSignInCallback()");
@@ -315,46 +311,7 @@
 			const destinationURL = 'snsLogin.do?' + params.toString();
 			window.location.href = destinationURL;
     	  }
-	
-    	
   	</script>
-	<!-- 
-	<script type="text/javascript">
-    var naver_id_login = new window.naver_id_login("gSqN5AjK3F7dFSVLcJF0", "http://localhost:8088/app/login.jsp");
-    // 접근 토큰 값 출력
-    $('#N_info').append('<p>접속토큰:'+naver_id_login.oauthParams.access_token+'</p>');
-    // 네이버 사용자 프로필 조회
-    naver_id_login.get_naver_userprofile("naverSignInCallback()");
-    // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
-    function naverSignInCallback() {
-        const id = naver_id_login.getProfileData('id');
-        const name = naver_id_login.getProfileData('name');
-        const email = naver_id_login.getProfileData('email');
-        const mobile = naver_id_login.getProfileData('mobile');
-        
-        console.log("네이버 ID : " + id);
-		console.log("네이버 Email : " + email);
-		console.log("네이버 Name : " + name);
-		console.log("네이버 mobile : " + mobile);
-		
-/* 		const params = new URLSearchParams();
-		params.append('memberId', id);
-		params.append('memberEmail', emailemail);
-		params.append('memberName', name);
-		params.append('membermobile', mobile);
-		params.append('memberPlatform', 'naver');
-
-		// 새로운 URL로 이동합니다. 여기에 목적지 URL을 입력하세요.
-		const destinationURL = 'snsLogin.do?' + params.toString();
-		window.location.href = destinationURL; */
     
-/* 	$('#N_info').append('<p>로그인 성공!<p>');
-	$('#N_info').append('<p>아이디:'+id+'</p>');
-	$('#N_info').append('<p>이름:'+name+'</p>');
-	$('#N_info').append('<p>이메일:'+email+'</p>');
-	$('#N_info').append('<p>생일:'+mobile+'</p>'); */
-  }
-</script>
-   -->
   </body>
 </html>
