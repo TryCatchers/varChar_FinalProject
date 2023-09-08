@@ -10,7 +10,7 @@
           </li>
           <li class="nav-item nav-category">Hashtag</li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <a class="nav-link" data-bs-toggle="collapse" href="adminHashtagTea.do" aria-expanded="false" aria-controls="ui-basic">
               <i class="menu-icon mdi mdi-tag-text-outline"></i>
               <span class="menu-title">상품 해시태그 관리</span>
               <i class="menu-arrow"></i> 
@@ -22,7 +22,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+            <a class="nav-link" data-bs-toggle="collapse" href="adminHashtagReview.do" aria-expanded="false" aria-controls="charts">
               <i class="menu-icon mdi mdi-tag-faces"></i>
               <span class="menu-title">후기 해시태그 관리</span>
               <i class="menu-arrow"></i> 
@@ -35,7 +35,7 @@
           </li>
           <li class="nav-item nav-category">Tea Product Management</li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+            <a class="nav-link" data-bs-toggle="collapse" href="adminTea.do" aria-expanded="false" aria-controls="form-elements">
               <i class="menu-icon mdi mdi-stove"></i>
               <span class="menu-title">티 상품관리</span>
               <i class="menu-arrow"></i>

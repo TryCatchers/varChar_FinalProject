@@ -144,25 +144,5 @@ public class AdminTeaController {
 		return "adminTea.do";
 	}
 	
-	// --------------------------------- 카테고리 선택시 해당되는 상품들 반환 ---------------------------------
-	@RequestMapping(value = "/selectTea.do")
-	@ResponseBody // 뷰 리졸버를 막기 위함
-	public String teaList(@RequestParam("category") int categoryNum, TeaVO teaVO) {
-		teaVO.setCategoryNum(categoryNum);
-		teaVO.setTeaCondition("카테고리");
-	    List<TeaVO> teaproducts = teaService.selectAll(teaVO);
-	    System.out.println(teaproducts);
-	    
-	    Gson gson = new Gson();
-	    Map<String, Object> map = new HashMap();	    
-	    JSONObject obj = new JSONObject();
-
-	    for (TeaVO v : teaproducts) {
-	    	obj.put("teaNum", v.getTeaNum());
-			obj.put("teaName", v.getTeaName());
-		}
-	    return gson.toJson(teaproducts);
-	}
-	
 
 }

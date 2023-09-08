@@ -53,7 +53,7 @@ public class AdminHashtagController {
 		
 		return "adhashTag.jsp";
 	}
-	// --------------------------------- 상품 해시태그 관리(추가/변경/삭제) ---------------------------------
+	// ---------------------------------!!!! 상품 해시태그 관리(추가/변경/삭제) !!!!---------------------------------
 	@RequestMapping(value = "/adminHashtagTea.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String adminHashtagTea(TeaVO teaVO) {
@@ -81,7 +81,7 @@ public class AdminHashtagController {
 		
 		return "adhashTagRw.jsp";
 	}
-	// --------------------------------- 리뷰 해시태그 관리(추가/변경/삭제) ---------------------------------
+	// ---------------------------------!!!! 리뷰 해시태그 관리(추가/변경/삭제) !!!!---------------------------------
 	@RequestMapping(value = "/adminHashtagReview.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String adminHashtagReview(ReviewVO reviewVO) {
@@ -98,6 +98,47 @@ public class AdminHashtagController {
 	    }
 
 	    return jsonProducts;
+	}
+	
+	// --------------------------------- 카테고리 선택시 해당되는 상품들 반환 ---------------------------------
+	@RequestMapping(value = "/selectTea.do")
+	@ResponseBody // 뷰 리졸버를 막기 위함
+	public String teaList(@RequestParam("category") int categoryNum, TeaVO teaVO) {
+		teaVO.setCategoryNum(categoryNum);
+		teaVO.setTeaCondition("카테고리");
+	    List<TeaVO> teaproducts = teaService.selectAll(teaVO);
+	    System.out.println(teaproducts);
+	    
+	    Gson gson = new Gson();
+	    Map<String, Object> map = new HashMap();	    
+	    JSONObject obj = new JSONObject();
+
+	    for (TeaVO v : teaproducts) {
+	    	obj.put("teaNum", v.getTeaNum());
+			obj.put("teaName", v.getTeaName());
+		}
+	    return gson.toJson(teaproducts);
+	}
+	
+	// --------------------------------- 상품 선택시 해당되는 후기들 반환 ---------------------------------
+	@RequestMapping(value = "/selectReview.do")
+	@ResponseBody // 뷰 리졸버를 막기 위함
+	public String reviewList(@RequestParam("tea") int teaNum, ReviewVO reviewVO) {
+		reviewVO.setTeaNum(teaNum);
+		reviewVO.setSearchName("DETAIL"); // 해당 상품의 후기들 반환
+		List<ReviewVO> reviewDatas = reviewService.selectAll(reviewVO);
+		System.out.println(reviewDatas);
+		
+		Gson gson = new Gson();
+		Map<String, Object> map = new HashMap();	    
+		JSONObject obj = new JSONObject();
+		
+		for (ReviewVO v : reviewDatas) {
+			obj.put("reviewNum", v.getReviewNum());
+			obj.put("reviewName", v.getReviewContent());
+			obj.put("memberId", v.getMemberId());
+		}
+		return gson.toJson(reviewDatas);
 	}
 	
 	// --------------------------------- 상품 선택시 해당되는 해시태그들 반환 ---------------------------------
