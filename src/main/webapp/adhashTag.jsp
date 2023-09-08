@@ -93,7 +93,7 @@
 										<select class="form-control" id="selectTea">
 										</select> <br><button type="button" id="selectbutton" class="btn btn-outline-info">조회</button>
 									</div>
-                    	<form id="hashTagForm" method="post" action="updateHashtag.do" onsubmit="return false;">
+                    	<form id="hashTagForm" method="post" action="adminHashtagTea.do" onsubmit="return false;">
                     	<div id="hashTagContainer" class="template-demo">
                          </div> <br>
                         <button type="button" class="btn btn-primary">저장(Save)</button>

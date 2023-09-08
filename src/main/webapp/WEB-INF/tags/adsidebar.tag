@@ -17,7 +17,7 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="adhashTagPage.do">상품 Htg 추가/삭제/수정</a></li>
+                <li class="nav-item"> <a class="nav-link" href="adminHashtagTea.do">상품 Htg 추가/삭제/수정</a></li>
               </ul>
             </div>
           </li>
@@ -29,7 +29,7 @@
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="adhashTagRwPage.do">후기 Htg 추가/삭제/수정</a></li>
+                <li class="nav-item"> <a class="nav-link" href="adminHashtagReview.do">후기 Htg 추가/삭제/수정</a></li>
               </ul>
             </div>
           </li>
@@ -42,9 +42,9 @@
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="adteaManagePage.do" id="addtea">상품 추가</a></li>
-                <li class="nav-item"><a class="nav-link" href="adteaManagePage.do#scrolltodelete" id="deletetea">상품 삭제</a></li>
-                <li class="nav-item"><a class="nav-link" href="adteaManagePage.do#scrolltofix" id="fixtea">상품 수정(재고/가격)</a></li>
+                <li class="nav-item"><a class="nav-link" href="adminTea.do" id="addtea">상품 추가</a></li>
+                <li class="nav-item"><a class="nav-link" href="adminTea.do#scrolltodelete" id="deletetea">상품 삭제</a></li>
+                <li class="nav-item"><a class="nav-link" href="adminTea.do#scrolltofix" id="fixtea">상품 수정(재고/가격)</a></li>
               </ul>
             </div>
           </li>
