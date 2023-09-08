@@ -26,6 +26,11 @@ public class TeaDAO {
 		+ "AND t.TEA_NAME LIKE '%' || ? || '%' "
 		+ "AND i.IMAGE_DIVISION = 1 ";
 
+	static final private String SQL_SELECTALL_CATEGORY =
+			"SELECT TEA_NUM, TEA_NAME, TEA_PRICE, TEA_CNT, TEA_CONTENT, TEA_STATUS, CATEGORY_NUM, IMAGE_URL "
+			+ "FROM TEA t JOIN IMAGE i ON i.TEA_REVIEW_NUM = t.TEA_NUM "
+			+ "WHERE i.IMAGE_DIVISION = 1 AND t.CATEGORY_NUM = ? ";
+	
 //	static final private String SQL_SELECTALL_PAGING =
 //			"SELECT t.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, t.TEA_CNT, t.TEA_CONTENT, t.CATEGORY_NAME, t.IMAGE_URL "
 //			+ "FROM( "
@@ -74,6 +79,10 @@ public class TeaDAO {
 		if(teaVO.getTeaCondition().equals("페이징")) {
 			Object[] args = { teaVO.getMemberId(), teaVO.getCategoryName(), teaVO.getTeaSearchWord(), teaVO.getStartRnum(), teaVO.getEndRnum() };
 			return jdbcTemplate.query(SQL_SELECTALL_PAGING_LIKE, args, new TeaPagingRowMapper());
+		}
+		else if(teaVO.getTeaCondition().equals("카테고리")) {
+			Object[] args = { teaVO.getCategoryNum()};
+			return jdbcTemplate.query(SQL_SELECTALL_CATEGORY, args, new TeaAdminRowMapper());
 		}
 		else { // ALL
 			Object[] args = { teaVO.getCategoryName(), teaVO.getTeaSearchWord() };
@@ -169,4 +178,25 @@ class TeaSelectRowMapper implements RowMapper<TeaVO> {
 		return data;
 	}
 
+}
+
+
+
+//ADMIN CATEGORY [ selectAll ]
+class TeaAdminRowMapper implements RowMapper<TeaVO> {
+
+	@Override
+	public TeaVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+		TeaVO data = new TeaVO();
+		data.setTeaNum(rs.getInt("TEA_NUM"));
+		data.setTeaName(rs.getString("TEA_NAME"));
+		data.setTeaPrice(rs.getInt("TEA_PRICE"));
+		data.setTeaCnt(rs.getInt("TEA_CNT"));
+		data.setTeaContent(rs.getString("TEA_CONTENT"));
+		data.setTeaStatus(rs.getInt("TEA_STATUS"));
+		data.setCategoryNum(rs.getInt("CATEGORY_NUM"));
+		data.setImageUrl(rs.getString("IMAGE_URL"));
+		return data;
+	}
 }
