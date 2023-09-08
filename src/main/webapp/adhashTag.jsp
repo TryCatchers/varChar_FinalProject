@@ -80,7 +80,7 @@
                       <p class="card-description">Add class <code>.btn-{color}</code> for buttons in theme colors</p>
                       <div class="template-demo">
 									  <div class="form-group">
-										<h5><strong>상품 카테고리 선택 [1) 카테코리를 먼저 지정한다.]</strong></h5>
+										<h5><strong>상품 카테고리 선택 [1) 카테고리를 먼저 지정한다.]</strong></h5>
 										<select class="form-control" id="selectCategory">
 										<option value="선택하세요" id="none" disabled selected hidden>카테고리 선택</option>
 										<c:forEach var="categoryData" items="${categoryDatas}">
@@ -90,8 +90,8 @@
 									</div>
 										<div class="form-group">
 										<h5><strong>상품 선택 [2) 위에서 나눈 카테고리 별로 상품이 출력되게 한다.]</strong></h5>
-										<select class="form-control" id="selectTea">
-										</select> <br><button type="button" id="selectbutton" class="btn btn-outline-info">조회</button>
+										<select class="form-control" id="selectTea"></select> <br>
+										<button type="button" id="selectbutton" class="btn btn-outline-info">조회</button>
 									</div>
                     	<form id="hashTagForm" method="post" action="adminHashtagTea.do" onsubmit="return false;">
                     	<div id="hashTagContainer" class="template-demo">

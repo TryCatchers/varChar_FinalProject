@@ -57,19 +57,22 @@ public class AdminHashtagController {
 	@RequestMapping(value = "/adminHashtagTea.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String adminHashtagTea(TeaVO teaVO) {
-	    List<TeaVO> teaproducts = teaService.selectAll(teaVO);
-	    System.out.println(teaproducts);
-	    // List<TeaVO>를 JSON 형식의 문자열로 변환
-	    ObjectMapper objectMapper = new ObjectMapper();
-	    String jsonProducts;
-	    try {
-	        jsonProducts = objectMapper.writeValueAsString(teaproducts);
-	    } catch (JsonProcessingException e) {
-	        // 예외 처리
-	        jsonProducts = "Error converting products to JSON";
-	    }
-
-	    return jsonProducts;
+		
+		
+		
+//	    List<TeaVO> teaproducts = teaService.selectAll(teaVO);
+//	    System.out.println(teaproducts);
+//	    // List<TeaVO>를 JSON 형식의 문자열로 변환
+//	    ObjectMapper objectMapper = new ObjectMapper();
+//	    String jsonProducts;
+//	    try {
+//	        jsonProducts = objectMapper.writeValueAsString(teaproducts);
+//	    } catch (JsonProcessingException e) {
+//	        // 예외 처리
+//	        jsonProducts = "Error converting products to JSON";
+//	    }
+//
+		return "adminHashtagTea.do";
 	}
 	
 	// --------------------------------- 리뷰 해시태그 관리 페이지 이동 ---------------------------------

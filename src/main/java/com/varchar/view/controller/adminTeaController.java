@@ -104,6 +104,8 @@ public class AdminTeaController {
 	@RequestMapping(value = "/insertTea.do")
 	public String insertTea(TeaVO teaVO) {
 		
+		System.out.println("insertTea.do: "+teaVO);
+		
 		if(teaService.insert(teaVO)) {
 			
 		}
@@ -119,7 +121,7 @@ public class AdminTeaController {
 			
 			teaVO.setTeaCondition("현재 해당 쿼리 없음 추후 맞는 서치컨디션 입력");
 			if(teaService.delete(teaVO)) {
-				
+				// 이미지도 지워야 함
 			}
 		}
 		
@@ -133,7 +135,7 @@ public class AdminTeaController {
 		
 		if(teaService.selectOne(teaVO) != null) { // 존재 확인
 			
-			teaVO.setTeaCondition("현재 해당 쿼리 없음 추후 맞는 서치컨디션 입력");
+			teaVO.setTeaCondition("상품변경");
 			// 재고 or 가격 or 둘다 ---> 서치컨디션으로 set할듯
 			if(teaService.update(teaVO)) {
 				

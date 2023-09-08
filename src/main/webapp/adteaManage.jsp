@@ -71,39 +71,37 @@
 								<div class="card-body">
 									<h4 class="card-title">상품 추가</h4>
 									<p class="card-description">양식에 맞게 기재하세요.</p>
-									<form class="forms-sample">
+									<!-- 상품 추가 form 시작 -->
+									<form action="insertTea.do" method="post" class="forms-sample" enctype="multipart/form-data">
 										<div class="form-group">
-											<label for="exampleInputUsername1">상품명</label> <input
-												type="text" class="form-control" name ="teaName" id="exampleInputUsername1"
-												placeholder="$-{teaData.teaName}">
+											<label for="exampleInputUsername1">상품명</label>
+											<input type="text" class="form-control" name="teaName" id="exampleInputUsername1" placeholder="$-{teaData.teaName}" />
 										</div>
 										<div class="form-group">
-											<label for="exampleInputEmail1">상품 가격</label> <input
-												type="number" class="form-control" name ="teaPrice" id="cntForAdd"
-											    placeholder="$-{teaData.teaPrice} 숫자만 입력하세요!!" oninput="checkInput(this)">
+											<label for="exampleInputEmail1">상품 가격</label>
+											<input type="number" class="form-control" name="teaPrice" id="cntForAdd" placeholder="$-{teaData.teaPrice} 숫자만 입력하세요!!" oninput="checkInput(this)" />
 										</div>
 										<div class="form-group">
-											<label for="exampleInputPassword1">상품 총 재고</label> <input
-												type="number" class="form-control"
-												id="priceForAdd" name="teaCnt" placeholder="$-{teaData.teaCnt}" oninput="checkInput(this)">
+											<label for="exampleInputPassword1">상품 총 재고</label>
+											<input type="number" class="form-control" id="priceForAdd" name="teaCnt" placeholder="$-{teaData.teaCnt}" oninput="checkInput(this)" />
 										</div>
 										<div class="form-group">
-											<label>상품 카테고리</label> <select id="categorySelect"
-										class="form-control" name="categoryName">
-										<option value="선택하세요" id="none" disabled selected hidden>카테고리 선택</option>
-											<c:forEach var="categoryData" items="${categoryDatas}">
-											<option value="${categoryData.categoryNum}">${categoryData.categoryName}</option>
-											</c:forEach>
-										</select>
-										<input type="hidden" id="categoryHidden" name="categoryName" value="">
+											<label>상품 카테고리</label>
+											<select id="categorySelect" class="form-control" name="categoryName">
+												<option value="선택하세요" id="none" disabled selected hidden>카테고리 선택</option>
+												<c:forEach var="categoryData" items="${categoryDatas}">
+													<option value="${categoryData.categoryNum}">${categoryData.categoryName}</option>
+												</c:forEach>
+											</select>
+											<input type="hidden" id="categoryHidden" name="categoryNum" value="" />
+											<input type="hidden" id="categoryHidden" name="categoryName" value="" />
 										</div>
 										<div class="form-group">
-											<label>상품 사진</label> <input type="file" name="img[]"
-												class="file-upload-default" id="fileInput">
+											<label>상품 사진</label>
+											<input type="file" name="img[]" class="file-upload-default" id="fileInput" />
 											<div class="input-group col-xs-12">
-												<input type="text" class="form-control file-upload-info"
-													disabled placeholder="$-{teaData.imageUrl}" id="fileInputText"> <span
-													class="input-group-append">
+												<input type="text" class="form-control file-upload-info" disabled placeholder="$-{teaData.imageUrl}" id="fileInputText" />
+												<span class="input-group-append">
 													<button class="file-upload-browse btn btn-success btn-icon-text"
 														type="button" id="uploadButton"><i class="ti-upload btn-icon-prepend"></i>사진 업로드</button>
 												</span>
@@ -113,13 +111,13 @@
                                              </div>
 										  </div>	
 										<div class="form-group">
-											<label for="exampleInputPassword1">상품 설명</label> <input
-												type="text" class="form-control form-control-lg"
-												id="Content" placeholder="$-{teaData.teaContent}">
+											<label for="exampleInputPassword1">상품 설명</label>
+											<input type="text" class="form-control form-control-lg" name="teaContent" placeholder="$-{teaData.teaContent}" />
 										</div>
-										<button id="scrolltodelete" type="submit" class="btn btn-primary me-2">Submit</button>
+										<button type="submit" class="btn btn-primary me-2">Submit</button>
 										<button class="btn btn-light">Cancel</button>
 									</form>
+									<!-- 상품 추가 form 끝 -->
 								</div>
 							</div>
 						</div>
@@ -128,7 +126,8 @@
 								<div class="card-body">
 									<h4 class="card-title">상품 삭제</h4>
 									<p class="card-description">상품의 정보를 확인하신 후 삭제하세요.</p>
-									<form class="forms-sample">
+									<!-- 상품 삭제 form 시작 -->
+									<form action="deleteTea.do" method="post" class="forms-sample">
 									  <div class="form-group">
 										<h5><strong>상품 카테고리 선택 [1) 카테코리를 먼저 지정한다.]</strong></h5>
 										<select class="form-control" id="categoryToDel">
@@ -171,6 +170,7 @@
 										<button id="scrolltofix"  type="submit" class="btn btn-primary me-2">Submit</button>
 										<button class="btn btn-light">Cancel</button>
 									</form>
+									<!-- 상품 삭제 form 끝 -->
 								</div>
 							</div>
 						</div>
@@ -178,7 +178,8 @@
 							<div class="card">
 								<div class="card-body">
 									<h4 class="card-title">상품 수정 (재고/가격)</h4>
-									<form class="form-sample">
+									<!-- 상품 수정 form 시작 -->
+									<form action="updateTea.do" method="post" class="form-sample" enctype="multipart/form-data">
 										<p class="card-description">해당 상품의 재고/가격 변경 가능</p>
 										<div class="row">
 											<div class="col-md-6">
@@ -276,6 +277,7 @@
 									   <button type="submit" class="btn btn-primary me-2">Submit</button>
 									   <button class="btn btn-light">Cancel</button>
 									</form>
+									<!-- 상품 수정 form 끝 -->
 								</div>
 							</div>
 						</div>	
