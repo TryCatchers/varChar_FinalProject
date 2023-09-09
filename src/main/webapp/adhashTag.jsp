@@ -96,7 +96,7 @@
                     	<form id="hashTagForm" method="post" action="adminHashtagTea.do" onsubmit="return false;">
                     	<div id="hashTagContainer" class="template-demo">
                          </div> <br>
-                        <button type="button" class="btn btn-primary">저장(Save)</button>
+                        <button type="button" class="btn btn-primary" id="btnSave" >저장(Save)</button>
                         </form>
                       </div>
                     </div>
@@ -179,7 +179,7 @@ $("#selectCategory").change(function() {
 			//     console.log(optteaNum);
 			     // 각 <option>에 데이터를 속성으로 추가
 	                var optionElement = $('<option>' + optteaName + '</option>')
-	                    .attr('data-tea-num', optteaNum)
+	                    .attr('value', optteaNum)
 	                    .attr('data-tea-name', optteaName)
 
 	                // <option>을 #teaToDel에 추가
@@ -462,6 +462,58 @@ const Validation = {
         return inputString === null || inputString.trim() === '';
     }
 };
+
+$('#btnSave').on("click", function(){
+	console.log('버튼 클릭됨');
+	
+	var inputElements = hashTagContainer.querySelectorAll("input[type='button']"); // 유효성 검사를 위해 해시태그 입력란 내 모든 input 요소 찾기
+	console.log(inputElements);
+	
+	//var teaNum = $('#teaNum').val();
+	var teaNum = $("#selectTea option:selected").val();
+	
+	var hashTags = new Array();
+	    
+	// 현재 입력된 해시태그를 Set에 추가
+	var i = 0;
+	inputElements.forEach(function(inputElement) {
+	var value = inputElement.value;
+	
+	
+	//hashTags.add(value);
+	hashTags[i] = value;
+	
+	console.log("value: "+value);
+	i++;
+	});
+	
+	console.log("arr: "+hashTags);
+	console.log("teaNum: "+teaNum);
+	
+	var hashTags = {itemNum: teaNum, tag1: hashTags[0], tag2: hashTags[1], tag3: hashTags[2] };
+
+	
+	$.ajax({
+        url: 'adminHashtagTea.do',
+        type: 'POST',
+        data: hashTags,
+        success: function(fresult){
+            //console.log('favorResult [' + favorResult + ']');
+          	
+        },
+        error: function(error){
+           alert('error [' + error + ']');
+        }
+     });
+	
+	
+});
+
+
+
+
+
+
 
 </script>
 </body>

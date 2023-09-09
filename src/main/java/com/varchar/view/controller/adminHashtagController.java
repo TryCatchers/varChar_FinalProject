@@ -1,5 +1,6 @@
 package com.varchar.view.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import com.google.gson.Gson;
 import com.varchar.biz.category.CategoryService;
 import com.varchar.biz.category.CategoryVO;
 import com.varchar.biz.hashtag.HashtagDetailService;
+import com.varchar.biz.hashtag.HashtagDetailVO;
 import com.varchar.biz.hashtag.ReviewHashtagService;
 import com.varchar.biz.hashtag.ReviewHashtagVO;
 import com.varchar.biz.hashtag.TeaHashtagService;
@@ -56,22 +58,31 @@ public class AdminHashtagController {
 	// ---------------------------------!!!! 상품 해시태그 관리(추가/변경/삭제) !!!!---------------------------------
 	@RequestMapping(value = "/adminHashtagTea.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String adminHashtagTea(TeaVO teaVO) {
+	public String adminHashtagTea(@RequestParam Map<String,Object> hashTags, HashtagDetailVO hashtagDetailVO, TeaHashtagVO teaHashtagVO) {
+
+		System.out.println("로그: hashTagForm 제출");
+		System.out.println("로그 hashTags: "+ hashTags);
+
+		int teaNum = Integer.parseInt(String.valueOf(hashTags.get("itemNum")));
+		hashtagDetailVO.setItemNum(teaNum);
+		hashtagDetailService.delete(hashtagDetailVO); // 트리거 추가시 없앨 예정
 		
+		for(int i = 1; i<hashTags.size(); i++) {
+			
+			String content = (String) hashTags.get("tag"+i);
+			teaHashtagVO.setTeaHashtagContent(content);
+			
+			if(teaHashtagService.selectOne(teaHashtagVO) == null) { // 해시태그 신규
+				teaHashtagService.insert(teaHashtagVO);	
+			}
+			
+			//teaHashtagVO.setTeaHashtagContent(content);
+			teaHashtagVO = teaHashtagService.selectOne(teaHashtagVO);
+			
+			hashtagDetailVO.setHashtagNum(teaHashtagVO.getTeaHashtagNum());
+			hashtagDetailService.insert(hashtagDetailVO);	
+		}
 		
-		
-//	    List<TeaVO> teaproducts = teaService.selectAll(teaVO);
-//	    System.out.println(teaproducts);
-//	    // List<TeaVO>를 JSON 형식의 문자열로 변환
-//	    ObjectMapper objectMapper = new ObjectMapper();
-//	    String jsonProducts;
-//	    try {
-//	        jsonProducts = objectMapper.writeValueAsString(teaproducts);
-//	    } catch (JsonProcessingException e) {
-//	        // 예외 처리
-//	        jsonProducts = "Error converting products to JSON";
-//	    }
-//
 		return "adminHashtagTea.do";
 	}
 	
@@ -87,25 +98,37 @@ public class AdminHashtagController {
 	// ---------------------------------!!!! 리뷰 해시태그 관리(추가/변경/삭제) !!!!---------------------------------
 	@RequestMapping(value = "/adminHashtagReview.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String adminHashtagReview(ReviewVO reviewVO) {
-	    List<ReviewVO> reviewproducts = reviewService.selectAll(reviewVO);
-	    System.out.println(reviewproducts);
-	    // List<TeaVO>를 JSON 형식의 문자열로 변환
-	    ObjectMapper objectMapper = new ObjectMapper();
-	    String jsonProducts;
-	    try {
-	        jsonProducts = objectMapper.writeValueAsString(reviewproducts);
-	    } catch (JsonProcessingException e) {
-	        // 예외 처리
-	        jsonProducts = "Error converting products to JSON";
-	    }
+	public String adminHashtagReview(@RequestParam Map<String,Object> hashTags, HashtagDetailVO hashtagDetailVO, ReviewHashtagVO reviewHashtagVO) {
+		
+		System.out.println("로그: hashTagForm 제출");
+		System.out.println("로그 hashTags: "+ hashTags);
 
-	    return jsonProducts;
+		int teaNum = Integer.parseInt(String.valueOf(hashTags.get("itemNum")));
+		hashtagDetailVO.setItemNum(teaNum);
+		hashtagDetailService.delete(hashtagDetailVO); // 트리거 추가시 없앨 예정
+		
+		for(int i = 1; i<hashTags.size(); i++) {
+			
+			String content = (String) hashTags.get("tag"+i);
+			reviewHashtagVO.setReviewHashtagContent(content);
+			
+			if(reviewHashtagService.selectOne(reviewHashtagVO) == null) { // 해시태그 신규
+				reviewHashtagService.insert(reviewHashtagVO);	
+			}
+			
+			//teaHashtagVO.setTeaHashtagContent(content);
+			reviewHashtagVO = reviewHashtagService.selectOne(reviewHashtagVO);
+			
+			hashtagDetailVO.setHashtagNum(reviewHashtagVO.getReviewHashtagNum());
+			hashtagDetailService.insert(hashtagDetailVO);	
+		}
+		
+		return "adminHashtagTea.do";
 	}
 	
 	// --------------------------------- 카테고리 선택시 해당되는 상품들 반환 ---------------------------------
 	@RequestMapping(value = "/selectTea.do")
-	@ResponseBody // 뷰 리졸버를 막기 위함
+	@ResponseBody 
 	public String teaList(@RequestParam("category") int categoryNum, TeaVO teaVO) {
 		teaVO.setCategoryNum(categoryNum);
 		teaVO.setTeaCondition("카테고리");
@@ -125,7 +148,7 @@ public class AdminHashtagController {
 	
 	// --------------------------------- 상품 선택시 해당되는 후기들 반환 ---------------------------------
 	@RequestMapping(value = "/selectReview.do")
-	@ResponseBody // 뷰 리졸버를 막기 위함
+	@ResponseBody
 	public String reviewList(@RequestParam("tea") int teaNum, ReviewVO reviewVO) {
 		reviewVO.setTeaNum(teaNum);
 		reviewVO.setSearchName("DETAIL"); // 해당 상품의 후기들 반환
@@ -146,7 +169,7 @@ public class AdminHashtagController {
 	
 	// --------------------------------- 상품 선택시 해당되는 해시태그들 반환 ---------------------------------
 	@RequestMapping(value = "/selectTeaTag.do")
-	@ResponseBody // 뷰 리졸버를 막기 위함
+	@ResponseBody
 	public String selectTeaHashtag(@RequestParam("hashtag") int teaNum, TeaHashtagVO teahashtagVO) {
 		teahashtagVO.setItemNum(teaNum);
 	    List<TeaHashtagVO> teaHashtags = teaHashtagService.selectAll(teahashtagVO);

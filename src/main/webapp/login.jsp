@@ -306,10 +306,10 @@
 			params.append('memberName', name);
 			params.append('memberPlatform', 'naver');
 			
-			
 			// 새로운 URL로 이동합니다. 여기에 목적지 URL을 입력하세요.
 			const destinationURL = 'snsLogin.do?' + params.toString();
 			window.location.href = destinationURL;
+    	
     	  }
   	</script>
     
