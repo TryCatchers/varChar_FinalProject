@@ -30,6 +30,11 @@
 <link rel="stylesheet" href="Ad/css/vertical-layout-light/style.css">
 <!-- endinject -->
 <link rel="shortcut icon" href="Ad/images/favicon.png" />
+
+<!-- 스윗알랏 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+	
 <style type="text/css">
 
   a {
@@ -98,10 +103,10 @@
 										</div>
 										<div class="form-group">
 											<label>상품 사진</label>
-											<input type="file" name="img[]" class="file-upload-default" id="fileInput" />
+											<input type="file" name="imgUrl" class="file-upload-default" id="fileInput" />
 											<div class="input-group col-xs-12">
 												<input type="text" class="form-control file-upload-info" disabled placeholder="$-{teaData.imageUrl}" id="fileInputText" />
-												<span class="input-group-append">
+												<span class="input-group-append" id="uploadSpan" >
 													<button class="file-upload-browse btn btn-success btn-icon-text"
 														type="button" id="uploadButton"><i class="ti-upload btn-icon-prepend"></i>사진 업로드</button>
 												</span>
@@ -129,7 +134,7 @@
 									<!-- 상품 삭제 form 시작 -->
 									<form action="deleteTea.do" method="post" class="forms-sample">
 									  <div class="form-group">
-										<h5><strong>상품 카테고리 선택 [1) 카테코리를 먼저 지정한다.]</strong></h5>
+										<h5><strong>상품 카테고리 선택 [1) 카테고리를 먼저 지정한다.]</strong></h5>
 										<select class="form-control" id="categoryToDel">
 										<option value="선택하세요" id="none" disabled selected hidden>카테고리 선택</option>
 											<c:forEach var="categoryData" items="${categoryDatas}">
@@ -558,6 +563,60 @@ document.getElementById("categorySelect").addEventListener("change", function ()
     document.getElementById("categoryHidden").value = selectedValue;
 });
 </script>
+
+<script type="text/javascript">
+$('#uploadSpan').on("click", async function(){
+	console.log('이미지 업로드 버튼 클릭됨');
+	
+	const { value: file } = await Swal.fire({
+		  title: '상품 이미지 선택',
+		  input: 'file',
+		  inputAttributes: {
+		    'accept': 'image/*',
+		    'aria-label': '업로드할 이미지를 선택해주세요'
+		  }
+		})
+
+		if (file) {
+		  const reader = new FileReader()
+		  reader.onload = async(e) => {
+		    Swal.fire({
+		      title: '선택된 상품 이미지',
+		      imageUrl: e.target.result,
+		      imageAlt: 'The uploaded picture'
+		    })
+		  }
+		  console.log('이미지 로그1 '+file);
+		  //$('input[type=file]').attr('value', file);
+		  console.log('이미지 로그2 '+reader.readAsDataURL(file));
+		  reader.readAsDataURL(file)
+		}
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 
 </html>
