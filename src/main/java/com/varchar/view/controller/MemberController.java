@@ -273,27 +273,9 @@ public class MemberController {
 		return "alertTrue.jsp";
 	}
 	
-	// ------------------------------------- 네이버 로그인 테스트 중 -------------------------------------
-	@RequestMapping(value = "/loginNaver.do")
-	public String loginNaver(HttpSession session, HttpServletRequest request, MemberVO memberVO, Model model) throws UnsupportedEncodingException {
-		System.out.println("loginNaver.do 진입");
-		
-//		System.out.println(request.getAttribute("naver_id_login"));
-//		System.out.println(request.getAttribute("access_token"));
-//		System.out.println(request.getAttribute("token_type"));
-//		System.out.println(request.getAttribute("expires_in"));
-		
-		memberVO.setMemberSearch("아이디 중복검사");
-		if (memberService.selectOne(memberVO) == null) {
-			model.addAttribute("memberData", memberVO);
-			return "signup.jsp";
-		}
-		session.setAttribute("sessionMemberId", memberVO.getMemberId());
-		return "main.do";
-	}
-	
+	// ------------------------------------- SNS 로그인  -------------------------------------	
 	@RequestMapping(value = "/snsLogin.do")
-	public String kakaoLogin(HttpServletRequest request, MemberVO memberVO, Model model, HttpSession session) {
+	public String snsLogin(HttpServletRequest request, MemberVO memberVO, Model model, HttpSession session) {
 		System.out.println(memberVO);
 		memberVO.setMemberSearch("아이디 중복검사");
 		if (memberService.selectOne(memberVO) == null) {
