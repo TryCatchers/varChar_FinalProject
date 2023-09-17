@@ -63,6 +63,9 @@
 			transform: rotate(-45deg); 
 		}
 	}
+	.tagcloud a {
+		font-size: 18px;
+	}
 </style>
 </head>
 <body class="goto-here">
@@ -115,7 +118,8 @@
 				</div>
 				<div class="row">
 					<input type="hidden" name="buySerial" value="${ buyDetailData.buySerial }">
-					<textarea id="editor" name="reviewContent" placeholder="150자 이내로 작성해주세요" maxlength="200"></textarea>
+					<textarea id="editor" name="reviewContent" placeholder="150자 이내로 작성해주세요" maxlength="200">
+					</textarea>
 					<!-- CKEditor -->
 					<script>
 				        ClassicEditor.create(document.querySelector("#editor"), {
@@ -125,7 +129,7 @@
 				        });
 			        </script>
 					<input type="text" class="form-control" id="hashtags-input" placeholder="해시태그를 입력해주세요.">
-					<input type="hidden" id="reviewHashtag" name="reviewHashtag">
+					<input type="hidden" id="reviewHashtag">
 					<div class="tag-widget post-tag-container mb-5 mt-5">
 						<div id="hashtags-container" class="tagcloud">
 							
@@ -145,12 +149,17 @@
 		            			const a = document.createElement("a");
 		            			a.innerText = "#" + tag;
 		            			a.classList.add("tag-cloud-link");
+		            			const i = document.createElement("input");
+		            			i.type = "hidden";
+		            			i.value = tag;
+		            			i.setAttribute("name", "reviewHashtag");
 		            			
 		            			const removeButton = document.createElement("button");
 		            			removeButton.innerText = "X";
 		            			removeButton.classList.add("remove-button");
 		            			removeButton.addEventListener("click", () => {
 		            				hashtagsContainer.removeChild(a);
+		            				hashtagsContainer.removeChild(i);
 		            				hashtags = hashtags.filter((hashtag) => hashtag !== tag);
 		            				document.getElementById("reviewHashtag").value = hashtags;
 		            				console.log(hashtags);
@@ -158,6 +167,7 @@
 		            			});
 		            			a.appendChild(removeButton);
 		            			hashtagsContainer.appendChild(a);
+		            			hashtagsContainer.appendChild(i);
 		            			hashtags.push(tag);
 		            			
 		            			document.getElementById("reviewHashtag").value = hashtags;
@@ -179,6 +189,7 @@
 		            </script>
 				</div>
 			<input type="submit" class="btn btn-primary py-3 px-4" value="후기작성">
+			</div>
 		</section>
 	</form>
 	<!-- .section -->

@@ -15,7 +15,6 @@ public class ReviewHashtagVO {
 	private String reviewContent;
 	private Date reviewInsertTime;
 	private String imageUrl;
-	private String memberId;
 
 	public ReviewHashtagVO() {
 		this(0,"");
@@ -25,12 +24,6 @@ public class ReviewHashtagVO {
 		this.reviewHashtagContent = reviewHashtagContent;
 	}
 	
-	public String getMemberId() {
-		return memberId;
-	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
 	public String getImageUrl() {
 		return imageUrl;
 	}
@@ -101,8 +94,6 @@ public class ReviewHashtagVO {
 				+ reviewHashtagContent + ", itemNum=" + itemNum + ", hashTagSearchCondition=" + hashTagSearchCondition
 				+ ", reviewNum=" + reviewNum + ", buySerial=" + buySerial + ", memberName=" + memberName
 				+ ", reviewContent=" + reviewContent + ", reviewInsertTime=" + reviewInsertTime + ", imageUrl="
-				+ imageUrl + ", memberId=" + memberId + "]";
+				+ imageUrl + "]";
 	}
-	
-
 }

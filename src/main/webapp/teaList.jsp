@@ -20,6 +20,19 @@
     .nolist{
     	margin: 0 auto;
     }
+    .edit_hashtag {
+    	display: none;
+    }
+    .edit_hover {
+    	display: block;
+    	z-index: 99;
+    }
+    .edit_hover_text {
+    	z-index: 100;
+    }
+    .tagcloud a {
+    	font-size: 13px;
+    }
     </style>
     <script type="text/javascript">
 	    $(window).on('load', function() {
@@ -87,9 +100,15 @@
 			     <c:if test="${ not empty teaDatas }">
 			   <c:forEach var="teaData" items="${ teaDatas }">  
     			<div class="col-md-6 col-lg-3 ftco-animate"> <!-- 반복 시작점 -->
-    				<div class="product">
+    				<div class="product edit_product_${ teaData.teaNum }">
     					<a href="teaDetailPage.do?teaNum=${ teaData.teaNum }&searchName=DETAIL" class="img-prod"><img class="img-fluid" src="${ teaData.imageUrl }" alt="Colorlib Template">
-    						<div class="overlay"></div>
+					       <div class="tagcloud ftco-animate edit_hashtag edit_hashtag_${ teaData.teaNum }" style="position: absolute; top: 25%; left: 0; right: 0; bottom: 0; text-align: center; vertical-align: middle;">
+					          <c:forEach var="teaHashtag" items="${ teaData.teaHashtags }">
+						          <br><a href="teaListPage.do?teaHashtagContent=${ teaHashtag.teaHashtagContent }" class="tag-cloud-link" style="background: #ffffff"># ${ teaHashtag.teaHashtagContent }</a>					          
+					          </c:forEach>
+					        </div>
+    						<div class="overlay">
+    						</div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
     						<h3><a href="teaDetailPage.do?teaNum=${ teaData.teaNum }&searchName=DETAIL">${ teaData.teaName }</a></h3>
@@ -98,7 +117,7 @@
 		    						<p class="price"><span>${ teaData.teaPrice } ₩</span></p>
 		    					</div>
 	    					</div>
-	    					<div class="bottom-area d-flex px-3">
+	    					<div class="bottom-area d-flex px-3 edit_text_${ teaData.teaNum }">
 	    						<div class="m-auto d-flex">
 	    							<c:if test="${ empty sessionMemberId }">
 	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
@@ -124,6 +143,21 @@
 	    							</c:if>
     							</div>
     						</div>
+	    					<script type="text/javascript">
+	    						$(".edit_hashtag > a.img-prod").remove();
+	    						$(".tagcloud > a.img-prod").remove();
+	    						
+	    						$(".edit_product_${ teaData.teaNum }").hover(
+	    							function() {
+	    								$(".edit_hashtag_${ teaData.teaNum }").addClass("edit_hover");
+	    								$(".edit_text_${ teaData.teaNum }").addClass("edit_hover_text");
+	    							},
+	    							function() {
+	    								$(".edit_hashtag_${ teaData.teaNum }").removeClass("edit_hover");
+	    								$(".edit_text_${ teaData.teaNum }").removeClass("edit_hover_text");
+	    							}
+	    						);
+	    					</script>
     					</div>
     				</div>
     			</div> <!-- 반복 끝 지점 -->
@@ -216,7 +250,7 @@
               <ul>
              	<c:if test="${ page.startPage > 1 }">
              		<li>
-					<a href="teaListPage.do?categoryName=${ page.categoryName }&teaSearchWord=${ page.teaSearchWord }&page=${ page.startPage - 1 }">
+					<a href="teaListPage.do?categoryName=${ page.categoryName }&teaSearchWord=${ page.teaSearchWord }&teaHashtagContent=${ page.teaHashtagContent }&page=${ page.startPage - 1 }">
 					&lt;
 					</a>
 					</li>
@@ -225,19 +259,19 @@
 					<c:choose>
 						<c:when test="${ page.currentPage eq p }">
 							<li class="active">
-								<a href="teaListPage.do?categoryName=${ page.categoryName }&teaSearchWord=${ page.teaSearchWord }&page=${ p }">${ p }</a>
+								<a href="teaListPage.do?categoryName=${ page.categoryName }&teaSearchWord=${ page.teaSearchWord }&teaHashtagContent=${ page.teaHashtagContent }&page=${ p }">${ p }</a>
 							</li>
 						</c:when>
 						<c:otherwise>
 							<li>
-								<a href="teaListPage.do?categoryName=${ page.categoryName }&teaSearchWord=${ page.teaSearchWord }&page=${ p }">${ p }</a>
+								<a href="teaListPage.do?categoryName=${ page.categoryName }&teaSearchWord=${ page.teaSearchWord }&teaHashtagContent=${ page.teaHashtagContent }&page=${ p }">${ p }</a>
 							</li>						
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${ page.endPage < page.totalPageCnt }">
 					<li>
-					<a href="teaListPage.do?categoryName=${ page.categoryName }&teaSearchWord=${ page.teaSearchWord }&page=${ page.endPage + 1 }">
+					<a href="teaListPage.do?categoryName=${ page.categoryName }&teaSearchWord=${ page.teaSearchWord }&teaHashtagContent=${ page.teaHashtagContent }&page=${ page.endPage + 1 }">
 					&gt;
 					</a>
 					</li>

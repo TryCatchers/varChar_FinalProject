@@ -62,6 +62,7 @@ public class ImageDAO {
 
 // ---------------------------------------------------------------
 
+// SQL_SELECTALL
 class ImageRowMapper implements RowMapper<ImageVO> {
 
 	@Override

@@ -4,7 +4,6 @@ public class CategoryVO {
 	
 	private int categoryNum;
 	private String categoryName;
-	private int buyCnt;
 	
 	public CategoryVO() {
 		this(0, "");
@@ -29,14 +28,6 @@ public class CategoryVO {
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
-	}
-
-	public int getBuyCnt() {
-		return buyCnt;
-	}
-
-	public void setBuyCnt(int buyCnt) {
-		this.buyCnt = buyCnt;
 	}
 
 	@Override

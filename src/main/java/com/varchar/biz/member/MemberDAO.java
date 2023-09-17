@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-
 @Repository("memberDAO")
 public class MemberDAO {
 
@@ -20,8 +19,6 @@ public class MemberDAO {
 	//	static final private String SQL_SELECTONE="SELECT MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_ADDRESS, MEMBER_PHONE, MEMBER_EMAIL "
 	//			+ "FROM MEMBER "
 	//			+ "WHERE MEMBER_ID = ?";
-	
-	static final private String SQL_SELECTALL = "SELECT COUNT(MEMBER_ID) AS MEMBER_GRADE, MEMBER_PLATFORM FROM MEMBER GROUP BY MEMBER_PLATFORM";
 
 	static final private String SQL_SELECTONE = "SELECT MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_ADDRESS, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_GRADE, MEMBER_PLATFORM, MEMBER_SALT "
 			+ "FROM MEMBER "
@@ -53,18 +50,13 @@ public class MemberDAO {
 	//static final private String SQL_DELETE="DELETE FROM MEMBER WHERE MID=?";
 
 	public List<MemberVO> selectAll(MemberVO memberVO){
-		Object[] args = { };
-		return jdbcTemplate.query(SQL_SELECTALL, args, new MemberChartRowMapper());	
+		return null;	
 	}
 
 	public MemberVO selectOne(MemberVO memberVO){
 		// System.out.println("MemberDAO 로그 SelectOne() 메소드 호출");
 		try {
-			if(memberVO.getMemberSearch().equals("솔트")) {
-				Object[] args = { memberVO.getMemberId() };
-				return jdbcTemplate.queryForObject(SQL_SELECTONE, args, new MemberSaltRowMapper());
-			}
-			else if(memberVO.getMemberSearch().equals("로그인")) {
+			if(memberVO.getMemberSearch().equals("로그인")) {
 				// System.out.println("MemberDAO 로그 SelectOne() MemberSearch: 로그인 메소드 호출");
 				Object[] args = { memberVO.getMemberId(), memberVO.getMemberPw() };
 				return jdbcTemplate.queryForObject(SQL_SELECTONE_LOGIN, args, new MemberSaltRowMapper());
@@ -77,12 +69,7 @@ public class MemberDAO {
 				Object[] args = { memberVO.getMemberEmail() };
 				return jdbcTemplate.queryForObject(SQL_SELECTONE_CKECKEMAIL, args, new MemberSaltRowMapper());
 			} 
-			else if (memberVO.getMemberSearch().equals("아이디 중복검사")) {
-				Object[] args = { memberVO.getMemberId() };
-				return jdbcTemplate.queryForObject(SQL_SELECTONE, args, new MemberSaltRowMapper());
-			}
-			else { //  if(memberVO.getMemberSearch().equals("회원정보변경")) 
-				// System.out.println("MemberDAO 로그 SelectOne() MemberSearch: 회원정보변경 메소드 호출");
+			else { // 아이디 확인
 				Object[] args = { memberVO.getMemberId() };
 				return jdbcTemplate.queryForObject(SQL_SELECTONE, args, new MemberSaltRowMapper());
 			}
@@ -142,6 +129,7 @@ public class MemberDAO {
 
 // -----------------------------------------------------------------------------------------------
 
+// SQL_SELECTONE, SQL_SELECTONE_LOGIN, SQL_SELECTONE_CKECKPHONE, SQL_SELECTONE_CKECKEMAIL
 class MemberSaltRowMapper implements RowMapper<MemberVO> { 
 
 	@Override
@@ -160,17 +148,4 @@ class MemberSaltRowMapper implements RowMapper<MemberVO> {
 		return data;
 
 	}   
-}
-
-//[ selectAll 통계 ]
-class MemberChartRowMapper implements RowMapper<MemberVO> { 
-
-	@Override
-	public MemberVO mapRow(ResultSet rs, int rowNum) throws SQLException { 
-		
-		MemberVO data = new MemberVO();
-		data.setMemberGrade(rs.getInt("MEMBER_GRADE"));
-		data.setMemberPlatform(rs.getString("MEMBER_PLATFORM"));
-		return data;
-	}
 }

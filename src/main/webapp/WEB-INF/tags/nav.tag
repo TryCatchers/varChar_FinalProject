@@ -1,8 +1,14 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<style type="text/css">
+	#edit_loginIcon {
+		height: 19px;
+		width: 19px;
+	}
+</style>
 <!-- 상단 핵심 소개바 + 메뉴 + 반응형 구조로 창 최소화시 검은색으로 변하는 부분 (goto-here는 스크롤시 딸려나오지 않음) -->
-		<div class="py-1 bg-primary">
+	<div class="py-1 bg-primary">
     	<div class="container">
     		<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
 	    		<div class="col-lg-12 d-block">
@@ -20,16 +26,16 @@
 						    	<span class="text">Healing and Fresh all day with varchar</span>
 						    </c:if>
 					    	<c:if test="${ not empty sessionMemberId }">
-						    	<span class="text">${ sessionMemberId }님 환영합니다!</span>
+						    	<span class="text"><img id="edit_loginIcon" alt="" src="images/icon_${ sessionMemberPlatform }.png"> ${ sessionMemberId }님 환영합니다!</span>
 						    </c:if>
 					    </div>
 				    </div>
 			    </div>
 		    </div>
-		  </div>
+		</div>
     </div>
 	<!-- primary 끝 -->
-
+	
 	<!-- navbar: 상단 바 -->
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">

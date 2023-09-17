@@ -102,13 +102,11 @@ public class ReviewController {
 		reviewVO = reviewService.selectOne(reviewVO);
 		System.out.println("로그: reviewDetailAction: " + reviewVO);
 
-		reviewHashtagVO.setItemNum(reviewVO.getReviewNum());
-		List<ReviewHashtagVO> reviewHashtags = reviewHashtagService.selectAll(reviewHashtagVO);
-		System.out.println("로그: reviewHashtags: " + reviewHashtags);
-
 		if (reviewVO != null) {
+			reviewHashtagVO.setItemNum(reviewVO.getReviewNum());
+			reviewHashtagVO.setHashTagSearchCondition("후기번호검색");
+			reviewVO.setReviewHashtags(reviewHashtagService.selectAll(reviewHashtagVO));
 			model.addAttribute("reviewData", reviewVO);
-			model.addAttribute("reviewHashtags", reviewHashtags);
 		}
 		System.out.println(reviewVO);
 		return "reviewDetail.jsp";

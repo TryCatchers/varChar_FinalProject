@@ -30,16 +30,6 @@ public class ReviewHashtagDAO {
 														+ "WHERE rh.REVIEW_HASHTAG_CONTENT = ? "
 														+ "AND i.IMAGE_DIVISION = 1";
 	
-	static final private String SQL_SELECTALL_SEARCH_MEMBER = "SELECT r.REVIEW_NUM, r.BUY_SERIAL, m.MEMBER_NAME, r.REVIEW_CONTENT, r.REVIEW_INSERT_TIME, rh.REVIEW_HASHTAG_CONTENT, i.IMAGE_URL "
-			+ "FROM REVEIW_HASHTAG rh "
-			+ "JOIN HASHTAG_DETAIL hd ON hd.HASHTAG_NUM = rh.REVIEW_HASHTAG_NUM "
-			+ "JOIN REVIEW r ON r.REVIEW_NUM = hd.ITEM_NUM "
-			+ "JOIN MEMBER m ON m.MEMBER_ID = r.MEMBER_ID "
-			+ "JOIN IMAGE i ON i.TEA_REVIEW_NUM = r.REVIEW_NUM "
-			+ "WHERE rh.REVIEW_HASHTAG_CONTENT = ? "
-			+ "AND m.MEMBER_ID = ? "
-			+ "AND i.IMAGE_DIVISION = 1";
-	
 	static final private String SQL_SELECTONE = "SELECT REVIEW_HASHTAG_NUM, REVIEW_HASHTAG_CONTENT FROM REVIEW_HASHTAG WHERE REVIEW_HASHTAG_CONTENT = ? ";
 	
 	
@@ -48,14 +38,10 @@ public class ReviewHashtagDAO {
 
 	public List<ReviewHashtagVO> selectAll(ReviewHashtagVO reviewHashtagVO) {
 		
-		if(reviewHashtagVO.getHashTagSearchCondition().equals("후기번호검색")) {
+		if (reviewHashtagVO.getHashTagSearchCondition().equals("후기번호검색")) {
 			Object[] args = { reviewHashtagVO.getItemNum() };
 			return jdbcTemplate.query(SQL_SELECTALL, args, new ReviewHashtagSelect());
 		} 
-		else if(reviewHashtagVO.getHashTagSearchCondition().equals("내후기")) {
-			Object[] args = { reviewHashtagVO.getItemNum(), reviewHashtagVO.getMemberId() };
-			return jdbcTemplate.query(SQL_SELECTALL_SEARCH_MEMBER, args, new ReviewHashtagSelect());
-		}
 		else {
 			Object[] args = { reviewHashtagVO.getReviewHashtagContent() };
 			return jdbcTemplate.query(SQL_SELECTALL_SEARCH, args, new ReviewHashtagSearch());

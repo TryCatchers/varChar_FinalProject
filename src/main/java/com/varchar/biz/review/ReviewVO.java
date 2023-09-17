@@ -1,10 +1,18 @@
 package com.varchar.biz.review;
 
+import java.sql.Date;
+import java.util.Arrays;
+import java.util.List;
+
+import com.varchar.biz.hashtag.ReviewHashtagVO;
+
 public class ReviewVO {
 	private int reviewNum;
 	private String memberId;
 	private int buySerial;
 	private String reviewContent;
+	private Date reviewInsertTime;
+	private String[] reviewHashtag;
 	
 	// 임시변수
 	private String reviewSearch;
@@ -18,6 +26,8 @@ public class ReviewVO {
 	private int endRnum;
 	private int teaNum;
 	
+	List<ReviewHashtagVO> reviewHashtags;
+	
 	public ReviewVO() {
 		this(0, "", 0, "");
 	}
@@ -29,6 +39,14 @@ public class ReviewVO {
 		this.reviewContent = reviewContent;
 	}
 	
+	public Date getReviewInsertTime() {
+		return reviewInsertTime;
+	}
+
+	public void setReviewInsertTime(Date reviewInsertTime) {
+		this.reviewInsertTime = reviewInsertTime;
+	}
+
 	public int getTeaNum() {
 		return teaNum;
 	}
@@ -141,11 +159,29 @@ public class ReviewVO {
 		this.startRnum = startRnum;
 	}
 
+	public String[] getReviewHashtag() {
+		return reviewHashtag;
+	}
+
+	public void setReviewHashtag(String[] reviewHashtag) {
+		this.reviewHashtag = reviewHashtag;
+	}
+	
+	public List<ReviewHashtagVO> getReviewHashtags() {
+		return reviewHashtags;
+	}
+
+	public void setReviewHashtags(List<ReviewHashtagVO> reviewHashtags) {
+		this.reviewHashtags = reviewHashtags;
+	}
+
 	@Override
 	public String toString() {
 		return "ReviewVO [reviewNum=" + reviewNum + ", memberId=" + memberId + ", buySerial=" + buySerial
-				+ ", reviewContent=" + reviewContent + ", reviewSearch=" + reviewSearch + ", searchName=" + searchName
-				+ ", teaName=" + teaName + ", imageUrl=" + imageUrl + ", memberName=" + memberName + ", buyCnt="
-				+ buyCnt + ", startRnum=" + startRnum + "]";
-	}	
+				+ ", reviewContent=" + reviewContent + ", reviewInsertTime=" + reviewInsertTime + ", reviewHashtag="
+				+ Arrays.toString(reviewHashtag) + ", reviewSearch=" + reviewSearch + ", searchName=" + searchName
+				+ ", teaName=" + teaName + ", teaContent=" + teaContent + ", imageUrl=" + imageUrl + ", memberName="
+				+ memberName + ", buyCnt=" + buyCnt + ", startRnum=" + startRnum + ", endRnum=" + endRnum + ", teaNum="
+				+ teaNum + ", reviewHashtags=" + reviewHashtags + "]";
+	}
 }

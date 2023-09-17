@@ -39,17 +39,19 @@ public class TeaController {
 		int categoryNum = pagingVO.getCategoryNum();
 		String teaSearchWord = pagingVO.getTeaSearchWord();
 		String categoryName = pagingVO.getCategoryName();
+		String teaHashtagContent = pagingVO.getTeaHashtagContent();
 		int pageSize = 8;
 		
-		teaVO.setTeaCondition("ALL");
+		teaVO.setTeaCondition(teaHashtagContent == null || teaHashtagContent.equals("")  ? "ALL" : "해시태그");
 		teaVO.setCategoryNum(categoryNum);
 		teaVO.setCategoryName(categoryName == null ? "" : categoryName);
 		teaVO.setTeaSearchWord(teaSearchWord == null ? "" : teaSearchWord);
-		
+		teaVO.setTeaHashtagContent(teaHashtagContent);
 		
 		System.out.println(categoryNum);
 		System.out.println(categoryName);
 		System.out.println(teaSearchWord);
+		System.out.println(teaHashtagContent);
 		
 		//** 상품 NULL일때(아무 상품도 없을때) NPE 근데 아마 우리가 샘플 무조건 넣어서 괜찮긴 함 ---> 유효성 추가 필요 */
 		List<TeaVO> teaDatasTotal = teaService.selectAll(teaVO); // 총 상품 개수
@@ -69,16 +71,13 @@ public class TeaController {
 		model.addAttribute("page",pagingVO);
 		
 		//
-		teaVO.setTeaCondition("페이징");
+		teaVO.setTeaCondition(teaHashtagContent == null || teaHashtagContent.equals("") ? "페이징" : "해시태그 페이징");
 		teaVO.setStartRnum(pagingVO.getStartRnum());
 		teaVO.setEndRnum(pagingVO.getEndRnum());
 		teaVO.setMemberId((String)session.getAttribute("sessionMemberId"));
 		
-		// 해시태그 검색을 위한 SearchCondition
-		if(teaHashtagVO.getTeaHashtagContent() != null) {
-			teaHashtagVO.setTeaHashtagCondition("검색");
-		}
-		
+		System.out.println(teaHashtagVO.getTeaHashtagContent());
+		System.out.println(teaHashtagVO.getTeaHashtagCondition());
 		// 전체 목록 출력
 		List<TeaVO> teaDatas = teaService.selectAll(teaVO);
 			
@@ -126,6 +125,7 @@ public class TeaController {
 		teaHashtagVO.setItemNum(teaVO.getTeaNum());
 		//** 리뷰 NULL일때(아무 리뷰도 없을때) NPE ---> 유효성 추가 필요 */
 		List<ReviewVO> reviewDatasTotal = reviewService.selectAll(reviewVO); // 총 리뷰 개수
+		teaHashtagVO.setTeaHashtagCondition("상품");
 		List<TeaHashtagVO> teaHashtags = teaHashtagService.selectAll(teaHashtagVO); // 상품 해시태그
 		
 		model.addAttribute("teaData", teaVO);

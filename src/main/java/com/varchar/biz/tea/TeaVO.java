@@ -1,5 +1,9 @@
 package com.varchar.biz.tea;
 
+import java.util.List;
+
+import com.varchar.biz.hashtag.TeaHashtagVO;
+
 public class TeaVO {
 	private int teaNum;
 	private int categoryNum;
@@ -20,10 +24,12 @@ public class TeaVO {
 	private int teaCheckCnt;
 	private String count;
 	private int endRnum;
-	private int buyCnt;
 	
 	private int favorResult;
 	private String categoryName;
+	private String teaHashtagContent;
+	
+	private List<TeaHashtagVO> teaHashtags;
 	
 	public TeaVO() {
 		this(0, 0, "", 0, 0, "", 0);
@@ -39,14 +45,6 @@ public class TeaVO {
 		this.teaStatus = teaStatus;
 	}
 	
-	public int getBuyCnt() {
-		return buyCnt;
-	}
-
-	public void setBuyCnt(int buyCnt) {
-		this.buyCnt = buyCnt;
-	}
-
 	public int getTeaStatus() {
 		return teaStatus;
 	}
@@ -190,14 +188,31 @@ public class TeaVO {
 	public void setTeaCondition(String teaCondition) {
 		this.teaCondition = teaCondition;
 	}
+	
+	public String getTeaHashtagContent() {
+		return teaHashtagContent;
+	}
+
+	public void setTeaHashtagContent(String teaHashtagContent) {
+		this.teaHashtagContent = teaHashtagContent;
+	}
+
+	public List<TeaHashtagVO> getTeaHashtags() {
+		return teaHashtags;
+	}
+
+	public void setTeaHashtags(List<TeaHashtagVO> teaHashtags) {
+		this.teaHashtags = teaHashtags;
+	}
 
 	@Override
 	public String toString() {
 		return "TeaVO [teaNum=" + teaNum + ", categoryNum=" + categoryNum + ", teaName=" + teaName + ", teaPrice="
-				+ teaPrice + ", teaCnt=" + teaCnt + ", teaContent=" + teaContent + ", teaSearchWord=" + teaSearchWord
-				+ ", teaCondition=" + teaCondition + ", imageUrl=" + imageUrl + ", startRnum=" + startRnum
-				+ ", favorResult=" + favorResult + ", categoryName=" + categoryName + "]";
+				+ teaPrice + ", teaCnt=" + teaCnt + ", teaContent=" + teaContent + ", teaStatus=" + teaStatus
+				+ ", teaSearchWord=" + teaSearchWord + ", teaCondition=" + teaCondition + ", imageUrl=" + imageUrl
+				+ ", startRnum=" + startRnum + ", memberId=" + memberId + ", teaTotal=" + teaTotal + ", teaCheckCnt="
+				+ teaCheckCnt + ", count=" + count + ", endRnum=" + endRnum + ", favorResult=" + favorResult
+				+ ", categoryName=" + categoryName + ", teaHashtagContent=" + teaHashtagContent + ", teaHashtags="
+				+ teaHashtags + "]";
 	}
-
-	
 }

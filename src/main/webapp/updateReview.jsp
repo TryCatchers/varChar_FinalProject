@@ -15,21 +15,57 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 <style>
-/* 에디터 최소 높이 */
-.ck-editor__editable {
-	height: 500px;
-}
-
-.ck.ck-editor {
-	width: 100%;
-}
-
-.quantity.form-control.input-number {
-	text-align: center;
-	font-size: 14px;
-	border: 1px solid rgba(0, 0, 0, 0.05) !important;
-	height: 54px !important;
-}
+	/* 에디터 최소 높이 */
+	.ck-editor__editable {
+		height: 500px;
+	}
+	
+	.ck.ck-editor {
+		width: 100%;
+	}
+	
+	.quantity.form-control.input-number {
+		text-align: center;
+		font-size: 14px;
+		border: 1px solid rgba(0, 0, 0, 0.05) !important;
+		height: 54px !important;
+	}
+	.remove-button {
+		overflow: hidden;
+		position: relative;
+		border: none;
+		padding: 0;
+		width: 2em; height: 2em;
+		border-radius: 50%;
+		background: transparent;
+		color: #82ae46;
+		font: inherit;
+		text-indent: 100%;
+		cursor: pointer;
+		
+		&:focus {
+			outline: solid 0 transparent;
+			box-shadow: 0 0 0 2px #8ed0f9
+		}
+		&:hover {
+			background: rgba(29, 161, 142, .1)
+		}
+		&:before, &:after {
+			position: absolute;
+			top: 15%; left: calc(50% - .0625em);
+			width: .125em; height: 70%;
+			border-radius: .125em;
+			transform: rotate(45deg);
+			background: currentcolor;
+			content: ''
+		}
+		&:after { 
+			transform: rotate(-45deg); 
+		}
+	}
+	.tagcloud a {
+		font-size: 18px;
+	}
 </style>
 </head>
 <body class="goto-here">
@@ -42,7 +78,7 @@
 					<p class="breadcrumbs">
 						<span class="mr-2"><a href="main.do">Home</a></span> <span>Blog</span>
 					</p>
-					<h1 class="mb-0 bread">리뷰작성</h1>
+					<h1 class="mb-0 bread">리뷰수정</h1>
 				</div>
 			</div>
 		</div>
@@ -93,8 +129,74 @@
 							console.error(error);
 						});
 					</script>
-					<input type="submit" class="btn btn-primary py-3 px-4" value="후기수정">
+					<input type="text" class="form-control" id="hashtags-input" placeholder="해시태그를 입력해주세요.">
+					<input type="hidden" id="reviewHashtag">
+					<div class="tag-widget post-tag-container mb-5 mt-5">
+						<div id="hashtags-container" class="tagcloud">
+						<script>
+							const hashtagsInput = document.getElementById("hashtags-input");
+			            	const hashtagsContainer = document.getElementById("hashtags-container");
+			            	
+			            	let hashtags = [];
+						
+			            	function addHashtag(tag) {
+			            		if (hashtags.length > 2) {
+			            			return;
+			            		}
+			            		if (tag && !hashtags.includes(tag)) {
+			            			const a = document.createElement("a");
+			            			a.innerText = "#" + tag;
+			            			a.classList.add("tag-cloud-link");
+			            			const i = document.createElement("input");
+			            			i.type = "hidden";
+			            			i.value = tag;
+			            			i.setAttribute("name", "reviewHashtag");
+			            			
+			            			const removeButton = document.createElement("button");
+			            			removeButton.innerText = "X";
+			            			removeButton.classList.add("remove-button");
+			            			removeButton.addEventListener("click", () => {
+			            				hashtagsContainer.removeChild(a);
+			            				hashtagsContainer.removeChild(i);
+			            				hashtags = hashtags.filter((hashtag) => hashtag !== tag);
+			            				document.getElementById("reviewHashtag").value = hashtags;
+			            				console.log(hashtags);
+			            				console.log(document.getElementById("reviewHashtag").value);
+			            			});
+			            			a.appendChild(removeButton);
+			            			hashtagsContainer.appendChild(a);
+			            			hashtagsContainer.appendChild(i);
+			            			hashtags.push(tag);
+			            			
+			            			document.getElementById("reviewHashtag").value = hashtags;
+			            			console.log(hashtags);
+			            			console.log(document.getElementById("reviewHashtag").value);
+			            		}
+			            	}
+			            	
+			            	hashtagsInput.addEventListener("keydown", (event) => {
+			            		if (event.key === 'Enter') {
+			            			event.preventDefault();
+			            			const tag = hashtagsInput.value.trim();
+			            			if (tag) {
+			            				addHashtag(tag);
+			            				hashtagsInput.value = "";
+			            			}
+			            		}
+			            	});
+			            </script>
+							<c:if test="${ reviewData.reviewHashtag ne null }">
+								<c:forEach var="hashtag" items="${ reviewData.reviewHashtag }">
+									<script>
+										var tag = "${ hashtag }";
+										addHashtag(tag);
+									</script>
+								</c:forEach>
+							</c:if>
+						</div>
+					</div>
 				</div>
+				<input type="submit" class="btn btn-primary py-3 px-4" value="후기수정">
 			</div>
 		</section>
 	</form>
