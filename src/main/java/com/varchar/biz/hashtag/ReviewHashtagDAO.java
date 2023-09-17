@@ -19,7 +19,7 @@ public class ReviewHashtagDAO {
 	static final private String SQL_SELECTALL = "SELECT rh.REVIEW_HASHTAG_NUM, rh.REVIEW_HASHTAG_CONTENT "
 												+ "FROM REVIEW_HASHTAG rh "
 												+ "JOIN HASHTAG_DETAIL hd ON hd.HASHTAG_NUM = rh.REVIEW_HASHTAG_NUM "
-												+ "WHERE hd.ITEM_NUM = ?";
+												+ "WHERE hd.HASHTAG_NUM = ?";
 
 	static final private String SQL_SELECTALL_SEARCH = "SELECT r.REVIEW_NUM, r.BUY_SERIAL, m.MEMBER_NAME, r.REVIEW_CONTENT, r.REVIEW_INSERT_TIME, rh.REVIEW_HASHTAG_CONTENT, i.IMAGE_URL "
 														+ "FROM REVEIW_HASHTAG rh "

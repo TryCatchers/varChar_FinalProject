@@ -345,16 +345,8 @@ $("#categoryToDel").change(function() {
 	    dataType: "json",
 		success: function(result){
 		   console.log(result);
-		   // 여기서 id가 selectTea라는 <select> 하위의 <option>에 gson으로 받아온
-		   // 기존의 <option>을 모두 제거합니다.
-		  // console.log(result[1].teaNum);
          $('#teaToDel').empty();
 		   var teaInfo = result;
-		   //var selteaNum='';
-		   //var selteaName='';
-		   //var selteaCnt='';
-		   //var selteaPrice='';
-		   //var selteaContent='';
 		   var firstItem = result[0];
 		    $('#teaNum').attr("value",firstItem.teaNum);
 		    $('#teaName').attr("value",firstItem.teaName);
@@ -368,39 +360,21 @@ $("#categoryToDel").change(function() {
 		   var optteaPrice = teaInfo[i].teaPrice;
 		   var optteaContent = teaInfo[i].teaContent;
 		   console.log(optteaName);
-		//     console.log(optteaNum);
-		     // 각 <option>에 데이터를 속성으로 추가
                 var optionElement = $('<option>' + optteaName + '</option>')
                     .attr('data-tea-num', optteaNum)
                     .attr('data-tea-name', optteaName)
                     .attr('data-tea-cnt', optteaCnt)
                     .attr('data-tea-price', optteaPrice)
                     .attr('data-tea-content', optteaContent);
-
-                // <option>을 #teaToDel에 추가
                 $('#teaToDel').append(optionElement);
-		 //  console.log(selteaName);
 		      }
-		   
-           // 새로운 <option>을 추가합니다.
-      //     $('#teaToDel').append(selteaName);
-		   // 각각의 <input> 엘리먼트에 데이터를 설정합니다.
-		 //  if($('#teaToDel'))
-        //    $('#teaNum').attr("value",optteaNum);
-       //     $('#teaName').attr("value",optteaName);
-       //     $('#teaCnt').attr("value",optteaCnt);
-       //     $('#teaPrice').attr("value",optteaPrice);
-       //     $('#teaContent').attr("value",optteaContent);
 		   },
-		   // teaName이 forEach 형식으로 뜨게 하고 싶다.
-		   // 결국엔 배열 형식이기 때문에, 항상 JAVA에서 써오던 for문 방식으로 먼저 체크를 해보자.
-		   // 그리고 TeaVO의 멤버변수 하나하나로 다 받아온 저 result를 teaName만 추출해서 나오게 하도록!
-		   // 오늘 집가서 이거 제대로 끝낸다 스바...
 		error: function(error){
 		    console.log(error);
 	    }
 	});
   });
+  
 //<select>에서 옵션을 선택했을 때 실행될 코드
 $("#teaToDel").change(function () {
     var selectedOption = $("#teaToDel option:selected");

@@ -20,7 +20,7 @@ public class CategoryDAO {
 	// static final private String SQL_SELECTONE = "";
 	static final private String SQL_INSERT = "INSERT INTO CATEGORY(CATEGORY_NUM, CATEGORY_NAME) "
 											+ "VALUES ((SELECT NVL(MAX(CATEGORY_NUM), O) + 1 FROM CATEGORY), ?)";
-	// static final private String SQL_UPDATE = "";
+	static final private String SQL_UPDATE = "UPDATE CATEGORY SET CATEGORY_NAME = ? WHERE CATEGORY_NUM = ? ";
 	// static final private String SQL_DELETE = "";
 	
 	
@@ -44,7 +44,15 @@ public class CategoryDAO {
 	}
 	
 	public boolean update(CategoryVO categoryVO) {
-		return false;
+		
+		int result = 0;
+		
+		result = jdbcTemplate.update(SQL_UPDATE, categoryVO.getCategoryName(), categoryVO.getCategoryNum());
+		
+		if(result <= 0) {
+			return false;
+		}
+		return true;
 	}
 	
 	public boolean delete(CategoryVO categoryVO) {
