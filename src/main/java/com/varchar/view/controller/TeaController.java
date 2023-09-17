@@ -1,5 +1,6 @@
 package com.varchar.view.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.varchar.biz.favor.FavorService;
 import com.varchar.biz.favor.FavorVO;
+import com.varchar.biz.hashtag.TeaHashtagService;
+import com.varchar.biz.hashtag.TeaHashtagVO;
 import com.varchar.biz.review.ReviewService;
 import com.varchar.biz.review.ReviewVO;
 import com.varchar.biz.tea.TeaService;
@@ -25,11 +28,13 @@ public class TeaController {
 	private FavorService favorService;
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private TeaHashtagService teaHashtagService;
 	
 	// ---------------------------- 상품 목록 페이지 -------------------------------------
 	
 	@RequestMapping(value="/teaListPage.do")
-	public String teaListPage(TeaVO teaVO, Model model, HttpSession session, PagingVO pagingVO) { // 상품 목록
+	public String teaListPage(TeaVO teaVO, Model model, TeaHashtagVO teaHashtagVO, HttpSession session, PagingVO pagingVO) { // 상품 목록
 
 		int categoryNum = pagingVO.getCategoryNum();
 		String teaSearchWord = pagingVO.getTeaSearchWord();
@@ -69,7 +74,20 @@ public class TeaController {
 		teaVO.setEndRnum(pagingVO.getEndRnum());
 		teaVO.setMemberId((String)session.getAttribute("sessionMemberId"));
 		
+		// 해시태그 검색을 위한 SearchCondition
+		if(teaHashtagVO.getTeaHashtagContent() != null) {
+			teaHashtagVO.setTeaHashtagCondition("검색");
+		}
+		
+		// 전체 목록 출력
 		List<TeaVO> teaDatas = teaService.selectAll(teaVO);
+			
+		// 각 상품별 해시태그 뽑아서 배열에 저장
+		for(TeaVO teaData : teaDatas) {
+			teaHashtagVO.setItemNum(teaData.getTeaNum()); // tea상품별 teaNum set해줌
+			teaData.setTeaHashtags(teaHashtagService.selectAll(teaHashtagVO)); // 각 상품 해시태그값들을 set해줌
+		}
+		
 		model.addAttribute("teaDatas", teaDatas);
 		
 		System.out.println("session memberId: " + (String)session.getAttribute("sessionMemberId"));
@@ -84,7 +102,7 @@ public class TeaController {
 	//** set 구조 변경 */
 	
 	@RequestMapping(value="/teaDetailPage.do")
-	public String teaDetailPage(TeaVO teaVO, FavorVO favorVO, PagingVO pagingVO, ReviewVO reviewVO, HttpSession session, Model model) { // 상품 상세
+	public String teaDetailPage(TeaVO teaVO, FavorVO favorVO, PagingVO pagingVO, ReviewVO reviewVO, TeaHashtagVO teaHashtagVO, HttpSession session, Model model) { // 상품 상세
 
 		int favorResult = 0;
 		System.out.println("favorResult 로그: "+ favorResult);
@@ -105,13 +123,17 @@ public class TeaController {
 		String searchName = pagingVO.getSearchName(); //DETAIL
 		reviewVO.setSearchName(searchName == null ? "" : searchName);
 		
+		teaHashtagVO.setItemNum(teaVO.getTeaNum());
 		//** 리뷰 NULL일때(아무 리뷰도 없을때) NPE ---> 유효성 추가 필요 */
 		List<ReviewVO> reviewDatasTotal = reviewService.selectAll(reviewVO); // 총 리뷰 개수
+		List<TeaHashtagVO> teaHashtags = teaHashtagService.selectAll(teaHashtagVO); // 상품 해시태그
 		
 		model.addAttribute("teaData", teaVO);
 		model.addAttribute("favorResult", favorResult);
 		model.addAttribute("reviewDatas", reviewDatasTotal);
+		model.addAttribute("teaHashtags", teaHashtags);
 		System.out.println("전체 후기: "+reviewDatasTotal);
+		System.out.println("상품 해시태그들: "+ teaHashtags);
 		
 
 		return "teaDetail.jsp";
