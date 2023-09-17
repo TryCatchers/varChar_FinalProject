@@ -65,23 +65,20 @@ public class AdminTeaController {
 	@RequestMapping(value = "/deleteCategory.do")
 	public String deleteCategory(CategoryVO categoryVO, TeaVO teaVO) {
 		
-		// 해당되는 카테고리에 있는 상품이 있을 수 있으므로 해당없음으로 변경해줘야 함
-		categoryVO = categoryService.selectOne(categoryVO); // 존재 확인
-		teaVO.setCategoryNum(categoryVO.getCategoryNum());
-		teaService.update(teaVO);
+		categoryVO = categoryService.selectOne(categoryVO);
 		
-		//categoryVO.setCategoryCondition("현재 해당 쿼리 없음 추후 맞는 서치컨디션 입력");
-		
-		if(categoryVO != null) {
+		if(categoryVO != null){	// 존재 확인
 			
-			categoryService.update(categoryVO);
-			
+			//categoryVO.setCategoryCondition("현재 해당 쿼리 없음 추후 맞는 서치컨디션 입력");
 			if(categoryService.delete(categoryVO)) {
-				
+			
+			teaVO.setTeaCondition("카테고리변경");
+			teaVO.setCategoryNum(categoryVO.getCategoryNum());
+			teaService.update(teaVO);
 			}
+			
 		}
-		
-		
+
 		return "admin.do";
 	}
 	

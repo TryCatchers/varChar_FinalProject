@@ -84,7 +84,7 @@
                                    <p class="card-subtitle card-subtitle-dash">원하시는 상품을 클릭하여 관리하세요</p>
                                   </div>
                                   <div>
-                                    <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><a href=""><i class="mdi mdi-account-plus"></i>새 카테고리 추가</a></button>
+                                    <a href=""><button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>새 카테고리 추가</button></a>
                                   </div>
                                 </div>
                                 <div class="table-responsive  mt-1">
@@ -221,7 +221,28 @@ function fixCate(categoryNum, categoryName) {
 }
 
 function delCate(categoryNum, categoryName) {
-    // 여기는 구현할 예정
+	 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+
+	    	//var category = {categoryNum: categoryNum, categoryName: resFix };
+	    	
+	    	$.ajax({
+	            url: 'deleteCategory.do?categoryNum='+categoryNum,
+	            type: 'POST',
+	            success: function(fresult){
+	                //console.log('favorResult [' + favorResult + ']');
+	              	
+	            },
+	            error: function(error){
+	               alert('error [' + error + ']');
+	            }
+	         });
+	     
+
+	 }else{   //취소
+
+	     return false;
+
+	 }
 }
 
 </script>
