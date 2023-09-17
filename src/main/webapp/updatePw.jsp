@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="try"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -43,7 +44,7 @@
           <div class="col-xl-7 ftco-animate">
           	<!-- 비번 변경 폼 태그 -->
 			<form action="updatePw.do" method="post" class="billing-form" onsubmit="return checkPw();">
-				<h3 class="mb-4 billing-heading" style="padding-bottom: 15px; border-bottom: 1px solid #e1e1e1">비밀번호 변경</h3> <!-- updateInfo.form.title -->
+				<h3 class="mb-4 billing-heading" style="padding-bottom: 15px; border-bottom: 1px solid #e1e1e1">비밀번호 변경 <a href="updatePw.do?lang=en">EN</a> | <a href="updatePw.do?lang=ko">KO</a></h3> <!-- updateInfo.form.title -->
 				<input type="hidden" name="memberId" value="${ sessionMemberId }">
 	          	<div class="row align-items-end">
 	          		<div class="col-md-6" style="margin-top: 30px;">

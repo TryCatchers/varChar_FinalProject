@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib tagdir="/WEB-INF/tags" prefix="try"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -45,7 +46,7 @@
           <div class="col-xl-7 ftco-animate">
           <!-- 정보 수정 폼 태그 -->
 			<form action="updateInfo.do" method="post" class="billing-form" onsubmit="return test()">
-	          	<h3 class="mb-4 billing-heading" style="padding-bottom: 15px; border-bottom: 1px solid #e1e1e1">회원 정보 수정</h3> <!-- updateInfo.form.title -->
+	          	<h3 class="mb-4 billing-heading" style="padding-bottom: 15px; border-bottom: 1px solid #e1e1e1">회원 정보 수정 <a href="updateInfo.do?lang=en">EN</a> | <a href="updateInfo.do?lang=ko">KO</a></h3> <!-- updateInfo.form.title -->
 	          	<div class="row align-items-end">
 	          		<div class="col-md-6" style="margin-top: 30px;">
 	                <div class="form-group">
