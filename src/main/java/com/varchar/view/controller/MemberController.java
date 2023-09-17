@@ -63,10 +63,6 @@ public class MemberController {
 		if (memberVO != null) {
 			session.setAttribute("sessionMemberId", memberVO.getMemberId());
 			
-//			if(memberVO.getMemberGrade().equals("ADMIN")) { // 관리자 검사
-//				return "관리자 페이지";
-//			}
-			
 		} else {
 			AlertVO sweetAlertVO = new AlertVO("로그인실패", "로그인실패", null, "error", null);
 			model.addAttribute("sweetAlert", sweetAlertVO);

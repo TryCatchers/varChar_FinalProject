@@ -20,6 +20,7 @@ public class TeaVO {
 	private int teaCheckCnt;
 	private String count;
 	private int endRnum;
+	private int buyCnt;
 	
 	private int favorResult;
 	private String categoryName;
@@ -38,6 +39,14 @@ public class TeaVO {
 		this.teaStatus = teaStatus;
 	}
 	
+	public int getBuyCnt() {
+		return buyCnt;
+	}
+
+	public void setBuyCnt(int buyCnt) {
+		this.buyCnt = buyCnt;
+	}
+
 	public int getTeaStatus() {
 		return teaStatus;
 	}

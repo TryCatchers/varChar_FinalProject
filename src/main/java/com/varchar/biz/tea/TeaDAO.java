@@ -31,6 +31,13 @@ public class TeaDAO {
 			+ "FROM TEA t JOIN IMAGE i ON i.TEA_REVIEW_NUM = t.TEA_NUM "
 			+ "WHERE i.IMAGE_DIVISION = 1 AND t.CATEGORY_NUM = ? ";
 	
+	static final private String SQL_SELECTALL_EXCEL ="SELECT DISTINCT c.CATEGORY_NAME, t.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, t.TEA_CNT, SUM(bd.BUY_CNT), SUM(bd.BUY_CNT)*MAX(t.TEA_PRICE) AS TEA_TOTAL "
+			+ "FROM TEA t "
+			+ "JOIN CATEGORY c ON c.CATEGORY_NUM = t.CATEGORY_NUM "
+			+ "JOIN BUY_DETAIL bd ON bd.TEA_NUM = t.TEA_NUM "
+			+ "GROUP BY CATEGORY_NAME, ROLLUP(CATEGORY_NAME, (t.TEA_NAME, t.TEA_NUM, t.TEA_PRICE, t.TEA_CNT)) "
+			+ "ORDER BY c.CATEGORY_NAME, TEA_NUM ";
+	
 //	static final private String SQL_SELECTALL_PAGING =
 //			"SELECT t.TEA_NUM, t.TEA_NAME, t.TEA_PRICE, t.TEA_CNT, t.TEA_CONTENT, t.CATEGORY_NAME, t.IMAGE_URL "
 //			+ "FROM( "
@@ -85,6 +92,10 @@ public class TeaDAO {
 		else if(teaVO.getTeaCondition().equals("카테고리")) {
 			Object[] args = { teaVO.getCategoryNum()};
 			return jdbcTemplate.query(SQL_SELECTALL_CATEGORY, args, new TeaAdminRowMapper());
+		}
+		else if(teaVO.getTeaCondition().equals("엑셀")) {
+			Object[] args = { };
+			return jdbcTemplate.query(SQL_SELECTALL_EXCEL, args, new TeaExcelRowMapper());
 		}
 		else { // ALL
 			Object[] args = { teaVO.getCategoryName(), teaVO.getTeaSearchWord() };
@@ -185,8 +196,6 @@ class TeaSelectRowMapper implements RowMapper<TeaVO> {
 
 }
 
-
-
 //ADMIN CATEGORY [ selectAll ]
 class TeaAdminRowMapper implements RowMapper<TeaVO> {
 
@@ -202,6 +211,25 @@ class TeaAdminRowMapper implements RowMapper<TeaVO> {
 		data.setTeaStatus(rs.getInt("TEA_STATUS"));
 		data.setCategoryNum(rs.getInt("CATEGORY_NUM"));
 		data.setImageUrl(rs.getString("IMAGE_URL"));
+		return data;
+	}
+}
+
+//ADMIN TEA_EXCEL [ selectAll ]
+class TeaExcelRowMapper implements RowMapper<TeaVO> {
+
+	@Override
+	public TeaVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+		TeaVO data = new TeaVO();
+		data.setCategoryName(rs.getString("CATEGORY_NAME"));
+		data.setTeaNum(rs.getInt("TEA_NUM"));
+		data.setTeaName(rs.getString("TEA_NAME"));
+		data.setTeaPrice(rs.getInt("TEA_PRICE"));
+		data.setTeaCnt(rs.getInt("TEA_CNT"));
+		data.setBuyCnt(rs.getInt("BUY_CNT"));
+		data.setTeaTotal(rs.getInt("TEA_TOTAL"));
+		
 		return data;
 	}
 }
