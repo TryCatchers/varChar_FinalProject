@@ -109,7 +109,7 @@
               <div class="block-21 mb-4 d-flex">
                 <a class="blog-img mr-4" style="background-image: url(${recentList.imageUrl});"></a>
                 <div class="text">
-                  <h3 class="heading-1"><a href="#">${recentList.teaName}</a></h3>
+                  <h3 class="heading-1"><a href="#"><b>${recentList.teaName}</b></a></h3>
                   <h4 class="heading-1"><a href="#">${recentList.teaContent}</a></h4>
                   <div class="meta">
                     <div><a href="#"><span class="icon-calendar"></span> ${recentList.teaPrice}</a></div>
