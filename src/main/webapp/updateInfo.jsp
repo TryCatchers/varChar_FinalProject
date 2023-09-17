@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Var茶 | 회원정보수정</title>
+    <title>Var茶 | 회원정보수정</title> <!-- updateInfo.title -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- 파비콘 태그 -->
@@ -24,8 +24,8 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="main.do">Home</a></span> <span>Update Information</span></p>
-            <h1 class="mb-0 bread">회원 정보 수정</h1>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="main.do">Home</a></span> <span>Update Information</span></p> <!-- updateInfo.span1.title --> <!-- updateInfo.span2.title -->
+            <h1 class="mb-0 bread">회원 정보 수정</h1> <!-- updateInfo.title -->
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@
 
 	<!-- 비밀번호 변경 버튼 div -->
 	<div style="padding-top: 100px; padding-right: 15%;">
-	<p><a href="updatePw.do" class="btn btn-primary py-3 px-4" style="float: right;">&nbsp;비밀번호 변경&nbsp;</a></p>
+	<p><a href="updatePw.do" class="btn btn-primary py-3 px-4" style="float: right;">&nbsp;비밀번호 변경&nbsp;</a></p> <!-- updateInfo.updatepw -->
 	</div>
 	<!-- 비밀번호 변경 버튼 div 끝 -->
 
@@ -45,26 +45,26 @@
           <div class="col-xl-7 ftco-animate">
           <!-- 정보 수정 폼 태그 -->
 			<form action="updateInfo.do" method="post" class="billing-form" onsubmit="return test()">
-	          	<h3 class="mb-4 billing-heading" style="padding-bottom: 15px; border-bottom: 1px solid #e1e1e1">회원 정보 수정</h3>
+	          	<h3 class="mb-4 billing-heading" style="padding-bottom: 15px; border-bottom: 1px solid #e1e1e1">회원 정보 수정</h3> <!-- updateInfo.form.title -->
 	          	<div class="row align-items-end">
 	          		<div class="col-md-6" style="margin-top: 30px;">
 	                <div class="form-group">
-	                	<label for="firstname" >아이디</label>
+	                	<label for="firstname" >아이디</label> <!-- updateInfo.form.id -->
 	                  <input type="text" name="memberId" class="form-control" value="${ memberData.memberId }" readonly>
 	                </div>
 	              </div>
 	              <div class="col-md-6">
 	                <div class="form-group">
-	                	<label for="lastname">이름 <span style="color: red;">*</span></label>
+	                	<label for="lastname">이름 <span style="color: red;">*</span></label> <!-- updateInfo.form.name -->
 	                  <input type="text" name="memberName" class="form-control" value="${ memberData.memberName }" required>
 	                </div>
                 </div>
                 <div class="w-100"></div>
 				<div class="col-md-6">
 	                <div class="form-group">
-                		<label for="lastname">연락처</label>
+                		<label for="lastname">연락처</label> <!-- updateInfo.form.phone -->
 	                	 <c:if test="${ memberData.memberPhone == 0 }">
-	                  		<input type="text" name="memberPhone" id="memberPhone" class="form-control" placeholder="하이픈(-), 공백없이 입력하세요. ex) 00012345678">
+	                  		<input type="text" name="memberPhone" id="memberPhone" class="form-control" placeholder="하이픈(-), 공백없이 입력하세요. ex) 00012345678"><!-- updateInfo.form.phone.placeholder -->
 	                	</c:if>
 	                	<c:if test="${ memberData.memberPhone != 0 }">
 	                  		<input type="text" name="memberPhone" id="memberPhone" class="form-control" value="${ memberData.memberPhone }">
@@ -73,21 +73,21 @@
                 </div>
 				<div class="col-md-6">
 	                <div class="form-group">
-	                	<label for="lastname">이메일</label>
+	                	<label for="lastname">이메일</label><!-- updateInfo.form.mail -->
 	                  <input type="text" name="memberEmail" id="memberEmail" class="form-control" value="${ memberData.memberEmail }" placeholder="@포함 이메일 형식에 맞춰서 입력하세요.">
 	                </div>
                 </div>
                 <div class="w-100"></div>
                 <div class="col-md-6">
 	                <div class="form-group" style="margin-bottom: 150px;">
-	                	<label for="lastname">주소 </label>
+	                	<label for="lastname">주소 </label> <!-- updateInfo.form.address -->
 	                  <!-- 주소 API 적용 -->
 	                  <try:addressAPI/>
 	                </div>
                 </div>
 	            </div>
 				<div style="margin:auto; text-align:center;">
-					<p><input type="submit" class="btn btn-primary py-3 px-4" value="  수정 완료  "style="vertical-align:middle; display:inline-block;"></p>
+					<p><input type="submit" class="btn btn-primary py-3 px-4" value="  수정 완료  "style="vertical-align:middle; display:inline-block;"></p> <!-- updateInfo.form.submit -->
 				</div>
 	          </form>
 	          <!-- 정보 수정 폼 태그 끝 -->
