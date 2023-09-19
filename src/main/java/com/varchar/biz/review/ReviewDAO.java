@@ -67,6 +67,21 @@ public class ReviewDAO {
 				+ "JOIN MEMBER m ON m.MEMBER_ID = r.MEMBER_ID "
 				+ "WHERE c.CATEGORY_NAME LIKE '%' || ? || '%' AND i.IMAGE_DIVISION = 1 "
 			+ ") ";
+	
+	static final private String SQL_SELECTALL_HASH = // 후기 해시태그 검색
+			"SELECT REVIEW_NUM, MEMEBER_NAME, BUY_SERIAL, REVIWE_CONTENT, TEA_NAME, IMAGE_URL, REVIEW_INSERT_TIME "
+			+ "FROM ( "
+				+ "SELECT r.REIVEW_NUM, m.MEMBER_NAME, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NAME, i.IMAGE_URL, r.REVIEW_INSERT_TIME, ROW_NUMBER() OVER (ORDER BY r.REVIEW_NUM DESC) AS row_num "
+				+ "FROM REVIEW r "
+				+ "JOIN BUY_SERIAL bd ON r.BUY_SERIAL = bd.BUY_SERIAL "
+				+ "JOIN TEA t ON t.TEA_NUM = bd.TEA_NUM "
+				+ "JOIN IMAGE i ON i.TEA_REVIEW_NUM = t.TEA_NUM "
+				+ "JOIN MEMBER m ON m.MEMBER_ID = r.MEMBER_ID "
+				+ "JOIN HASHTAG_DETAIL hd ON hd.ITEM_NUM = r.REVIEW_NUM "
+				+ "WHERE i.IMAGE_DIVISION = 1 "
+				+ "AND hd.HASHTAG_NUM = ? "
+				+ "ORDER BY r.REVIEW_NUM DESC "
+				+ ") ";
 
 	static final private String SQL_SELECTALL_MEMBER = // 내가 쓴 후기
 			"SELECT REVIEW_NUM, MEMBER_NAME, BUY_SERIAL, REVIEW_CONTENT, TEA_NAME, IMAGE_URL, REVIEW_INSERT_TIME "
@@ -81,7 +96,7 @@ public class ReviewDAO {
 			+ ") ";
 
 	static final private String SQL_SELECTONE = // 후기 상세
-			"SELECT r.REVIEW_NUM, m.MEMBER_NAME, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NAME, i.IMAGE_URL, bd.BUY_CNT, t.TEA_CONTENT, r.REVIEW_INSERT_TIME "
+			"SELECT r.REVIEW_NUM, r.MEMBER_ID, m.MEMBER_NAME, r.BUY_SERIAL, r.REVIEW_CONTENT, t.TEA_NAME, i.IMAGE_URL, bd.BUY_CNT, t.TEA_CONTENT, r.REVIEW_INSERT_TIME "
 			+ "FROM REVIEW r "
 			+ "JOIN BUY_DETAIL bd ON r.BUY_SERIAL = bd.BUY_SERIAL "
 			+ "JOIN TEA t ON t.TEA_NUM = bd.TEA_NUM "
@@ -128,6 +143,11 @@ public class ReviewDAO {
 			Object[] args = { reviewVO.getMemberId() };
 			return jdbcTemplate.query(SQL_SELECTALL_MEMBER, args, new ReviewSelectAllRowMapper());
 		}
+		// 후기 해시태그 검색
+		else if(reviewVO.getSearchName().equals("HASHTAG")) {
+			Object[] args = { reviewVO.getHashtagNum() };
+			return jdbcTemplate.query(SQL_SELECTALL_HASH, args, new ReviewSelectAllRowMapper());
+		}
 		// 후기 목록 페이징
 		else if(reviewVO.getSearchName().equals("ALL_PAGING")) {
 			Object[] args = { reviewVO.getStartRnum(), reviewVO.getStartRnum() };
@@ -141,6 +161,11 @@ public class ReviewDAO {
 		// 후기 카테고리 검색 페이징
 		else if(reviewVO.getSearchName().equals("CATEGORY_PAGING")) {
 			Object[] args = { reviewVO.getReviewSearch(), reviewVO.getStartRnum(), reviewVO.getStartRnum() };
+			return jdbcTemplate.query(SQL_SELECTALL_CATE + PAGING, args, new ReviewSelectAllRowMapper());
+		}
+		// 후기 해시태그 검색 페이징
+		else if(reviewVO.getSearchName().equals("HASHTAG_PAGING")) {
+			Object[] args = { reviewVO.getHashtagNum(), reviewVO.getStartRnum(), reviewVO.getStartRnum() };
 			return jdbcTemplate.query(SQL_SELECTALL_CATE + PAGING, args, new ReviewSelectAllRowMapper());
 		}
 		// 내 후기 페이징
@@ -226,6 +251,7 @@ class ReviewSelectOneRowMapper implements RowMapper<ReviewVO> {
 	public ReviewVO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ReviewVO data = new ReviewVO();
 		data.setReviewNum(rs.getInt("REVIEW_NUM"));
+		data.setMemberId(rs.getString("MEMBER_ID"));
 		data.setMemberName(rs.getString("MEMBER_NAME"));
 		data.setBuySerial(rs.getInt("BUY_SERIAL"));
 		data.setReviewContent(rs.getString("REVIEW_CONTENT"));

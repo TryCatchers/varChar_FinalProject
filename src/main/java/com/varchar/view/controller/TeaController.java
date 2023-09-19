@@ -138,7 +138,7 @@ public class TeaController {
 
 		ArrayList<TeaVO> recentList = (ArrayList<TeaVO>) session.getAttribute("recentList");
 
-		if (recentList != null) { // 카트에 이미 담긴 상품이 있을 경우
+		if (recentList != null) { // 리스트에 이미 담긴 상품이 있을 경우
 
 
 			int i = Product.cartCheck(teaVO, recentList);
@@ -155,7 +155,6 @@ public class TeaController {
 			recentList.add(0, teaVO);
 		}
 		
-		/** while 무한 루프 고려 */
 		while(recentList.size() > 3) {
 			recentList.remove(3);
 		}

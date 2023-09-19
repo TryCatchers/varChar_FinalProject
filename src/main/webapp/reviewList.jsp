@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="try"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +55,7 @@
                       </a>
                       <div class="text d-block pl-md-4">
                         <div class="meta mb-3">
-                          <div><a href="#">July 20, 2019</a></div>
+                          <div><a href="#"><fmt:formatDate value="${ reviewData.reviewInsertTime }"/></a></div>
                           <div><a href="#">${ reviewData.memberId }</a></div>
                           <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
                         </div>

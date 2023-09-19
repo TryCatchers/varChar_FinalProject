@@ -12,7 +12,6 @@ public class ReviewVO {
 	private int buySerial;
 	private String reviewContent;
 	private Date reviewInsertTime;
-	private String[] reviewHashtag;
 	
 	// 임시변수
 	private String reviewSearch;
@@ -25,6 +24,9 @@ public class ReviewVO {
 	private int startRnum;
 	private int endRnum;
 	private int teaNum;
+	private String[] reviewHashtag;
+	private String[] reviewImage;
+	private int hashtagNum;
 	
 	List<ReviewHashtagVO> reviewHashtags;
 	
@@ -174,14 +176,31 @@ public class ReviewVO {
 	public void setReviewHashtags(List<ReviewHashtagVO> reviewHashtags) {
 		this.reviewHashtags = reviewHashtags;
 	}
+	
+	public String[] getReviewImage() {
+		return reviewImage;
+	}
+
+	public void setReviewImage(String[] reviewImage) {
+		this.reviewImage = reviewImage;
+	}
+	
+	public int getHashtagNum() {
+		return hashtagNum;
+	}
+
+	public void setHashtagNum(int hashtagNum) {
+		this.hashtagNum = hashtagNum;
+	}
 
 	@Override
 	public String toString() {
 		return "ReviewVO [reviewNum=" + reviewNum + ", memberId=" + memberId + ", buySerial=" + buySerial
-				+ ", reviewContent=" + reviewContent + ", reviewInsertTime=" + reviewInsertTime + ", reviewHashtag="
-				+ Arrays.toString(reviewHashtag) + ", reviewSearch=" + reviewSearch + ", searchName=" + searchName
-				+ ", teaName=" + teaName + ", teaContent=" + teaContent + ", imageUrl=" + imageUrl + ", memberName="
-				+ memberName + ", buyCnt=" + buyCnt + ", startRnum=" + startRnum + ", endRnum=" + endRnum + ", teaNum="
-				+ teaNum + ", reviewHashtags=" + reviewHashtags + "]";
+				+ ", reviewContent=" + reviewContent + ", reviewInsertTime=" + reviewInsertTime + ", reviewSearch="
+				+ reviewSearch + ", searchName=" + searchName + ", teaName=" + teaName + ", teaContent=" + teaContent
+				+ ", imageUrl=" + imageUrl + ", memberName=" + memberName + ", buyCnt=" + buyCnt + ", startRnum="
+				+ startRnum + ", endRnum=" + endRnum + ", teaNum=" + teaNum + ", reviewHashtag="
+				+ Arrays.toString(reviewHashtag) + ", reviewImage=" + Arrays.toString(reviewImage) + ", hashtagNum="
+				+ hashtagNum + ", reviewHashtags=" + reviewHashtags + "]";
 	}
 }

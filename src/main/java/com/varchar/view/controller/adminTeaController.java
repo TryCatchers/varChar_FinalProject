@@ -76,7 +76,6 @@ public class AdminTeaController {
 			teaVO.setCategoryNum(categoryVO.getCategoryNum());
 			teaService.update(teaVO);
 			}
-			
 		}
 
 		return "admin.do";
@@ -105,7 +104,6 @@ public class AdminTeaController {
 			
 		}
 		
-		
 		return "admin.do";
 	}
 	
@@ -124,9 +122,9 @@ public class AdminTeaController {
 	@RequestMapping(value = "/insertTea.do")
 	public String insertTea(TeaVO teaVO) {
 		
-		System.out.println("insertTea.do: "+teaVO);
+		System.out.println("insertTea.do: " + teaVO);
 		
-		if(teaService.insert(teaVO)) {
+		if (teaService.insert(teaVO)) {
 			
 		}
 		
@@ -137,10 +135,10 @@ public class AdminTeaController {
 	@RequestMapping(value = "/deleteTea.do")
 	public String deleteTea(TeaVO teaVO) {
 		
-		if(teaService.selectOne(teaVO) != null) { // 존재 확인
+		if (teaService.selectOne(teaVO) != null) { // 존재 확인
 			
 			teaVO.setTeaCondition("현재 해당 쿼리 없음 추후 맞는 서치컨디션 입력");
-			if(teaService.delete(teaVO)) {
+			if (teaService.delete(teaVO)) {
 				// 이미지도 지워야 함
 			}
 		}
