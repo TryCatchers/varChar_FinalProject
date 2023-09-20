@@ -2,6 +2,8 @@ package com.varchar.biz.tea;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.varchar.biz.hashtag.TeaHashtagVO;
 
 public class TeaVO {
@@ -29,6 +31,8 @@ public class TeaVO {
 	private String teaHashtagContent;
 	
 	private List<TeaHashtagVO> teaHashtags;
+	
+//	private MultipartFile fileUpload;
 	
 	public TeaVO() {
 		this(0, 0, "", 0, 0, "", 0);
@@ -203,6 +207,14 @@ public class TeaVO {
 	public void setTeaHashtags(List<TeaHashtagVO> teaHashtags) {
 		this.teaHashtags = teaHashtags;
 	}
+	
+//	public MultipartFile getFileUpload() {
+//		return fileUpload;
+//	}
+//
+//	public void setFileUpload(MultipartFile fileUpload) {
+//		this.fileUpload = fileUpload;
+//	}
 
 	@Override
 	public String toString() {
@@ -212,6 +224,8 @@ public class TeaVO {
 				+ ", startRnum=" + startRnum + ", memberId=" + memberId + ", teaTotal=" + teaTotal + ", teaCheckCnt="
 				+ teaCheckCnt + ", count=" + count + ", endRnum=" + endRnum + ", favorResult=" + favorResult
 				+ ", categoryName=" + categoryName + ", teaHashtagContent=" + teaHashtagContent + ", teaHashtags="
-				+ teaHashtags + "]";
+				+ teaHashtags + ", fileUpload=" + "]";
 	}
+
+	
 }

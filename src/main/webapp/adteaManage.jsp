@@ -101,9 +101,9 @@
 										</div>
 										<div class="form-group">
 											<label>상품 사진</label>
-											<input type="file" class="file-upload-default" id="fileInput" />
+											<input type="file" class="file-upload-default" id="fileInput" name="fileUpload" />
 											<div class="input-group col-xs-12">
-												<input type="text" class="form-control file-upload-info" disabled placeholder="$-{teaData.imageUrl}" id="fileInputText" />
+												<input type="text" class="form-control file-upload-info" readonly placeholder="$-{teaData.imageUrl}" id="fileInputText" />
 												<span class="input-group-append" id="uploadSpan" >
 													<button class="file-upload-browse btn btn-success btn-icon-text"
 														type="button" id="uploadButton"><i class="ti-upload btn-icon-prepend"></i>사진 업로드</button>
