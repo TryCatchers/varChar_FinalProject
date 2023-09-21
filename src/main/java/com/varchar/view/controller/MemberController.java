@@ -276,7 +276,13 @@ public class MemberController {
 			model.addAttribute("memberData", memberVO);
 			return "signup.jsp";
 		}
+		
+		memberVO.setMemberName(memberService.selectOne(memberVO).getMemberName());
+		
+		System.out.println("Name: "+memberVO.getMemberName());
+		
 		session.setAttribute("sessionMemberId", memberVO.getMemberId());
+		session.setAttribute("sessionMemberName", memberVO.getMemberName());
 		session.setAttribute("sessionMemberPlatform", memberVO.getMemberPlatform());
 		return "main.do";
 	}

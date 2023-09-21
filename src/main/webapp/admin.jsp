@@ -84,7 +84,7 @@
                                    <p class="card-subtitle card-subtitle-dash">원하시는 상품을 클릭하여 관리하세요</p>
                                   </div>
                                   <div>
-                                    <a href=""><button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>새 카테고리 추가</button></a>
+                                    <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button" onclick="addCate();"><i class="mdi mdi-account-plus"></i>새 카테고리 추가</button>
                                   </div>
                                 </div>
                                 <div class="table-responsive  mt-1">
@@ -243,6 +243,55 @@ function delCate(categoryNum, categoryName) {
 	     return false;
 
 	 }
+}
+
+</script>
+<script type="text/javascript">
+function addCate(categoryName) {
+    var resAdd = prompt('추가하실 카테고리명을 입력하세요');
+    if (resAdd !== null) {
+        console.log(resAdd);
+        
+        $.ajax({
+            url: 'insertCategory.do?categoryName='+resAdd,
+            type: 'POST',
+            success: function(fresult){
+                //console.log('favorResult [' + favorResult + ']');
+              	
+            },
+            error: function(error){
+               alert('error [' + error + ']');
+            }
+         });
+        
+
+/*         // var params 선언
+        var params = { categoryName: resAdd };
+
+        var cateUrl = '/insertCategory.do';
+
+        // fetch 요청을 보낼 때 파라미터를 body에 추가
+        fetch(cateUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(params) // 파라미터를 JSON 문자열로 변환하여 body에 추가
+        })
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error('네트워크 응답 실패');
+            }
+            return response.json();
+        })
+        .then(function(data) {
+            console.log(data); // 서버에서 온 응답 데이터 처리
+            window.location.reload();
+        })
+        .catch(function(error) {
+            console.error('오류 발생:', error);
+        }); */
+    }
 }
 
 </script>
