@@ -14,14 +14,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.varchar.biz.category.CategoryService;
 import com.varchar.biz.category.CategoryVO;
-import com.varchar.biz.common.AlertVO;
 import com.varchar.biz.image.ImageService;
 import com.varchar.biz.image.ImageVO;
+import com.varchar.biz.member.MemberService;
+import com.varchar.biz.member.MemberService;
+import com.varchar.biz.member.MemberVO;
 import com.varchar.biz.tea.TeaService;
 import com.varchar.biz.tea.TeaVO;
 
@@ -35,11 +36,13 @@ public class AdminTeaController {
 	private TeaService teaService;
 	@Autowired
 	private ImageService imageService;
+	@Autowired
+	private MemberService memberService;
 
 	
 	// --------------------------------- 관리자 홈(메인) 페이지 이동 ---------------------------------
 	@RequestMapping(value = "/admin.do")
-	public String adminPage(CategoryVO categoryVO, Model model, HttpSession session) {
+	public String adminPage(CategoryVO categoryVO, MemberVO memberVO ,Model model, HttpSession session) {
 		
 		if(session.getAttribute("sessionMemberGrade") != null) {
 			int memberGrade = (int)session.getAttribute("sessionMemberGrade");
@@ -47,6 +50,11 @@ public class AdminTeaController {
 			if(memberGrade == 1) {
 				List<CategoryVO> categoryDatas = categoryService.selectAll(null); //이거 NULL 없애는 방향 고려
 				model.addAttribute("categoryDatas", categoryDatas);
+				
+				List<MemberVO> memberDatas = memberService.selectAll(null); //이거 NULL 없애는 방향 고려
+				model.addAttribute("memberDatas", memberDatas);
+				
+				
 				return "admin.jsp";
 			}
 		}
