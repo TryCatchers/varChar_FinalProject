@@ -57,9 +57,6 @@ public class MemberController {
 			session.setAttribute("sessionMemberPlatform", memberVO.getMemberPlatform());
 			session.setAttribute("sessionMemberGrade", memberVO.getMemberGrade());
 			System.out.println(memberVO);
-//			if(memberVO.getMemberGrade().equals("ADMIN")) { // 관리자 검사
-//				return "관리자 페이지";
-//			}
 			
 		} else {
 			AlertVO sweetAlertVO = new AlertVO("로그인실패", "로그인실패", null, "error", null);
