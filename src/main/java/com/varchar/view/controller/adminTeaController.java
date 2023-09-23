@@ -13,10 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.varchar.biz.category.CategoryService;
 import com.varchar.biz.category.CategoryVO;
+import com.varchar.biz.common.AlertVO;
 import com.varchar.biz.image.ImageService;
 import com.varchar.biz.image.ImageVO;
 import com.varchar.biz.tea.TeaService;
@@ -50,6 +53,40 @@ public class AdminTeaController {
 		return "main.do";
 		
 		
+	}
+	
+	// --------------------------------- 관리자 카테고리 페이지 이동 ---------------------------------
+	@RequestMapping(value = "/adminCategory.do")
+	public String adminCategoryPage(TeaVO teaVO, CategoryVO categoryVO, Model model) {
+
+		teaVO.setTeaCondition("카테고리");
+		List<TeaVO> teaDatas = teaService.selectAll(teaVO);
+		
+		List<CategoryVO> categoryDatas = categoryService.selectAll(null); //이거 NULL 없애는 방향 고려
+		
+		model.addAttribute("teaDatas", teaDatas);
+		model.addAttribute("categoryDatas", categoryDatas);
+		
+		return "adCategory.jsp";
+	}
+	
+	// --------------------------------- 관리자 카테고리 체크박스 변경 ---------------------------------
+	@RequestMapping(value = "/changeCategory.do")
+	public String adminCategory(@RequestParam(value="teaNums[]") List<String> teaNums, @RequestParam(value="categoryNum") int categoryNum, TeaVO teaVO, Model model) {
+		
+		System.out.println("teaNums: "+teaNums);
+		System.out.println("teaNums 0번째: "+teaNums.get(0));
+		System.out.println("categoryNum: "+categoryNum);
+		
+		teaVO.setTeaCondition("카테고리일괄변경");
+		teaVO.setCategoryNum(categoryNum);
+		for(int i = 0; i<teaNums.size(); i++) {
+			teaVO.setTeaNum((Integer.parseInt(teaNums.get(i))));
+			teaService.update(teaVO);
+		}
+		
+		return "redirect:admin.do";
+
 	}
 	
 	// --------------------------------- 카테고리 추가 ---------------------------------

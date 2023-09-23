@@ -97,13 +97,14 @@
                                       </tr>
                                     </thead>
                                     <tbody>
+                                    <!-- 반복 시작 -->
                                     <c:forEach var="categoryData" items="${categoryDatas}">
                                       <tr>
                                         <td>
                                           <div class="d-flex ">
                                             <img src="Ad/images/faces/face1.jpg" alt="">
                                             <div>
-                                              <h6 id="cateName">${categoryData.categoryName}</h6>
+                                              <h6 id="cateName"><a href="adminCategory.do?categoryNum=${categoryData.categoryNum}&categoryName=${categoryData.categoryName}">${categoryData.categoryName}</a></h6>
                                             </div>
                                           </div>
                                         </td>
@@ -116,6 +117,7 @@
                                         <button type="button" class="btn btn-info" onclick="delCate('${categoryData.categoryNum}', '${categoryData.categoryName}')">삭제</button></td>
                                       </tr>
                                       </c:forEach>
+                                       <!-- 반복 끝 -->
                                     </tbody>
                                   </table>
                                 </div>
