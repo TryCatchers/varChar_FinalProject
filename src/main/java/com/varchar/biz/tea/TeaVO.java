@@ -32,7 +32,8 @@ public class TeaVO {
 	
 	private List<TeaHashtagVO> teaHashtags;
 	
-//	private MultipartFile fileUpload;
+	private List<MultipartFile> fileUpload;
+	private String fileName;
 	
 	public TeaVO() {
 		this(0, 0, "", 0, 0, "", 0);
@@ -46,6 +47,7 @@ public class TeaVO {
 		this.teaCnt = teaCnt;
 		this.teaContent = teaContent;
 		this.teaStatus = teaStatus;
+		this.teaCondition = "상품 조회";
 	}
 	
 	public int getTeaStatus() {
@@ -207,14 +209,22 @@ public class TeaVO {
 	public void setTeaHashtags(List<TeaHashtagVO> teaHashtags) {
 		this.teaHashtags = teaHashtags;
 	}
-	
-//	public MultipartFile getFileUpload() {
-//		return fileUpload;
-//	}
-//
-//	public void setFileUpload(MultipartFile fileUpload) {
-//		this.fileUpload = fileUpload;
-//	}
+
+	public List<MultipartFile> getFileUpload() {
+		return fileUpload;
+	}
+
+	public void setFileUpload(List<MultipartFile> fileUpload) {
+		this.fileUpload = fileUpload;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 
 	@Override
 	public String toString() {
@@ -224,8 +234,6 @@ public class TeaVO {
 				+ ", startRnum=" + startRnum + ", memberId=" + memberId + ", teaTotal=" + teaTotal + ", teaCheckCnt="
 				+ teaCheckCnt + ", count=" + count + ", endRnum=" + endRnum + ", favorResult=" + favorResult
 				+ ", categoryName=" + categoryName + ", teaHashtagContent=" + teaHashtagContent + ", teaHashtags="
-				+ teaHashtags + ", fileUpload=" + "]";
+				+ teaHashtags + ", fileUpload=" + fileUpload + ", fileName=" + fileName + "]";
 	}
-
-	
 }
