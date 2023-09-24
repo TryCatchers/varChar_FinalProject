@@ -127,8 +127,7 @@ public class AdminTeaController {
 		categoryVO = categoryService.selectOne(categoryVO);
 		
 		if(categoryVO != null){	// 존재 확인
-			
-			//categoryVO.setCategoryCondition("현재 해당 쿼리 없음 추후 맞는 서치컨디션 입력");
+
 			if(categoryService.delete(categoryVO)) {
 			
 			teaVO.setTeaCondition("카테고리변경");
@@ -146,14 +145,10 @@ public class AdminTeaController {
 		
 		System.out.println("updateCategory.do 진입 확인");
 		System.out.println("categoryVO" +categoryVO);
-//		System.out.println("categoryName" +categoryName);
-//		categoryVO.setCategoryName(categoryName);
-//		categoryVO.setCategoryNum(categoryNum);
 		
 		// 해당되는 카테고리에 있는 상품이 있을 수 있으므로 해당없음으로 변경해줘야 함
 		if(categoryService.selectOne(categoryVO) != null){	// 존재 확인
 			
-			//categoryVO.setCategoryCondition("현재 해당 쿼리 없음 추후 맞는 서치컨디션 입력");
 			if(categoryService.update(categoryVO)) {
 			
 			teaVO.setTeaCondition("카테고리변경");

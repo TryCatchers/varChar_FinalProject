@@ -36,6 +36,11 @@
     text-decoration: underline;
     color: black;
   }
+  
+  a:link { color: red; text-decoration: none;}
+  a:visited { color: black; text-decoration: none;}
+  a:hover { color: blue; text-decoration: underline;}
+ 
 </style>  
 </head>
 <body>
@@ -113,8 +118,13 @@
                                            <p>여기 카테고리당 재고 쓸거냐</p>
                                           </div>
                                         </td>
-                                        <td><button type="button" class="btn btn-danger" onclick="fixCate('${categoryData.categoryNum}', '${categoryData.categoryName}')">수정</button>
-                                        <button type="button" class="btn btn-info" onclick="delCate('${categoryData.categoryNum}', '${categoryData.categoryName}')">삭제</button></td>
+                                        
+                                        <td>
+                                        <c:if test="${ categoryData.categoryNum ne 0 }">
+                                        	<button type="button" class="btn btn-danger" onclick="fixCate('${categoryData.categoryNum}', '${categoryData.categoryName}')">수정</button>
+                                        	<button type="button" class="btn btn-info" onclick="delCate('${categoryData.categoryNum}', '${categoryData.categoryName}')">삭제</button>
+                                      	</c:if>
+                                        </td>
                                       </tr>
                                       </c:forEach>
                                        <!-- 반복 끝 -->
@@ -337,54 +347,35 @@ function fixCate(categoryNum, categoryName) {
         
     	var category = {categoryNum: categoryNum, categoryName: resFix };
     	
-    	$.ajax({
-            url: 'updateCategory.do',
-            type: 'POST',
-            data: category,
-            success: function(fresult){
+		if(categoryNum > 0){
+    		$.ajax({
+            	url: 'updateCategory.do',
+            	type: 'POST',
+            	data: category,
+            	success: function(fresult){
                 //console.log('favorResult [' + favorResult + ']');
               	
-            },
-            error: function(error){
-               alert('error [' + error + ']');
-            }
-         });
+            	},
+            	error: function(error){
+          			alert('error [' + error + ']');
+         		}
+         	});
+			 
+		 }
+		 else{
+			 alert('해당 카테고리는 수정할 수 없습니다!');
+			 return false;
+		 }
+    	
 
-/*         // 요청 본문 데이터를 JSON 형식으로 설정
-        var requestData = {
-            categoryNum: categoryNum,
-            categoryName: resFix
-        };
-		console.log(requestData);
-        // fetch를 사용하여 서버에 POST 요청 보내기
-        fetch('/updateCategory.do', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-            },
-            body: JSON.stringify(requestData),
-        })
-        .then(function(response) {
-            if (!response.ok) {
-                throw new Error('네트워크 응답 실패');
-            }
-            return response.json();
-        })
-        .then(function(data) {
-            console.log(data); // 서버에서 온 응답 데이터 처리
-            window.location.reload();
-        })
-        .catch(function(error) {
-            console.error('오류 발생:', error);
-        }); */
     }
 }
 
 function delCate(categoryNum, categoryName) {
 	 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-
-	    	//var category = {categoryNum: categoryNum, categoryName: resFix };
 	    	
+		 if(categoryNum > 0){
+			 
 	    	$.ajax({
 	            url: 'deleteCategory.do?categoryNum='+categoryNum,
 	            type: 'POST',
@@ -396,10 +387,14 @@ function delCate(categoryNum, categoryName) {
 	               alert('error [' + error + ']');
 	            }
 	         });
-	     
-
-	 }else{   //취소
-
+	    	
+		 }
+		 else{
+			 alert('해당 카테고리는 삭제할 수 없습니다!');
+			 return false;
+		 }
+	 }
+	 else{   //취소
 	     return false;
 
 	 }
@@ -423,34 +418,6 @@ function addCate(categoryName) {
                alert('error [' + error + ']');
             }
          });
-        
-
-/*         // var params 선언
-        var params = { categoryName: resAdd };
-
-        var cateUrl = '/insertCategory.do';
-
-        // fetch 요청을 보낼 때 파라미터를 body에 추가
-        fetch(cateUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(params) // 파라미터를 JSON 문자열로 변환하여 body에 추가
-        })
-        .then(function(response) {
-            if (!response.ok) {
-                throw new Error('네트워크 응답 실패');
-            }
-            return response.json();
-        })
-        .then(function(data) {
-            console.log(data); // 서버에서 온 응답 데이터 처리
-            window.location.reload();
-        })
-        .catch(function(error) {
-            console.error('오류 발생:', error);
-        }); */
     }
 }
 

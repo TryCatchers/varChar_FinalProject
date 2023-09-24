@@ -164,6 +164,7 @@
                                       <!--  반복 끝 -->
                                       
                                     <!--  샘플 데이터 1 시작 -->
+                                    <c:if test="${ empty teaDatas }">
                                       <tr>
                                         <td>
                                           <div class="form-check form-check-flat mt-0">
@@ -175,14 +176,14 @@
                                           <div class="d-flex ">
                                             <img src="images/faces/face1.jpg" alt="">
                                             <div>
-                                              <h6>차 이름</h6>
-                                              <p>상품 PK</p>
+                                              <h6>상품X</h6>
+                                              <p>해당되는 상품이 존재하지 않습니다</p>
                                             </div>
                                           </div>
                                         </td>
                                         <td>
-                                          <h6>상품 가격</h6>
-                                          <p>company type</p><!-- 재고..? -->
+                                          <h6>- 원</h6>
+                                          <p>${teaData.categoryName}</p><!-- 재고..? -->
                                         </td>
                                         <td>
                                           <div>
@@ -196,8 +197,9 @@
                                             </div>
                                           </div>
                                         </td>
-                                        <td><div class="badge badge-opacity-warning">판매중</div></td>
+                                        <td><div class="badge badge-opacity-danger">해당없음</div></td>
                                       </tr>
+                                      </c:if>
                                       <!--  샘플 데이터 1 끝 -->
 
                                     </tbody>
