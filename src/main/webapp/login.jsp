@@ -47,9 +47,10 @@
 		.edit_hidden {
 			display: none;
 		}
+		
 	</style>
 	
-	<script src="https://www.google.com/recaptcha/api.js?render=6LfpIUsoAAAAAOAtRW14-c_XrAOW6LyWOpQGLSYV"></script>
+	<script src="https://www.google.com/recaptcha/api.js?render=6LfpIUsoAAAAAOAtRW14-c_XrAOW6LyWOpQGLSYV&badge=bottomleft"></script>
   	<script>
    		function onSubmit(token) {
      		document.getElementById("demo-form").submit();
