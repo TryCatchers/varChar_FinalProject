@@ -109,7 +109,7 @@
                                       <tr>
                                         <td>
                                           <div class="d-flex ">
-                                            <img src="Ad/images/faces/face1.jpg" alt="">
+                                            <img src="Ad/images/default.png" alt="카테고리 이미지">
                                             <div>
                                               <h6 id="cateName"><a href="adminCategory.do?categoryNum=${categoryData.categoryNum}&categoryName=${categoryData.categoryName}">${categoryData.categoryName}</a></h6>
                                             </div>
