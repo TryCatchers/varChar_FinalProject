@@ -89,7 +89,7 @@
                       <p class="card-description">Add class <code>.btn-{color}</code> for buttons in theme colors</p>
                       <div class="template-demo">
 									  <div class="form-group">
-										<h5><strong>상품 카테고리 선택 [1) 카테코리를 먼저 지정한다.]</strong></h5>
+										<h5><strong>상품 카테고리 선택 [1) 카테고리를 먼저 지정한다.]</strong></h5>
 										<select class="form-control" id="selectCategory">
 										<option value="선택하세요" id="none" disabled selected hidden>카테고리 선택</option>
 										<c:forEach var="categoryData" items="${categoryDatas}">

@@ -98,8 +98,8 @@
                                   <table class="table select-table">
                                     <thead>
                                       <tr>
-                                        <th><h6>차 종류</h6></th>
-                                        <th><h6>재고현황</h6></th>
+                                        <th><h6>카테고리</h6></th>
+                                        <th><h6>판매현황</h6></th>
                                         <th><h6>상태</h6></th>
                                       </tr>
                                     </thead>
@@ -117,7 +117,7 @@
                                         </td>
                                         <td>
                                           <div>
-                                           <p>여기 카테고리당 재고 쓸거냐</p>
+                                           <p>총 ${categoryData.buyCnt}개</p>
                                           </div>
                                         </td>
                                         
