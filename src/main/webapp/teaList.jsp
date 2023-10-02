@@ -66,7 +66,7 @@
 					<p class="breadcrumbs">
 						<span class="mr-2"><a href="main.do">Tea</a></span> <span>Products</span>
 					</p>
-					<h1 class="mb-0 bread">TeaLists</h1>
+					<h1 class="mb-0 bread">상품 목록</h1>
 				</div>
 			</div>
 		</div>
