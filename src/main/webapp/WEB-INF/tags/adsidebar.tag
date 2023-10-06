@@ -36,7 +36,7 @@
           <li class="nav-item nav-category">Tea Product Management</li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="adminTea.do" aria-expanded="false" aria-controls="form-elements">
-              <i class="menu-icon mdi mdi-leaf"></i>
+              <i class="menu-icon mdi mdi-stove"></i>
               <span class="menu-title">티 상품관리</span>
               <i class="menu-arrow"></i>
             </a>
