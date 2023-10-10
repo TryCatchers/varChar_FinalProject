@@ -18,9 +18,10 @@
 	      confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
 	      confirmButtonText: '확인' // confirm 버튼 text
 	    }).then((result) => {
-	        if (result.isConfirmed) {
+	    	location.href = '${ sweetAlert.path }';
+/* 	        if (result.isConfirmed) {
 	        	location.href = '${ sweetAlert.path }';
-	        }
+	        } */
 	    });
 	}
 </script>
