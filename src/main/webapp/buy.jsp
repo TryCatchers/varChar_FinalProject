@@ -11,6 +11,13 @@
 <try:favicon />
 <!-- 링크 부분 태그 -->
 <try:link />
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<style type="text/css">
+	.edit-red {
+  		color: red;
+  	}
+</style>
 </head>
 <body class="goto-here">
 	<!-- 헤더 부분 태그 -->
@@ -39,155 +46,92 @@
 					<form action="buy.do?total=${ total }" method="post" class="billing-form" onsubmit="return checkPh();">
 						<h3 class="mb-4 billing-heading">주문자 정보</h3>
 						<div class="row align-items-end">
-
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="firstname">아이디</label> <input type="text" name="memberID" value="${ memberVO.memberId }" class="form-control">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="lastname">이름</label> <input type="text" name="memberName" class="form-control" placeholder="이름을 입력하세요.">
-								</div>
-							</div>
-
-							<div class="w-100"></div>
-
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="firstname">연락처</label> <input type="text" name="memberPhone" value="${ memberVO.memberPhone }" class="form-control" placeholder="연락처를 입력하세요.">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="lastname">이메일</label> <input type="text" name="memberEmail" class="form-control" placeholder="이메일을 입력하세요.">
-								</div>
-							</div>
-
-							<div class="w-100"></div>
-
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="firstname">주소</label> <input type="text" name="memberID" class="form-control">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="lastname">상세주소</label> <input type="text" name="memberName" class="form-control" placeholder="이름을 입력하세요.">
-								</div>
-							</div>
-
-
-
-							<div class="col-md-12">
-								<label for="name">이름<span class="edit-red"> *</span></label>
-								<div class="form-group">
-									<input type="text" name="memberName" class="form-control" placeholder="이름을 입력하세요." required>
-								</div>
-							</div>
-
 							<div class="w-100"></div>
 							<div class="col-md-12">
-								<label for="name">아이디<span class="edit-red"> *</span></label>
-								<div class="form-group">
-									<input type="text" name="memberID" value="${ memberVO.memberId }" class="form-control" readonly>
+								<label for="id">아이디<span id="spanId" class="edit-red"> *</span></label>
+								<div class="form-group edit-d-f">
+									<input type="text" id="inputId" name="memberId" value="${ memberVO.memberId }" class="form-control" placeholder="아이디를 입력하세요.">
 								</div>
 							</div>
-
 							<div class="w-100"></div>
+				            <div class="col-md-12">
+				                <label for="name">이름<span id="spanName" class="edit-red"> *</span></label>
+				                <div class="form-group">
+				                  <input type="text" id="inputName" name="memberName" value="${ memberVO.memberName }" class="form-control" placeholder="이름을 입력하세요.">
+				                </div>
+			                </div>
+			                <div class="w-100"></div>
 							<div class="col-md-12">
-								<label for="name">이름<span class="edit-red"> *</span></label>
-								<div class="form-group">
-									<input type="text" name="memberName" class="form-control" placeholder="이름을 입력하세요." required>
-								</div>
-							</div>
-
-							<div class="col-md-6" style="margin-top: 30px;">
-								<div class="form-group">
-									<label for="firstname">아이디</label> <input type="text" name="memberID" class="form-control" value="${ memberVO.memberId }" readonly>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="lastname">이름 <span style="color: red;">*</span></label> <input type="text" name="memberName" class="form-control" value="${ memberVO.memberName }" required>
-								</div>
-							</div>
-							<div class="w-100"></div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="lastname">연락처</label> <input type="text" id="memberPhone" class="form-control" name="memberPhone" placeholder="하이픈(-), 공백없이 입력하세요.">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="lastname">이메일</label> <input type="text" class="form-control" value="${ memberData.memberEmail }" placeholder="@포함 이메일 형식에 맞춰서 입력하세요." value="${ memberVO.memberPhone }" required>
-								</div>
-							</div>
-							<div class="w-100"></div>
-							<div class="col-md-6">
-								<div class="form-group" style="margin-bottom: 75px;">
-									<label for="lastname">주소 </label>
-									<!-- kakao 우편번호 서비스 -->
-									<script>
-				              		var flagAddress = false;
-				                      
-				                    function daumPost() {
-				                      	new daum.Postcode({
-				                      		oncomplete: function(data) {
-				                      			var fullAddr = '';
-				                      			var extraAddr = '';
-				                      			
-				                      			//도로명 주소를 선택했을 경우
-				                      			if (data.userSelectedType === 'R') {
-				                      				fullAddr = data.roadAddress;
-				                      			//지번 주소를 선택했을 경우
-				                      			} else {
-				                      				fullAddr = data.jibunAddress;
-				                      			}
-				                      			//도로명일때 조합
-				                      			if (data.userSelectedType === 'R') {
-				                      				//법정동명 추가
-				                      				if (data.bname !== '') {
-				                      					extraAddr += data.bname;
-				                      				}
-				                      				//건물명 추가
-				                      				if (data.buildingName !== '') {
-				                      					extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-				                      				}
-				                      				//괄호 추가
-				                      				fullAddr += (extraAddr !== '' ? ' (' + extraAddr + ')' : '');
-				                      			}
-				                      			$("#inputAddress").val(fullAddr);
-				                      			$("#inputAddress").attr("readonly", false);
-				                      			if ($("#inputAddress").val() == fullAddr) {
-				                      				$("#spanAddress").html(' <i class="fa-solid fa-check"></i>');
-				                            	    $("#spanAddress").css("color", "green");
-				                        		   	flagAddress = true;
-				                      			} else {
-				                      				$("#spanAddress").html(' <i class="fa-solid fa-x"></i> 필수 정보입니다.');
-				                        		   	$("#spanAddress").css("color", "red");
-				                            	    flagAddress = false;
-				                      			}
-				                      			$("#inputAddress").attr("readonly", true);
-				                      			$("#inputAddressDetail").focus();
-				                      			console.log(flagAddress);
-				                      		},
-				                      		theme: {
-				                                bgColor: "#23512E", //바탕 배경색
-				                                searchBgColor: "#FFFFFF", //검색창 배경색
-				                                contentBgColor: "#FFFFFF", //본문 배경색(검색결과,결과없음,첫화면,검색서제스트)
-				                                //pageBgColor: "", //페이지 배경색
-				                                textColor: "#222222" //기본 글자색
-				                                //queryTextColor: "", //검색창 글자색
-				                                //postcodeTextColor: "", //우편번호 글자색
-				                                //emphTextColor: "", //강조 글자색
-				                                //outlineColor: "", //테두리
-				                            }
-				                      	}).open();
-				                    }
-				                </script>
-								</div>
-							</div>
+				                <label for="phone">연락처<span id="spanPhone" class="edit-red"> *</span></label>
+				                <div class="form-group edit-d-f">
+				                  	<input type="text" id="inputPhone" name="memberPhone" value="${ memberVO.memberPhone }" class="form-control" placeholder="연락처를 입력해주세요.">
+				                </div>
+			                </div>
+			                <div class="w-100"></div>
+							<div class="col-md-12">
+			                	<label for="email">이메일<span id="spanEmail" class="edit-red"> *</span></label>
+				                <div class="form-group edit-d-f">
+				                  <input type="text" id="inputEmail" name="memberEmail" value="${ memberVO.memberEmail }" class="form-control" placeholder="이메일을 입력해주세요.">
+				                </div>
+			                </div>
+			                <div class="w-100"></div>
+			                <div class="col-md-12">
+			                	<label for="address">주소<span id="spanAddress" class="edit-red"> *</span></label>
+				                <div class="form-group">
+				                	<input type="button" id="inputBtnAddress" class="form-control" onclick="daumPost()" value="우편번호 찾기"><br>
+				                	<input type="text" id="inputAddress" name="memberAddress" value="${ memberVO.memberAddress }" class="form-control" placeholder="주소를 입력해주세요." readonly>
+				                </div>
+				            </div>
+			                <div class="col-md-12">
+			                	<label for="email">상세주소<span id="spanAddressDetail" class="edit-red"> *</span></label>
+				                <div class="form-group edit-d-f">
+				                  <input type="text" id="inputAddressDetail" class="form-control" placeholder="상세주소를 입력해주세요.">
+				                </div>
+			                </div>
+			                <!-- kakao 우편번호 서비스 -->
+			                <script>
+			                    function daumPost() {
+			                      	new daum.Postcode({
+			                      		oncomplete: function(data) {
+			                      			var fullAddr = '';
+			                      			var extraAddr = '';
+			                      			
+			                      			//도로명 주소를 선택했을 경우
+			                      			if (data.userSelectedType === 'R') {
+			                      				fullAddr = data.roadAddress;
+			                      			//지번 주소를 선택했을 경우
+			                      			} else {
+			                      				fullAddr = data.jibunAddress;
+			                      			}
+			                      			//도로명일때 조합
+			                      			if (data.userSelectedType === 'R') {
+			                      				//법정동명 추가
+			                      				if (data.bname !== '') {
+			                      					extraAddr += data.bname;
+			                      				}
+			                      				//건물명 추가
+			                      				if (data.buildingName !== '') {
+			                      					extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+			                      				}
+			                      				//괄호 추가
+			                      				fullAddr += (extraAddr !== '' ? ' (' + extraAddr + ')' : '');
+			                      			}
+			                      			$("#inputAddress").val(fullAddr);
+			                      		},
+			                      		theme: {
+			                                bgColor: "#7895CB", //바탕 배경색
+			                                searchBgColor: "#FFFFFF", //검색창 배경색
+			                                contentBgColor: "#FFFFFF", //본문 배경색(검색결과,결과없음,첫화면,검색서제스트)
+			                                //pageBgColor: "", //페이지 배경색
+			                                textColor: "#222222" //기본 글자색
+			                                //queryTextColor: "", //검색창 글자색
+			                                //postcodeTextColor: "", //우편번호 글자색
+			                                //emphTextColor: "", //강조 글자색
+			                                //outlineColor: "", //테두리
+			                            }
+			                      	}).open();
+			                    }
+			                </script>
 						</div>
 					</form>
 					<!-- 주문 폼 태그 끝 -->
