@@ -80,7 +80,7 @@
           </div>
           <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
             <div class="media block-6 services mb-md-0 mb-4">
-              <div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
+              <div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2" onclick="window.open('https://instagram.com/varchar_official?igshid=OGQ5ZDc2ODk2ZA%3D%3D&utm_source=qr', '_blank', '')">
             		<span class="fa-brands fa-instagram"></span>
               </div>
               <div class="media-body">

@@ -135,7 +135,9 @@
             	<h3 class="heading">Categories</h3>
               <ul class="categories">
               <c:forEach var="category" items="${ categorys }">
-                <li><a href="reviewListPage.do?searchName=CATEGORY&reviewSearch=${category.categoryName}">${category.categoryName}</a></li>
+              	<c:if test="${ category.categoryName != '해당없음'  }">
+	                <li><a href="reviewListPage.do?searchName=CATEGORY&reviewSearch=${category.categoryName}">${category.categoryName}</a></li>
+              	</c:if>
               </c:forEach>
               </ul>
             </div>
@@ -151,9 +153,8 @@
 		                  <h3 class="heading-1"><a href="#"><b>${recentList.teaName}</b></a></h3>
 		                  <h4 class="heading-1"><a href="#">${recentList.teaContent}</a></h4>
 		                  <div class="meta">
-		                    <div><a href="#"><span class="icon-calendar"></span> ${recentList.teaPrice}</a></div>
-		                    <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-		                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+		                    <div><a href="#"><span class="icon-money"></span> ${recentList.teaPrice}</a></div>
+		                    <div><a href="#"><span class="icon-chat"></span> ${recentList.categoryName}</a></div>
 		                  </div>
 		                </div>
 		              </div>
