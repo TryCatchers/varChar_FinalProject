@@ -33,6 +33,10 @@
 		z-index: 100;
 	}
 	
+	.edit_bg_disabled {
+		background: #9d9ca6 !important;
+	}
+	
 	.tagcloud a {
 		background-color: #4A55A2 !important;
 	    backdrop-filter: blur(10px);
@@ -90,8 +94,10 @@
 					<ul class="product-category">
 						<li><a href="teaListPage.do">전체</a></li>
 						<c:forEach var="category" items="${ categorys }">
-                <li><a href="teaListPage.do?categoryName=${category.categoryName}">${category.categoryName}</a></li>
-                </c:forEach>
+							<c:if test="${ category.categoryName != '해당없음'  }">
+			                	<li><a href="teaListPage.do?categoryName=${category.categoryName}">${category.categoryName}</a></li>
+							</c:if>
+		                </c:forEach>
 					</ul>
 				</div>
 			</div>
@@ -137,17 +143,29 @@
 											<c:if test="${ empty sessionMemberId }">
 												<a href="teaDetailPage.do?teaNum=${ teaData.teaNum }&searchName=DETAIL" class="add-to-cart d-flex justify-content-center align-items-center text-center"> <span><i class="ion-ios-menu"></i></span>
 												</a>
-												<a href="insertCart.do?teaNum=${ teaData.teaNum }&teaCnt=1" class="buy-now d-flex justify-content-center align-items-center mx-1"> <span><i class="ion-ios-cart"></i></span>
-												</a>
-												<a href="login.do" class="heart d-flex justify-content-center align-items-center "> <span><i class="ion-ios-heart-empty"></i></span>
+												<c:if test="${ teaData.teaStatus eq 0 }">
+													<a href="insertCart.do?teaNum=${ teaData.teaNum }&teaCnt=1" class="buy-now d-flex justify-content-center align-items-center mx-1"><span><i class="ion-ios-cart"></i></span>
+													</a>
+												</c:if>
+												<c:if test="${ teaData.teaStatus eq 1 }">												
+													<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1 edit_bg_disabled"> <span><i class="ion-ios-cart"></i></span>
+													</a>
+												</c:if>
+												<a href="login.do" class="heart d-flex justify-content-center align-items-center"> <span><i class="ion-ios-heart-empty"></i></span>
 												</a>
 											</c:if>
 											<c:if test="${ not empty sessionMemberId }">
 												<a href="teaDetailPage.do?teaNum=${ teaData.teaNum }&searchName=DETAIL" class="add-to-cart d-flex justify-content-center align-items-center text-center"> <span><i class="ion-ios-menu"></i></span>
 												</a>
-												<a href="insertCart.do?teaNum=${ teaData.teaNum }&teaCnt=1" class="buy-now d-flex justify-content-center align-items-center mx-1"> <span><i class="ion-ios-cart"></i></span>
-												</a>
-												<a id="${ teaData.teaNum }" class="heart d-flex justify-content-center align-items-center "> <span><i id="fc${ teaData.teaNum }" class="ion-ios-heart-empty"></i></span>
+												<c:if test="${ teaData.teaStatus eq 0 }">
+													<a href="insertCart.do?teaNum=${ teaData.teaNum }&teaCnt=1" class="buy-now d-flex justify-content-center align-items-center mx-1"><span><i class="ion-ios-cart"></i></span>
+													</a>
+												</c:if>
+												<c:if test="${ teaData.teaStatus eq 1 }">												
+													<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1 edit_bg_disabled"> <span><i class="ion-ios-cart"></i></span>
+													</a>
+												</c:if>
+												<a id="${ teaData.teaNum }" class="heart d-flex justify-content-center align-items-center"> <span><i id="fc${ teaData.teaNum }" class="ion-ios-heart-empty"></i></span>
 												</a>
 											</c:if>
 										</div>
