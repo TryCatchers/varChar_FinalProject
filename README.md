@@ -35,6 +35,7 @@ Spring MVC 패턴을 이용한 차 구매 웹페이지
 
 ## 🛠 설계 및 구조도
 #### ERD
+<img width="1696" alt="ERD_Figma" src="https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/c50820b9-13b4-4544-a59e-062fd88264db">
 
 #### Flow Chart
 
@@ -85,6 +86,7 @@ Spring MVC 패턴을 이용한 차 구매 웹페이지
 - 후기 해시태그 관리(삭제, 수정)
 #### 기타 - <a href="" >상세보기 - WIKI 이동</a> 
 ![챗봇](https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/3cb97d19-0896-45b3-a8e5-3ea515e7a71d)
+<img width="753" alt="길찾기" src="https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/70807401-fb07-4887-90a2-298657178dfc">
 
 - 상담 및 문의(ChannelTalk 채팅 API)
 - 지점 위치(Kakao Map API)
