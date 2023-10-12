@@ -24,8 +24,8 @@ public class CommonInterceptor implements HandlerInterceptor {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		System.out.println("               [interceptor] 실행");
-		if(modelAndView != null) {
-			modelAndView.addObject("categorys", categoryService.selectAll(null));
+		if (modelAndView != null) {
+			modelAndView.addObject("categorys", categoryService.selectAll(null));			
 		}
 	}
 
