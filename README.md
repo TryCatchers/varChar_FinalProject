@@ -49,7 +49,7 @@ Spring MVC 패턴을 이용한 차 구매 웹페이지
 ![구글로그인](https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/fb91a4b9-e4b7-4ec3-83e1-7536b11a2a7f)
 ![회원가입](https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/23eea30b-8a68-4131-8cce-85b42d0f2df3)
 ![비밀번호찾기](https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/1443a6c8-dcec-4050-a97b-ec32fe166465)
-
+<br>
 - 회원가입(+ 가입 축하 메일 발송 / reCAPTCHA)
 - 홈페이지 / SNS 로그인(Kakao, Naver, Google API)
 - 회원정보 수정
@@ -61,7 +61,7 @@ Spring MVC 패턴을 이용한 차 구매 웹페이지
 ![결제](https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/bf24e3d2-4f74-40c7-a298-2f8a6ca8ddbe)
 ![다시담기](https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/d73af131-6d10-4e0c-82d2-042433245f85)
 ![상세찜](https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/8c66dd5a-3537-4409-b480-9f0d956ae6cd)
-
+<br>
 - 장바구니
 - 구매(TossPay API)
 - 찜
@@ -71,7 +71,7 @@ Spring MVC 패턴을 이용한 차 구매 웹페이지
 #### 해시태그 - <a href="https://github.com/chaehyuenwoo/SpringBoot-Project-MEGABOX/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EC%98%81%ED%99%94-%EC%98%88%EB%A7%A4)" >상세보기 - WIKI 이동</a>
 ![상품해시태그](https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/65eb2109-8b46-4643-99c6-0ff69833fe73)
 ![리뷰해시태그](https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/5718da9b-3846-4b0b-b983-9185ae03b609)
-
+<br>
 - 상품 해시태그(+ 트리거)
 - 후기 해시태그(+ 이벤트 스케줄러)
 #### 관리자 - <a href="https://github.com/chaehyuenwoo/SpringBoot-Project-MEGABOX/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EB%A9%94%EC%9D%B8-Page)" >상세보기 - WIKI 이동</a>
@@ -79,7 +79,7 @@ Spring MVC 패턴을 이용한 차 구매 웹페이지
 ![상품관리](https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/050e04fd-0b4d-48f9-8aa5-e59b4ce33570)
 ![카테고리관리](https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/399198c1-6422-4e8d-b9bd-6464e4ccd859)
 ![리뷰해시태그관리](https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/518f9d4d-97df-4008-a2c2-654c2453fea7)
-
+<br>
 - 상품 관리(추가, 삭제, 수정)
 - 상품 카테고리 관리(추가, 삭제, 수정)
 - 상품 해시태그 관리(추가, 삭제, 수정)
@@ -87,7 +87,7 @@ Spring MVC 패턴을 이용한 차 구매 웹페이지
 #### 기타 - <a href="" >상세보기 - WIKI 이동</a> 
 ![챗봇](https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/3cb97d19-0896-45b3-a8e5-3ea515e7a71d)
 <img width="753" alt="길찾기" src="https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/70807401-fb07-4887-90a2-298657178dfc">
-
+<br>
 - 상담 및 문의(ChannelTalk 채팅 API)
 - 지점 위치(Kakao Map API)
 - 에러페이지
