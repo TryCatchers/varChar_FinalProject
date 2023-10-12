@@ -32,6 +32,15 @@ Spring MVC 패턴을 이용한 차 구매 웹페이지
 - **Framework** : Spring Framework 4.2.4
 - **Database** : Oracle DB(11g Express)
 
+## 🛠 설계 및 구조도
+#### ERD
+
+#### Flow Chart
+
+#### Logic Process
+
+#### Controller Mapping
+
 ## 📌 주요 기능
 #### 회원 - <a href="https://github.com/chaehyuenwoo/SpringBoot-Project-MEGABOX/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(Login)" >상세보기 - WIKI 이동</a>
 - 회원가입(+ 가입 축하 메일 발송)
