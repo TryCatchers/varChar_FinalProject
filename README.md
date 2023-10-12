@@ -43,7 +43,7 @@ Spring MVC 패턴을 이용한 차 구매 웹페이지
 
 ## 📌 주요 기능
 #### 회원 - <a href="https://github.com/chaehyuenwoo/SpringBoot-Project-MEGABOX/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(Login)" >상세보기 - WIKI 이동</a>
-- 회원가입(+ 가입 축하 메일 발송)
+- 회원가입(+ 가입 축하 메일 발송 / reCAPTCHA)
 - 홈페이지 / SNS 로그인(Kakao, Naver, Google API)
 - 회원정보 수정
 - 비밀번호 변경
@@ -53,7 +53,7 @@ Spring MVC 패턴을 이용한 차 구매 웹페이지
 - 구매(TossPay API)
 - 찜
 #### 후기 - <a href="https://github.com/chaehyuenwoo/SpringBoot-Project-MEGABOX/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(Member)" >상세보기 - WIKI 이동</a>
-- 후기 작성/수정/삭제(+해시태그/이미지 등록)
+- 후기 작성/수정/삭제(+해시태그 / 이미지 등록)
 #### 해시태그 - <a href="https://github.com/chaehyuenwoo/SpringBoot-Project-MEGABOX/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C(%EC%98%81%ED%99%94-%EC%98%88%EB%A7%A4)" >상세보기 - WIKI 이동</a>
 - 상품 해시태그(+ 트리거)
 - 후기 해시태그(+ 이벤트 스케줄러)
@@ -64,3 +64,5 @@ Spring MVC 패턴을 이용한 차 구매 웹페이지
 - 후기 해시태그 관리(삭제, 수정)
 #### 기타 - <a href="" >상세보기 - WIKI 이동</a> 
 - 상담 및 문의(ChannelTalk 채팅 API)
+- 지점 위치(Kakao Map API)
+- 에러페이지
