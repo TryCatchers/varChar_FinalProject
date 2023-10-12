@@ -88,7 +88,10 @@ Spring MVC 패턴을 이용한 차 구매 웹페이지
 - 후기 해시태그 관리(삭제, 수정)
 #### 기타 - <a href="" >상세보기 - WIKI 이동</a> 
 ![챗봇](https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/3cb97d19-0896-45b3-a8e5-3ea515e7a71d)
+<img width="471" alt="map" src="https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/b4ba80c4-53ee-457a-af37-f36fd6c7b35f">
 <img width="753" alt="길찾기" src="https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/70807401-fb07-4887-90a2-298657178dfc">
+<img width="944" alt="500" src="https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/4fc81999-860f-4499-b2eb-93eb9d662bc4">
+<img width="958" alt="404" src="https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/4955dcdd-b918-4670-8d26-27d2a0d48e32">
 <br>
 - 상담 및 문의(ChannelTalk 채팅 API)
 - 지점 위치(Kakao Map API)
