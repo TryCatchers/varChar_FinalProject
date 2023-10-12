@@ -1,5 +1,5 @@
 # [ Var茶 ] Spring-Project
-![메인](https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/4df03a05-a49b-4a8b-86a8-15089f586e9b) <br>
+![메인](https://github.com/TryCatchers/varChar_FinalProject/assets/80264075/4df03a05-a49b-4a8b-86a8-15089f586e9b) <br><br>
 Spring MVC 패턴을 이용한 차 구매 웹페이지
 
 ## 🖥️ 프로젝트 소개
