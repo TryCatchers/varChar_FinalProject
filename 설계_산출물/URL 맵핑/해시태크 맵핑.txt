@@ -1,0 +1,107 @@
+
+
+
+● teaController
+
+	- 페이지	: 상품목록페이지
+	- 액션명 	: teaListPage.do
+	- 클래스명	: teaListPage
+	- 기능 	: 상품 해시태그 데이터 불러오기
+	- 리턴주소	: teaList.jsp
+
+	목록 출력		=> teaHashtag 데이터를 teaHashtagService.selectAll을 해서 teaHashtagDatas 객체배열에 담아 뷰로 보냄
+
+	해시태그 검색	=> teaHashtagSearchWord 변수에 사용자가 클릭한 해시태그 값이 set 됨
+			   teaService.selectAll을 해서 해당 해시태그 값을 가진 tea 상품을 모두 불러옴
+	
+
+
+
+	- 페이지	: 상품상세페이지
+	- 액션명 	: teaDetailPage.do
+	- 클래스명	: teaDetailPage
+	- 기능 	: 상품 해시태그 데이터 불러오기
+	- 리턴주소	: teaDetail.jsp
+
+	=> teaNum이 자동 set된 teaHashtag 데이터를 teaHashtagService.selectAll해서 teaHashtagDatas 객체배열에 담아 뷰로 보냄
+
+
+
+================================================================================================================================
+
+
+	
+● reviewController
+
+	- 페이지	: 리뷰목록페이지
+	- 액션명 	: reviewListPage.do
+	- 클래스명	: reviewListPage
+	- 기능 	: 후기 해시태그 데이터 불러오기
+	- 리턴주소	: reviewList.jsp
+
+	목록 출력		=> reviewHashtag 데이터를 reviewHashtagService.selectAll을 해서 reviewHashtagDatas 객체배열에 담아 뷰로 보냄
+
+	해시태그 검색	=> reviewHashtagSearchWord 변수에 사용자가 클릭한 해시태그 값이 set 됨
+			   reviewService.selectAll을 해서 해당 해시태그 값을 가진 후기를 모두 불러옴
+
+
+
+
+	- 페이지	: 리뷰상세페이지
+	- 액션명 	: reviewDetailPage.do
+	- 클래스명	: reviewDetailPage
+	- 기능 	: 후기 해시태그 데이터 불러오기
+	- 리턴주소	: reviewDetail.jsp
+
+	=> reviewNum이 자동 set된 reviewHashtag 데이터를 reviewHashtagService.selectAll해서 reviewHashtagDatas 객체배열에 담아 뷰로 보냄
+
+
+
+
+	- 페이지	: 리뷰작성페이지
+	- 액션명 	: insertReview.do
+	- 클래스명	: insertReview
+	- 기능 	: 해시태그 DB에 추가
+	- 리턴주소	: alertTrue.jsp( reviewListPage.do?searchName=ALL )
+
+	=> 사용자에게 받아온 해시태그들이 DB에 있는지 확인 후 존재하지 않는 해시태그들은 DB에 추가,
+	   해시태그를 HashtagDetail에 추가해줌
+
+
+
+
+	- 페이지	: 리뷰수정페이지
+	- 액션명 	: updateReview.do
+	- 클래스명	: updateReivew
+	- 기능 	: 해당 리뷰의 해시태그 수정
+	- 리턴주소	: reviewDetailPage.do
+
+	=> 사용자에게 받아온 해시태그들이 ReviewHashtag에 존재하는 해시태그 값과 일치하는지 확인 후,
+	   일치하지 않으면 HashtagDetailService.delete 하고 insert 해줌
+
+
+
+
+	- 페이지	: 리뷰삭제페이지
+	- 액션명 	: deleteReivew.do
+	- 클래스명	: deleteReview
+	- 기능 	: 해당 리뷰의 해시태그 삭제
+	- 리턴주소	: alertTrue.jsp( myReviewsListPage.do?searchName=MEMBER )
+
+	=> 리뷰 번호를 가지고 HashtagDetailService.delete를 해줌
+
+
+
+
+	- 페이지	: 내후기페이지
+	- 액션명 	: myReviewListPage.do
+	- 클래스명	: myReviewListPage
+	- 기능 	: 해당 회원의 리뷰의 해시태그만 불러오기
+	- 리턴주소	: reviewList.jsp
+
+	=> 뽑아온 로그인한 회원의 리뷰 번호를 가지고 HashtagDetailService.selectAll을 해줌
+	   reviewHashtagDatas 객체배열에 담아 뷰로 보냄
+
+
+
+
