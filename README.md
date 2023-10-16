@@ -30,10 +30,13 @@ Spring MVC 패턴을 이용한 차 구매 웹페이지
 ### ⚙️ 개발 환경
 - `Java(JDK 11)` ![Java](https://img.shields.io/badge/java%20jdk%2011-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 - `JavaScript` `HTML` `CSS` ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![jQuery](https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white)
+- **OS** : ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
 - **Server** : Apache Tomcat 9.0 	![Apache Tomcat](https://img.shields.io/badge/apache%20tomcat%209.0-%23F8DC75.svg?style=for-the-badge&logo=apache-tomcat&logoColor=black)
 - **IDE** : `STS 3` `Visual Studio Code` ![Spring](https://img.shields.io/badge/spring%20tool%20suite%203-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white) ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 - **Framework** : Spring Framework 4.2.4 ![Spring](https://img.shields.io/badge/spring%20framework%204.2.4-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
 - **Database** : Oracle DB(11g Express) ![Oracle](https://img.shields.io/badge/Oracle%2011g%20Express-F80000?style=for-the-badge&logo=oracle&logoColor=white)
+- **Communication** : ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white) ![KakaoTalk](https://img.shields.io/badge/kakaotalk-ffcd00.svg?style=for-the-badge&logo=kakaotalk&logoColor=000000) ![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white) ![Zoom](https://img.shields.io/badge/Zoom-2D8CFF?style=for-the-badge&logo=zoom&logoColor=white)
+- **document** : ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white) ![Google Drive](https://img.shields.io/badge/Google%20Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white) ![Microsoft Excel](https://img.shields.io/badge/Microsoft_Excel-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white) ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
 
 ## 🛠 설계 및 구조도
 #### ERD
